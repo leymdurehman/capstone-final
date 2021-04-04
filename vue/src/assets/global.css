@@ -1,0 +1,98 @@
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+
+
+body{
+    background: url(backgroundimage.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+h1 { 
+  color: #ab3e29; font-family: 'Droid serif', serif; 
+  font-size: 36px; 
+  font-weight: 700; 
+  font-style: italic; 
+  line-height: 44px;
+  margin-left: 0em; 
+
+  text-align: center; }
+/* Style the links inside the sidenav */
+
+.sidenav a {
+  position: absolute; /* Position them relative to the browser window */
+  color: #f4f4f4eb; font-family: 'Droid serif', serif; 
+  left: -80px; /* Position them outside of the screen */
+  margin-top: 1em;
+  transition: 0.3s; /* Add transition on hover */
+  padding: 15px; /* 15px padding */
+  width: 100px; /* Set a specific width */
+  text-decoration: none; /* Remove underline */
+  font-size: 20px; /* Increase font size */
+  
+  border-radius: 0 5px 5px 0; /* Rounded corners on the top right and bottom right side */
+}
+
+.sidenav a:hover {
+  left: 0; /* On mouse-over, make the elements appear as they should */
+}
+
+
+#home {
+  top: 20px;
+  background-color: #ab3f2949;
+}
+
+#login {
+  top: 80px;
+  background-color: #ab3f2988; 
+}
+
+#addart {
+  top: 140px;
+  background-color: #ab3f29c0;
+}
+
+#logout {
+  top: 200px;
+  background-color: #ab3f29c0;
+}
+.card {
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 250px;
+  height: 550px;
+  margin: 20px;
+}
+
+.card.read {
+  background-color: lightgray;
+}
+
+.card .art-title {
+  font-size: 1.5rem;
+}
+
+.card .art-artist {
+  font-size: 1rem;
+}
+
+.art-container{
+
+display:flex;
+justify-content: space-evenly;
+flex-wrap: wrap;
+
+
+}
