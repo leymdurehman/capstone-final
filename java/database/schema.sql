@@ -1,5 +1,12 @@
 BEGIN TRANSACTION;
 
+
+DROP TABLE IF EXISTS artist_dealer;
+DROP TABLE IF EXISTS art_pieces;
+DROP TABLE IF EXISTS dealer;
+DROP TABLE IF EXISTS management;
+DROP TABLE IF EXISTS artist;
+
 DROP TABLE IF EXISTS users;
 DROP SEQUENCE IF EXISTS seq_user_id;
 
@@ -22,13 +29,10 @@ INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULi
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
 
 
-DROP TABLE IF EXISTS artist_dealer;
-DROP TABLE IF EXISTS art_pieces;
-DROP TABLE IF EXISTS dealer;
-DROP TABLE IF EXISTS artist;
 
 CREATE TABLE artist(
         artist_id serial primary key,
+        user_id int,
         artist_name varchar(56) NOT NULL
         
 );
@@ -58,8 +62,31 @@ CREATE TABLE artist_dealer(
 );
 
 CREATE TABLE art_pieces (
-        art_id serial primary key
+        art_id serial primary key,
+        title varchar(250) not null,
+        date_created date not null,
+        price numeric not null,
+        img_file_name varchar(250) not null,
+        is_sold boolean default false,
+        artist_id int not null,
+        dealer_id int not null,
+        
+        CONSTRAINT fk_art_pieces_artist_id FOREIGN KEY (artist_id) REFERENCES artist (artist_id),
+        CONSTRAINT fk_art_pieces_dealer_id FOREIGN KEY (dealer_id) REFERENCES dealer (dealer_id)
 );
+
+--DUMMY DATA
+
+INSERT INTO dealer (dealer_id, user_id) VALUES (DEFAULT, 2);
+INSERT INTO artist (artist_id, artist_name) VALUES (DEFAULT, 'TestArtist');
+INSERT INTO artist_dealer (artist_id, dealer_id) VALUES (1, 1);
+
+SELECT * FROM artist;
+SELECT * FROM dealer;
+SELECT * FROM artist_dealer;
 
 
 COMMIT TRANSACTION;
+
+
+
