@@ -1,6 +1,9 @@
 <template>
-    <div id="app">
-        <form>
+    <div>
+          <div class="alert alert-danger" role="alert" v-if="registrationErrors">
+        {{ listingErrorMessage }}
+          </div>
+        <form id="listing">
             <div>
                 <label>Artist Name:</label>
                 <input type="text" name="artistName" v-model.trim="artPiece.artist"/>
@@ -41,6 +44,7 @@
 
 
 <script>
+import artPieceService from '@/services/ArtPieceService.js'
 // const firebase = require('../firebaseConfig.js');
 
 
@@ -56,8 +60,12 @@ export default {
             title: '',
             price: 0,
             dateCreated: ''
-        }
-    }
+        },
+        listingError: false,
+        listingErrorMessage: ''
+   
+   
+   }
 
   },
   methods: {
@@ -68,6 +76,26 @@ export default {
    onUpload() {
   //   const uploadTask = this.firebase.storageRef.child(this.selectedFile.name).put(this.selectedFile);  
         this.artPiece.imgFile = this.selectedFile.name;
+
+    },
+
+    createListingForArtPiece(){
+        artPieceService.createListing(this.artPiece).then((response)=> {
+            if (response.status == 201) {
+            this.$router.push({
+                path: 'home'
+            });
+            }
+        })
+        .catch((error) => {
+            const response = error.response;
+            this.listingError = true;
+            if (response.status !== 201) {
+              
+            this.listingErrorMessage = 'There were problems creating this listing.';
+            }
+          });
+
     }
 
   }
@@ -76,7 +104,7 @@ export default {
 </script>
 
 <style scoped>
-#app {
+#listing {
   text-align: center;
 }
 img {
