@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>Create Listing</h1>
     <create-listing />
   </div>
 </template>
