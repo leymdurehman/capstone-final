@@ -1,17 +1,15 @@
 <template>
-    <div>
-        <create-listing />
-    </div>
+  <div>
+    <create-listing />
+  </div>
 </template>
 
 <script>
-import createListing from '../components/createListing.vue'
+import createListing from "../components/createListing.vue";
 export default {
   components: { createListing },
-
-}
+};
 </script>
 
 <style>
-
 </style>
