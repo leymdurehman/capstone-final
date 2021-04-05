@@ -80,13 +80,9 @@ CREATE TABLE art_pieces (
 INSERT INTO dealer (dealer_id, user_id) VALUES (DEFAULT, 2);
 INSERT INTO artist (artist_id, artist_name) VALUES (DEFAULT, 'TestArtist');
 INSERT INTO artist_dealer (artist_id, dealer_id) VALUES (1, 1);
-INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id) 
-VALUES (DEFAULT, 'TestTitle', '2020-05-02', 500.00, 'images.jpeg', 1, 1);
 
-SELECT * FROM artist;
-SELECT * FROM dealer;
-SELECT * FROM artist_dealer;
-
+--INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id) 
+--VALUES (DEFAULT, 'TestTitle', '2020-05-02', 500.00, 'images.jpeg', 1, 1);
 
 COMMIT TRANSACTION;
 

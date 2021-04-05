@@ -1,69 +1,30 @@
 <template>
   <div>
-    <div>
       <h1>Featured Art</h1>
-    </div>
-
     <div class="art-container">
-      <div
-        class="card"
-        v-for="artpiece in artPieceData"
-        v-bind:key="artpiece.artID">
-        <!-- <div class="art-title"> -->
-          <h2>{{ artpiece.title }}</h2>
-        <!-- </div> -->
-        <img id="myimg" :src="downloadPhoto(artpiece.imgFileName)"/>
-    
-        <!-- <div class="art-artist"> -->
-          <h3>{{ artpiece.artist }}</h3>
-        <!-- </div> -->
-        <!-- <div class="art-date"> -->
-          <h4>{{ artpiece.dateCreated }}</h4>
-        <!-- </div> -->
-      </div>
+      <display-art
+        v-for="artPiece in $store.state.artPieceData"
+        v-bind:key="artPiece.artID"
+        v-bind:artPiece="artPiece"
+        />
     </div>
   </div>
 </template>
 
 <script>
-import artPieceService from "@/services/ArtPieceService.js";
-import firebase from "firebase";
-
+import DisplayArt from '../components/DisplayArt.vue'
+import artPieceService from "@/services/ArtPieceService.js"
 
 export default {
-  data() {
-    return {
-    
-      artPieceData: []
-    
-    };
-    
+  name: 'home',
+  components: {
+    DisplayArt
   },
   created() {
-        this.getListingsData();
-      } ,
-      methods: {
-        getListingsData() {
-            artPieceService.getAllListings().then( response => {
-                this.artPieceData = response.data;
-
-            }).catch (err => console.error(err));
-        }
-        ,
-
-        downloadPhoto(imgFileName){
-          let storage = firebase.storage();
-          let storageRef = storage.ref();
-          let imgRef = storageRef.child(imgFileName)
-
-          imgRef.getDownloadURL()
-            .then((url) => {
-            let img = document.getElementById('myimg');
-            img.setAttribute('src', url)});
-        }  
-
-
-    }
+        artPieceService.getAllListings().then( response => {
+            this.$store.commit('SET_ART_DATA', response.data);
+        }).catch (err => console.error(err));
+      }
 }
 </script>
 
