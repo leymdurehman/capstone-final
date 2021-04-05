@@ -1,5 +1,6 @@
-package com.techelevator.dao;
+package com.techelevator.tests;
 
+import com.techelevator.dao.UserSqlDAO;
 import com.techelevator.model.User;
 
 import org.junit.After;

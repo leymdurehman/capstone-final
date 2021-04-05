@@ -1,4 +1,4 @@
-package com.techelevator.dao;
+package com.techelevator.tests;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -13,6 +13,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.techelevator.dao.ArtPieceDAO;
+import com.techelevator.dao.JdbcArtPieceDao;
 import com.techelevator.model.ArtPiece;
 
 import org.junit.Assert;

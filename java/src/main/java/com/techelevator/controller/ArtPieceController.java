@@ -2,7 +2,14 @@ package com.techelevator.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.*;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import org.springframework.web.bind.annotation.RestController;
+
 
 import com.techelevator.dao.ArtPieceDAO;
 import com.techelevator.model.ArtPiece;
@@ -12,12 +19,12 @@ import com.techelevator.model.ArtPiece;
 @CrossOrigin
 public class ArtPieceController {
 
-	private ArtPieceDAO dao;
+	private ArtPieceDAO artDAO;
 	
 	
 	
 	public ArtPieceController(ArtPieceDAO artDAO) {
-		this.dao = artDAO;
+		this.artDAO = artDAO;
 		
 	}
 	
@@ -25,7 +32,7 @@ public class ArtPieceController {
 	@RequestMapping(path = "/createListing", method=RequestMethod.POST)
 	public void createListing( @RequestBody ArtPiece art){
 		
-		dao.createListing(art);
+		artDAO.createListing(art);
 		
 
 	}
@@ -34,7 +41,7 @@ public class ArtPieceController {
 	@RequestMapping(path = "/home", method=RequestMethod.GET)
 	public List<ArtPiece> getAllListings(){
 			
-		return dao.getAllListings();
+		return artDAO.getAllListings();
 		
 	}
 	
