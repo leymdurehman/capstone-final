@@ -4,104 +4,120 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import com.techelevator.model.ArtPiece;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
-public class JdbcArtPieceIntegrationTest extends DAOIntegrationTest {
 
+
+public class JdbcArtPieceIntegrationTest  extends DAOIntegrationTest {
+
+ 
 	private ArtPieceDAO artDao;
 	private JdbcTemplate jdbcTemplate;
-
-	private int artIdDummy = 99999;
-	private String artistDummy = "TestArtist";
-	private String dealerDummy = "TestDealer";
-	private String titleDummy = "TestTitle";
+	private static final int ARTIST_ID_DUMMY = 88888;
+	private static final int DEALER_ID_DUMMY = 77777;
+	private static final int USER_ID_DUMMY = 11111;
+	private static final String USERNAME_DUMMY = "DUMMYuser";
+	private static final String PASS_DUMMY = "DUMMYpass";
+	private static final String ROLE_DUMMY = "ROLE_ADMIN";
+	private static final String ARTIST_NAME_DUMMY = "DUMMYArtist";
+	private static final String TITLE_DUMMY = "DUMMYTitle";
 	private LocalDate dateCreatedDummy = LocalDate.now();
-	private double priceDummy = 99.99;
-	private boolean isSoldDummy = false;
-	private String imgFileNameDummy = "TestFileName";
+	private static final double PRICE_DUMMY = 99.99;
+	private static final String IMG_FILE_DUMMY = "DUMMYimagefile";
 
 	@BeforeClass
-	public static void setupData() {
-		setupDataSource();
-	}
+    public static void setupData() {
+    	setupDataSource();
+    	
+    }
+    
+    @AfterClass
+    public static void closeData() throws SQLException {
+    	closeDataSource();
+    }
 
-	@AfterClass
-	public static void closeData() throws SQLException {
-		closeDataSource();
-	}
 
-	@After
-	public void rollbackTransaction() throws SQLException {
-		rollback();
-	}
-
+    
+    @After
+    public void roll() throws SQLException {
+        rollback();
+    }
 	@Before
 	public void setup() {
-		artDao = new JdbcArtPieceDao(getDataSource());
-		jdbcTemplate = new JdbcTemplate(getDataSource());
-
-	}
-
+		
+	    DataSource dataSource = this.getDataSource();
+		
+		jdbcTemplate = new JdbcTemplate(dataSource);
+		
+		artDao = new JdbcArtPieceDao(jdbcTemplate);
+		
+		// create user 
+		
+		jdbcTemplate.update("INSERT INTO users (user_id, username, password_hash, role) VALUES (?, ?, ?, ?);", USER_ID_DUMMY, USERNAME_DUMMY, PASS_DUMMY, ROLE_DUMMY);
+		
+		// create dealer
+		
+		jdbcTemplate.update("INSERT INTO dealer (dealer_id, user_id) VALUES (?, ?)", DEALER_ID_DUMMY, USER_ID_DUMMY);
+			
+		// create artist id
+		
+		 jdbcTemplate.update("INSERT INTO artist (artist_id, artist_name) VALUES (?, ?)", ARTIST_ID_DUMMY, ARTIST_NAME_DUMMY);
+		
+		
+		}
+	
+		
+	
+	
 	@Test
-	public void create_list() {
-		insertTestArtist();
-		insertTestDealer();
-		ArtPiece testArt = buildArtObject();
-		artDao.createListing(testArt);
+	public void create_listing() {
+		
+		ArtPiece testArtPiece = testArtPiece();
+		
+		int artID = artDao.createListing(testArtPiece);
 
+		Assert.assertTrue(artID > 0);
+		
 	}
 
 	@Test
 	public void get_all_listing() {
-		List<ArtPiece> createdArtPieceList = artDao.getAllListings();
-		int listSize = createdArtPieceList.size();
 		
-		artDao.createListing(buildArtObject());
-		artDao.createListing(buildArtObject());
+		ArtPiece testArtPiece = testArtPiece();
 		
-		List<ArtPiece> testArtPieceList = artDao.getAllListings();
+		artDao.createListing(testArtPiece);
 		
-		Assert.assertEquals(listSize + 2, testArtPieceList.size());
+		List <ArtPiece> listings = artDao.getAllListings();
+			
+		Assert.assertEquals(1, listings.size());
+	
 	}
 
-	private void insertTestArtist() {
-		String sql = "INSERT INTO artist (artist_id, artist_name) VALUES (DEFAULT, ?) RETURNING artist_id";
-		SqlRowSet result = jdbcTemplate.queryForRowSet(sql, buildArtObject().getArtist());
-		result.next();
+	
+	private ArtPiece testArtPiece() {
 		
-
-		
-		
-
-	}
-
-	private void insertTestDealer() {
-		// sql for inserts
-
-	}
-
-	private ArtPiece buildArtObject() {
 		ArtPiece testArt = new ArtPiece();
 
-		testArt.setArtID(artIdDummy);
-		testArt.setArtist(artistDummy);
-		testArt.setDealer(dealerDummy);
-		testArt.setTitle(titleDummy);
+		testArt.setArtist(ARTIST_NAME_DUMMY);
+		testArt.setDealer(USERNAME_DUMMY);
+		testArt.setTitle(TITLE_DUMMY);
 		testArt.setDateCreated(dateCreatedDummy);
-		testArt.setPrice(priceDummy);
-		testArt.setSold(isSoldDummy);
-		testArt.setImgFileName(imgFileNameDummy);
+		testArt.setPrice(PRICE_DUMMY);
+		testArt.setImgFileName(IMG_FILE_DUMMY);
 		return testArt;
 	}
 
+	
+	
 }

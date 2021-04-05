@@ -11,20 +11,29 @@ import com.techelevator.model.ArtPiece;
 public class JdbcArtPieceDao implements ArtPieceDAO{
 	
 	private JdbcTemplate jdbcTemplate; 
-	public JdbcArtPieceDao (DataSource dataSource) {
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	public JdbcArtPieceDao (JdbcTemplate jdbcTemplate) {
+		
+		this.jdbcTemplate = jdbcTemplate;;
 	}
 
 	@Override
-	public void createListing(ArtPiece artPiece) {
+	public int createListing(ArtPiece artPiece) {
+		
 		int artistId = getArtistId(artPiece.getArtist());
 		int dealerId = getDealerId(artPiece.getDealer());
 		
 		String sql = "INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id) "
 				+ "VALUES (DEFAULT, ?, CAST ( ? AS DATE ), ?, ?, ?, ?) RETURNING art_id";
-		jdbcTemplate.queryForRowSet(sql, artPiece.getTitle(), artPiece.getDateCreated(), artPiece.getPrice(), artPiece.getImgFileName(), artistId, dealerId);
+		SqlRowSet result = jdbcTemplate.queryForRowSet(sql, artPiece.getTitle(), artPiece.getDateCreated(), artPiece.getPrice(), artPiece.getImgFileName(), artistId, dealerId);
 		
-	}
+			int artID = 0;
+			if(result.next()) {
+				artID = result.getInt("art_id");
+			}
+		
+			return artID;
+			
+			}
 
 	@Override
 	public List<ArtPiece> getAllListings() {
@@ -49,8 +58,8 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 		ArtPiece art = new ArtPiece();
 		
 		art.setArtist(row.getString("artist_name"));
-		art.setArtistId(row.getInt("art_id"));
-		art.setTitle("title");
+		art.setArtID(row.getInt("art_id"));
+		art.setTitle(row.getString("title"));
 		art.setDateCreated(row.getDate("date_created").toLocalDate());
 		art.setPrice(row.getDouble("price"));
 		art.setImgFileName(row.getString("img_file_name"));

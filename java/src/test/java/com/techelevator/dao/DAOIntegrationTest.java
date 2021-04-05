@@ -19,13 +19,10 @@ public abstract class DAOIntegrationTest {
     /* Before any tests are run, this method initializes the datasource for testing. */
     @BeforeClass
     public static void setupDataSource() {
-        dataSource = new SingleConnectionDataSource();
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/final_capstone");
-        dataSource.setUsername("final_capstone_appuser");
-        dataSource.setPassword("finalcapstone");
-        /* The following line disables autocommit for connections
-         * returned by this DataSource. This allows us to rollback
-         * any changes after each test */
+    	dataSource = new SingleConnectionDataSource();
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/schema");
+        dataSource.setUsername("postgres");
+        dataSource.setPassword("postgres1");
         dataSource.setAutoCommit(false);
     }
 
