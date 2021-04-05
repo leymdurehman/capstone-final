@@ -78,6 +78,53 @@ public class ArtPiece {
 	public void setImgFileName(String imgFileName) {
 		this.imgFileName = imgFileName;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ArtPiece other = (ArtPiece) obj;
+		if (artID != other.artID)
+			return false;
+		if (artist == null) {
+			if (other.artist != null)
+				return false;
+		} else if (!artist.equals(other.artist))
+			return false;
+		if (artistId != other.artistId)
+			return false;
+		if (dateCreated == null) {
+			if (other.dateCreated != null)
+				return false;
+		} else if (!dateCreated.equals(other.dateCreated))
+			return false;
+		if (dealer == null) {
+			if (other.dealer != null)
+				return false;
+		} else if (!dealer.equals(other.dealer))
+			return false;
+		if (dealerId != other.dealerId)
+			return false;
+		if (imgFileName == null) {
+			if (other.imgFileName != null)
+				return false;
+		} else if (!imgFileName.equals(other.imgFileName))
+			return false;
+		if (isSold != other.isSold)
+			return false;
+		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		return true;
+	}
 	
 	
 	

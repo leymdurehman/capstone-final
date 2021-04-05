@@ -40,6 +40,7 @@
             <span>
                 <button type="submit" @click.prevent="onUpload">Submit Art</button>
             </span>
+
         </form>
     </div>
 
@@ -50,9 +51,11 @@
 
 <script>
 import artPieceService from '@/services/ArtPieceService.js'
-// const firebase = require('../firebaseConfig.js');
+// import "firebase/storage";
 
-
+ //const firebase = require('../firebaseConfig.js');
+//  var storageRef = storage().ref();
+ 
 export default {
   name: "createListing",
   data() {
@@ -68,19 +71,22 @@ export default {
         },
         listingError: false,
         listingErrorMessage: ''
-   
+        
    
    }
 
   },
   methods: {
 
-  onFileChanged (event) {
-    this.selectedFile = event.target.files[0]
-  },
-   onUpload() {
-  //   const uploadTask = this.firebase.storageRef.child(this.selectedFile.name).put(this.selectedFile);  
-        this.artPiece.imgFile = this.selectedFile.name;
+//   onFileChanged (event) {
+//     this.selectedFile = event.target.files[0]
+//     storageRef.child('backgroundimage.png').put(this.selectedFile) ;
+//   },
+//    onUpload() {
+
+        
+    // const uploadTask = this.firebase.storageRef.child(this.selectedFile.name).put(this.selectedFile);  
+    //     this.artPiece.imgFile = this.selectedFile.name;
 
     },
 
@@ -103,8 +109,8 @@ export default {
 
     }
 
-  }
 }
+
 
 </script>
 
