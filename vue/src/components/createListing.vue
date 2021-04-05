@@ -27,10 +27,10 @@
                 <input type="number" step="0.01" min="0.01" name="price" id="price" v-model.trim="artPiece.price"/>
             </span>
 
-            <!-- <span class="list-input">
+            <span class="list-input">
                 <label>Dealer Name: </label>
                 <input type="text" name="dealerName" v-model.trim="artPiece.dealer"/>
-            </span> -->
+            </span>
 
             <span class="list-input">
                 <label for="image">Image: </label>
