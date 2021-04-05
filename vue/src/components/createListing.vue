@@ -1,61 +1,55 @@
 <template>
-  <div>
-    <form id="listing">
-      <span class="list-input">
-        <label for="artistName">Artist Name: </label>
-        <input
-          type="text"
-          name="artistName"
-          id="artistName"
-          v-model.trim="artPiece.artist"
-        />
-      </span>
-
-      <span class="list-input">
-        <label for="title">Title: </label>
-        <input
-          type="text"
-          name="title"
-          id="title"
-          v-model.trim="artPiece.title"
-        />
-      </span>
-
-      <span class="list-input">
-        <label for="dateCreated">Date Created: </label>
-        <input
-          type="date"
-          name="dateCreated"
-          id="dateCreated"
-          v-model.trim="artPiece.dateCreated"
-        />
-      </span>
-
-      <span class="list-input">
-        <label for="price">Price: $</label>
-        <input
-          type="number"
-          step="0.01"
-          min="0.01"
-          name="price"
-          id="price"
-          v-model.trim="artPiece.price"
-        />
-      </span>
-
-      <span class="list-input">
-        <label>Dealer Name: </label>
-        <input type="text" name="dealerName" v-model.trim="artPiece.dealer" />
-      </span>
-
-      <span class="list-input">
-        <label for="image">Image: </label>
-        <input type="file" id="image" @change="onFileChanged" />
-      </span>
-
-      <span>
-        <button type="submit" @click.prevent="createListingForArtPiece()">Submit Art</button>
-      </span>
+  <div id="listing">
+    <form v-on:submit.prevent="createListingForArtPiece()">
+        <div>
+            <label for="artistName">Artist Name: </label>
+            <input
+                type="text"
+                name="artistName"
+                id="artistName"
+                v-model.trim="artPiece.artist"
+            />
+        </div>
+        <div>
+            <label for="title">Title: </label>
+            <input
+                type="text"
+                name="title"
+                id="title"
+                v-model.trim="artPiece.title"
+            />
+        </div>
+        <div>
+            <label for="dateCreated">Date Created: </label>
+            <input
+                type="date"
+                name="dateCreated"
+                id="dateCreated"
+                v-model.trim="artPiece.dateCreated"
+            />
+        </div>
+        <div>
+            <label for="price">Price: $</label>
+            <input
+                type="number"
+                step="0.01"
+                min="0.01"
+                name="price"
+                id="price"
+                v-model.trim="artPiece.price"
+            />
+        </div>
+        <div>
+            <label>Dealer Name: </label>
+            <input type="text" name="dealerName" v-model.trim="artPiece.dealer" />
+        </div>
+        <div>
+            <label for="image">Image: </label>
+            <input type="file" id="image" @change="onFileChanged" />
+        </div>
+        <div>
+            <input type="submit" v-bind:disabled="!isFormValid" />
+        </div>
     </form>
   </div>
 </template>
@@ -72,29 +66,27 @@ export default {
   data() {
     return {
       selectedFile: null,
-
-      artPiece: {
-        dealer: "",
-        imgFileName: "",
-        artist: "",
-        title: "",
-        price: "",
-        dateCreated: "",
-      },
+      artPiece: {},
       listingError: false,
       listingErrorMessage: "",
     };
   },
+  computed: {
+    isFormValid() {
+        return this.artPiece.dealer && this.selectedFile 
+            && this.artPiece.artist && this.artPiece.title
+            && this.artPiece.price && this.artPiece.dateCreated;
+    }
+  },
   methods: {
     onFileChanged(event) {
       this.selectedFile = event.target.files[0];
+      this.artPiece.imgFileName = this.selectedFile.name;
     },
     onUpload() {
       const storageRef = firebase.storage().ref();
       storageRef.child(this.selectedFile.name).put(this.selectedFile);
-      this.artPiece.imgFileName = this.selectedFile.name;
     },
-
     createListingForArtPiece() {
       this.onUpload();
       artPieceService
@@ -102,7 +94,7 @@ export default {
         .then((response) => {
           if (response.status == 201) {
             this.$router.push({
-              path: "home",
+              path: "/",
             });
           }
         })
@@ -121,6 +113,12 @@ export default {
 
 <style>
 #listing {
+  background-color: #ab3f294b;
+  border-radius: 20px;
+  top: 80px;
+  width: 50%;
+  padding: 20px;
+  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -133,12 +131,10 @@ img {
   margin-bottom: 10px;
 }
 
-.list-input {
-  margin: 10px;
-  width: 400px;
-}
-
 button {
   margin: 10px;
 }
+
+
+
 </style>
