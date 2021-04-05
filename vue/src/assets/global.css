@@ -31,13 +31,13 @@ h1 {
 /* Style the links inside the sidenav */
 
 .sidenav a {
-  position: absolute; /* Position them relative to the browser window */
+  position: fixed; /* Position them relative to the browser window */
   color: #f4f4f4eb; font-family: 'Droid serif', serif; 
-  left: -80px; /* Position them outside of the screen */
+  left: -180px; /* Position them outside of the screen */
   margin-top: 1em;
   transition: 0.3s; /* Add transition on hover */
   padding: 15px; /* 15px padding */
-  width: 100px; /* Set a specific width */
+  width: 200px; /* Set a specific width */
   text-decoration: none; /* Remove underline */
   font-size: 20px; /* Increase font size */
   
@@ -51,22 +51,37 @@ h1 {
 
 #home {
   top: 20px;
-  background-color: #ab3f2949;
+  background-color: #ab3f29d0;
 }
 
 #login {
   top: 80px;
-  background-color: #ab3f2988; 
+  background-color: #ab3f29d0; 
 }
 
 #addart {
   top: 140px;
-  background-color: #ab3f29c0;
+  background-color: #ab3f29d0;
 }
 
 #logout {
   top: 200px;
-  background-color: #ab3f29c0;
+  background-color: #ab3f29d0;
+}
+
+form.form-signin {
+  top: 80px;
+  background-color: #bd8d83d0; 
+  width: 90%;
+  padding: 20px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form.form-signin > div {
+  padding: 10px;
 }
 
 .card {
