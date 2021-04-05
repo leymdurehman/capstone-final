@@ -8,56 +8,63 @@
       <div
         class="card"
         v-for="artpiece in artPieceData"
-        v-bind:key="artpiece.title"
-      >
-        <div class="art-title">
+        v-bind:key="artpiece.artID">
+        <!-- <div class="art-title"> -->
           <h2>{{ artpiece.title }}</h2>
-        </div>
-        <div class="art-artist">
+        <!-- </div> -->
+        <img id="myimg" :src="downloadPhoto(artpiece.imgFileName)"/>
+    
+        <!-- <div class="art-artist"> -->
           <h3>{{ artpiece.artist }}</h3>
-        </div>
-        <div class="art-date">
-          <h3>{{ artpiece.dateCreated }}</h3>
-        </div>
+        <!-- </div> -->
+        <!-- <div class="art-date"> -->
+          <h4>{{ artpiece.dateCreated }}</h4>
+        <!-- </div> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import artPieceService from "@/services/ArtPieceService.js";
+import firebase from "firebase";
+
+
 export default {
   data() {
     return {
-      //
-      artPieceData: [
-        {
-          dealer: "",
-          imgFile: "",
-          artist: "Picasso",
-          title: "Untitled",
-          price: 0,
-          dateCreated: "01-01-1967",
-        },
-        {
-          dealer: "",
-          imgFile: "",
-          artist: "Picasso",
-          title: "Untitled2",
-          price: 0,
-          dateCreated: "02-02-1967",
-        },
-        {
-          dealer: "",
-          imgFile: "",
-          artist: "Picasso",
-          title: "Untitled3",
-          price: 0,
-          dateCreated: "03-03-1967",
-        },
-      ],
+    
+      artPieceData: []
+    
     };
+    
   },
-};
+  created() {
+        this.getListingsData();
+      } ,
+      methods: {
+        getListingsData() {
+            artPieceService.getAllListings().then( response => {
+                this.artPieceData = response.data;
+
+            }).catch (err => console.error(err));
+        }
+        ,
+
+        downloadPhoto(imgFileName){
+          let storage = firebase.storage();
+          let storageRef = storage.ref();
+          let imgRef = storageRef.child(imgFileName)
+
+          imgRef.getDownloadURL()
+            .then((url) => {
+            let img = document.getElementById('myimg');
+            img.setAttribute('src', url)});
+        }  
+
+
+    }
+}
 </script>
 
 <style>
