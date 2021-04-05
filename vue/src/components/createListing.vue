@@ -1,40 +1,41 @@
 <template>
     <div>
-          <!-- <div class="alert alert-danger" role="alert" v-if="registrationErrors">
-        {{ listingErrorMessage }}
-          </div> -->
+
         <form id="listing">
-            <div>
-                <label>Artist Name:</label>
-                <input type="text" name="artistName" v-model.trim="artPiece.artist"/>
-            </div>
-            <div>
-                <label>Title:</label>
-                <input type="text" name="title" v-model.trim="artPiece.title"/>
-            </div>
+            <span class="list-input">
+                <label for="artistName">Artist Name: </label>
+                <input type="text" name="artistName" id="artistName" v-model.trim="artPiece.artist"/>
+            </span>
 
-            <div>
-                <label>Date Created:</label>
-                <input type="date" name="dateCreated" v-model.trim="artPiece.dateCreated"/>
-            </div>
+            <span class="list-input">
+                <label for="title">Title: </label>
+                <input type="text" name="title" id="title" v-model.trim="artPiece.title"/>
+            </span>
 
-            <div>
-                <label>Price:</label>
-                <input type="number" step="0.01" min="0.01" name="price" v-model.trim="artPiece.price"/>
-            </div>
+            <span class="list-input">
+                <label for="dateCreated">Date Created: </label>
+                <input type="date" name="dateCreated" id="dateCreated" v-model.trim="artPiece.dateCreated"/>
+            </span>
 
-            <div>
-                <label>Dealer:</label>
+            <span class="list-input">
+                <label for="price">Price: $</label>
+                <input type="number" step="0.01" min="0.01" name="price" id="price" v-model.trim="artPiece.price"/>
+            </span>
+
+            <span class="list-input">
+                <label>Dealer Name: </label>
                 <input type="text" name="dealerName" v-model.trim="artPiece.dealer"/>
-            </div>
+            </span>
 
-           <div>
-                <input type="file" @change="onFileChanged">
-            </div> 
+            <span class="list-input">
+                <label for="image">Image: </label>
+                <input type="file" id="image" @change="onFileChanged">
+            </span>
 
-            <div>
-                <button type="submit" @click.prevent="createListingForArtPiece">Submit The Form</button>
-            </div>
+            <span>
+                <button type="submit" @click.prevent="onUpload">Submit Art</button>
+            </span>
+
         </form>
     </div>
 
@@ -63,7 +64,7 @@ export default {
             imgFile: '',
             artist: '',
             title: '',
-            price: 0,
+            price: '',
             dateCreated: ''
         },
         listingError: false,
@@ -106,14 +107,26 @@ export default {
 
 </script>
 
-<style scoped>
+<style>
 #listing {
-  text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
 img {
   width: 30%;
   margin: auto;
   display: block;
   margin-bottom: 10px;
+}
+
+.list-input {
+    margin: 10px;
+    width: 400px;
+}
+
+button {
+    margin: 10px;
 }
 </style>
