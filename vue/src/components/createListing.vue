@@ -54,7 +54,7 @@
       </span>
 
       <span>
-        <button type="submit" @click.prevent="onUpload">Submit Art</button>
+        <button type="submit" @click.prevent="createListingForArtPiece()">Submit Art</button>
       </span>
     </form>
   </div>
@@ -75,7 +75,7 @@ export default {
 
       artPiece: {
         dealer: "",
-        imgFile: "",
+        imgFileName: "",
         artist: "",
         title: "",
         price: "",
@@ -92,7 +92,7 @@ export default {
     onUpload() {
       const storageRef = firebase.storage().ref();
       storageRef.child(this.selectedFile.name).put(this.selectedFile);
-      this.artPiece.imgFile = this.selectedFile.name;
+      this.artPiece.imgFileName = this.selectedFile.name;
     },
 
     createListingForArtPiece() {

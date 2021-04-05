@@ -9,4 +9,5 @@ export default {
   createListing(artPiece) {
     return axios.post('/createListing', artPiece)
   }
+
 }
