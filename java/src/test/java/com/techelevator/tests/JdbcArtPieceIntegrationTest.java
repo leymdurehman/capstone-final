@@ -96,13 +96,22 @@ public class JdbcArtPieceIntegrationTest  extends DAOIntegrationTest {
 	@Test
 	public void get_all_listing() {
 		
+		int orginialSize = artDao.getAllListings().size();
 		ArtPiece testArtPiece = testArtPiece();
-		
 		artDao.createListing(testArtPiece);
-		
+	
 		List <ArtPiece> listings = artDao.getAllListings();
-			
-		Assert.assertEquals(1, listings.size());
+		
+		
+		boolean working = false;
+		for (ArtPiece testArt : listings) {
+			if (testArt.getArtist().equals("DUMMYArtist")) {
+				working = true;
+			}
+		}
+		
+		Assert.assertTrue(working);
+		Assert.assertEquals(orginialSize + 1, listings.size());
 	
 	}
 

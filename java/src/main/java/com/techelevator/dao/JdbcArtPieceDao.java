@@ -35,10 +35,8 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 			if(result.next()) {
 				artID = result.getInt("art_id");
 			}
-		
-			return artID;
-			
-			}
+		return artID;
+	}
 
 	@Override
 	public List<ArtPiece> getAllListings() {

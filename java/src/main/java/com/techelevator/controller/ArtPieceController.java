@@ -17,6 +17,7 @@ import com.techelevator.model.ArtPiece;
 
 @RestController
 @CrossOrigin
+
 public class ArtPieceController {
 
 	private ArtPieceDAO artDAO;
@@ -25,24 +26,18 @@ public class ArtPieceController {
 	
 	public ArtPieceController(ArtPieceDAO artDAO) {
 		this.artDAO = artDAO;
-		
 	}
 	
 	
 	@RequestMapping(path = "/createListing", method=RequestMethod.POST)
 	public void createListing( @RequestBody ArtPiece art){
-		
 		artDAO.createListing(art);
-		
-
 	}
 	
 	
 	@RequestMapping(path = "/home", method=RequestMethod.GET)
 	public List<ArtPiece> getAllListings(){
-			
 		return artDAO.getAllListings();
-		
 	}
 	
 	
