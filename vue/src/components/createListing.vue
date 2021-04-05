@@ -1,8 +1,8 @@
 <template>
     <div>
-          <div class="alert alert-danger" role="alert" v-if="registrationErrors">
+          <!-- <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ listingErrorMessage }}
-          </div>
+          </div> -->
         <form id="listing">
             <div>
                 <label>Artist Name:</label>
@@ -45,16 +45,19 @@
 
 <script>
 import artPieceService from '@/services/ArtPieceService.js'
-// import "firebase/storage";
+import firebase from 'firebase'
 
- //const firebase = require('../firebaseConfig.js');
-//  var storageRef = storage().ref();
+
+ 
  
 export default {
   name: "createListing",
+
+
   data() {
     return {
         selectedFile: null,
+
         artPiece: {
             dealer: '',
             imgFile: '',
@@ -65,26 +68,21 @@ export default {
         },
         listingError: false,
         listingErrorMessage: ''
-        
-   
-   }
-
+    }
   },
   methods: {
 
-//   onFileChanged (event) {
-//     this.selectedFile = event.target.files[0]
-//     storageRef.child('backgroundimage.png').put(this.selectedFile) ;
-//   },
-//    onUpload() {
-
-        
-    // const uploadTask = this.firebase.storageRef.child(this.selectedFile.name).put(this.selectedFile);  
-    //     this.artPiece.imgFile = this.selectedFile.name;
-
+  onFileChanged (event) {
+    this.selectedFile = event.target.files[0];
+  },
+   onUpload() {
+       const storageRef = firebase.storage().ref();
+        storageRef.child(this.selectedFile.name).put(this.selectedFile);  
+        this.artPiece.imgFile = this.selectedFile.name;
     },
 
     createListingForArtPiece(){
+        this.onUpload();
         artPieceService.createListing(this.artPiece).then((response)=> {
             if (response.status == 201) {
             this.$router.push({
@@ -103,8 +101,8 @@ export default {
 
     }
 
+    }
 }
-
 
 </script>
 
