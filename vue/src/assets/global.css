@@ -16,10 +16,11 @@ body{
 h1 { 
   color: #ffffff; 
   font-family: 'Quicksand', sans-serif; 
-  font-size: 36px; 
+  font-size: 26px; 
   font-weight: 700;  
   line-height: 44px;
   margin-left: 0em; 
+  margin-bottom: 1em;
 
   text-align: center; }
 /* Style the links inside the sidenav */
@@ -78,19 +79,19 @@ form.form-signin {
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: #f4f4f4eb; 
+  font-family: 'Quicksand', sans-serif;
 }
 
 form.form-signin > div {
   padding: 10px;
 }
 
-.card {
-  border: 1px solid #471005;
+/* .card {
   border-radius: 5px;
-  width: 400px;
-  height: 500px;
+  
   margin: 20px;
-}
+} */
 
 .card.read {
   background-color: lightgray;
@@ -98,6 +99,7 @@ form.form-signin > div {
 
 .card .art-title {
   font-size: 1.5rem;
+
 }
 
 .card .art-artist {
@@ -107,5 +109,6 @@ form.form-signin > div {
 .art-container{
   display:flex;
   justify-content: space-evenly;
+
   flex-wrap: wrap;
 }

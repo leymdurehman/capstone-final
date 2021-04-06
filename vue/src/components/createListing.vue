@@ -2,7 +2,9 @@
   <div id="listing">
     <form v-on:submit.prevent="createListingForArtPiece()">
         <div>
-            <label for="artistName">Artist Name: </label>
+          <div class="label"> 
+            <label for="artistName" >Artist Name: </label>
+          </div>
             <input
                 type="text"
                 name="artistName"
@@ -11,7 +13,9 @@
             />
         </div>
         <div>
-            <label for="title">Title: </label>
+            <div class="label">
+              <label for="title">Title: </label>
+            </div>
             <input
                 type="text"
                 name="title"
@@ -20,7 +24,9 @@
             />
         </div>
         <div>
-            <label for="dateCreated">Date Created: </label>
+          <div class="label">
+           <label for="dateCreated">Date Created: </label>
+          </div>
             <input
                 type="date"
                 name="dateCreated"
@@ -29,7 +35,9 @@
             />
         </div>
         <div>
+          <div class="label">
             <label for="price">Price: $</label>
+          </div>
             <input
                 type="number"
                 step="0.01"
@@ -40,14 +48,20 @@
             />
         </div>
         <div>
-            <label>Dealer Name: </label>
+          <div class="label">
+           <label>Dealer Name: </label>
+          </div>
+           
             <input type="text" name="dealerName" v-model.trim="artPiece.dealer" />
         </div>
         <div>
-            <label for="image">Image: </label>
+          <div class="label">
+               <label for="image">Image: </label>
+          </div>
+           
             <input type="file" id="image" @change="onFileChanged" />
         </div>
-        <div>
+        <div class="label">
             <input type="submit" v-bind:disabled="!isFormValid" />
         </div>
     </form>
@@ -115,13 +129,16 @@ export default {
 #listing {
   background-color: #ab3f294b;
   border-radius: 20px;
-  top: 80px;
-  width: 50%;
+  color: #f4f4f4eb; 
+  font-family: 'Quicksand', sans-serif;
+  width: 40%;
   padding: 20px;
   margin: auto;
   display: flex;
+  text-align: center;
   flex-direction: column;
   align-items: center;
+  
 }
 
 img {
@@ -135,6 +152,10 @@ button {
   margin: 10px;
 }
 
+
+.label{
+  padding-top: 20px;
+}
 
 
 </style>

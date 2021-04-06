@@ -1,9 +1,9 @@
 <template>
   <div class="card">
-      <h2>{{ artPiece.title }}</h2>
       <img class="myImg" :src="imgFile" v-bind:alt="artPiece.imgFileName"/>
+      <h2>{{ artPiece.title }}</h2>
       <h3>{{ artPiece.artist }}</h3>
-      <h4>{{ artPiece.dateCreated }}</h4>
+      <!-- <h4>{{ artPiece.dateCreated }}</h4> -->
   </div>
 </template>
 
@@ -34,5 +34,25 @@ export default {
 </script>
 
 <style>
+.card{
+  background-color: #ab3f294b;
+  border-radius: 20px;
+  top: 95px;
+  width: 400px;
+  height: auto;
+  padding: 25px;
+  margin: auto auto 20px auto; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  color: #f4f4f4eb; 
+  font-family: 'Quicksand', sans-serif;
+}
+
+.myImg{
+
+    width: 100%;
+    height: auto;
+}
 
 </style>
