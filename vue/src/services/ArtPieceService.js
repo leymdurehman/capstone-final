@@ -14,7 +14,4 @@ export default {
     return axios.get(`/artDetails/${artId}`)
   }
 
-
-
-
 }

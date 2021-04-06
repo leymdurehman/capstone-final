@@ -6,6 +6,7 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
 import AddArt from '../views/AddArt.vue'
+import ArtDetails from '../views/ArtDetails.vue'
 
 Vue.use(Router)
 
@@ -61,6 +62,11 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: "/artDetails/:artId",
+      name: "ArtDetails",
+      component: ArtDetails
     }
   ]
 })

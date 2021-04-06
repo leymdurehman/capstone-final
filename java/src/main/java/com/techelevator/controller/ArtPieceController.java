@@ -43,10 +43,10 @@ public class ArtPieceController {
 	}
 	
 	
-	@RequestMapping(path = "/artDetails/{id}", method=RequestMethod.GET)
-	public ArtPiece getListingByArtID(@PathVariable(name = "id") int artID) {
+	@RequestMapping(path = "/artDetails/{artId}", method=RequestMethod.GET)
+	public ArtPiece getListingByArtID(@PathVariable int artId) {
 		
-		return artDAO.getListingByArtID(artID);
+		return artDAO.getListingByArtID(artId);
 	}
 	
 	

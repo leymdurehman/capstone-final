@@ -21,7 +21,9 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
-    artPieceData: []
+    artPieceData: [],
+    activeArtPiece: 0,
+
   },
   mutations: {
     SET_AUTH_TOKEN(state, token) {
@@ -42,6 +44,9 @@ export default new Vuex.Store({
     },
     SET_ART_DATA(state, data){
       this.state.artPieceData = data;
+    },
+    SET_ACTIVE_ART_PEICE(state, artID){
+      state.activeArtPiece = artID;
     }
   }
 
