@@ -1,6 +1,6 @@
 <template>
   <div id="listing">
-    <form v-on:submit.prevent="createListingForArtPiece()">
+    <form >
         <div>
           <div class="label"> 
             <label for="artistName" >Artist Name: </label>
@@ -55,16 +55,42 @@
             <input type="text" name="dealerName" v-model.trim="artPiece.dealer" />
         </div>
         <div>
-          <div class="label">
-               <label for="image">Image: </label>
-          </div>
+            <div class="label">
+                <label for="image">Image: </label>
+            </div>
            
-            <input type="file" id="image" @change="onFileChanged" />
+            <input type="file" id="image" @change="onFileChanged" accept="image/*"/>
         </div>
-        <div class="label">
+        <!-- <div class="label">
             <input type="submit" v-bind:disabled="!isFormValid" />
-        </div>
+        </div> -->
     </form>
+
+    <p>OR</p>
+
+    <div id="file-drag-drop">
+        <form id="dragDrop" ref="fileform" @change="onFileChanged" >
+            <span class="drop-files">Drop the files here!</span>
+            <!-- <progress max="100" :value.prop="uploadPercentage"></progress> -->
+        </form>
+    </div>
+
+    <p v-if="files[0]">{{files[0].name}}</p>
+    <p v-if="selectedFile">{{selectedFile.name}}</p>
+
+    <div id="preview">
+        <img v-if="url" :src="url" />
+    </div>
+
+    <div class="remove-container">
+        <button class="remove" v-if="files[0] || selectedFile" v-on:click="removeFile( files[0])">Reset Image</button>
+    </div>
+
+    <div class="label">
+        <input type="submit" v-bind:disabled="!isFormValid" v-on:click.prevent="createListingForArtPiece()"/>
+    </div>
+
+
   </div>
 </template>
 
@@ -79,46 +105,108 @@ export default {
 
   data() {
     return {
-      selectedFile: null,
-      artPiece: {},
-      listingError: false,
-      listingErrorMessage: "",
+        selectedFile: null,
+        artPiece: {},
+        listingError: false,
+        listingErrorMessage: "",
+        dragAndDropCapable: false,
+        files: [],
+        url: null,
+        uploadPercentage: 0
     };
   },
+    mounted(){
+
+        this.dragAndDropCapable = this.determineDragAndDropCapable();
+
+        if( this.dragAndDropCapable ){
+            
+            ['drag', 'dragstart', 'dragend', 'dragover', 'dragenter', 'dragleave', 'drop'].forEach( function( evt ) {
+                this.$refs.fileform.addEventListener(evt, function(e){
+                    e.preventDefault();
+                    e.stopPropagation();
+                }.bind(this), false);
+            }.bind(this));
+
+            this.$refs.fileform.addEventListener('drop', function(e){
+
+                    if(/\.(jpe?g|png|gif)$/i.test( e.dataTransfer.files[0].name )){
+                        this.removeFile();
+                        this.files.push( e.dataTransfer.files[0] );
+                        this.showPreview(this.files[0]);
+                        this.selectedFile = null;
+                        this.resetInputText();
+                    }
+            }.bind(this));
+        }
+    },
   computed: {
     isFormValid() {
-        return this.artPiece.dealer && this.selectedFile 
+        return this.artPiece.dealer && this.files[0]
             && this.artPiece.artist && this.artPiece.title
             && this.artPiece.price && this.artPiece.dateCreated;
     }
   },
   methods: {
+    
+    resetInputText(){
+        document.getElementById("image").value = "";
+    },
+    removeFile( key ){
+        this.files.splice( key, 1 );
+        this.url = null;
+        this.selectedFile = null;
+        this.showPreview(this.url);
+        this.resetInputText();
+    },
+    showPreview(file){
+        if(file){
+        this.url = URL.createObjectURL(file);
+        }else{
+            return 
+        }
+    },
+    determineDragAndDropCapable(){
+        var divDrop = document.createElement('div');
+
+        return ( ( 'draggable' in divDrop )
+                || ( 'ondragstart' in divDrop && 'ondrop' in divDrop ) )
+                && 'FormData' in window
+                && 'FileReader' in window;
+
+    },
     onFileChanged(event) {
-      this.selectedFile = event.target.files[0];
-      this.artPiece.imgFileName = this.selectedFile.name;
+        this.selectedFile = event.target.files[0];
+        this.artPiece.imgFileName = this.selectedFile.name;
+        this.showPreview(this.selectedFile);
     },
     onUpload() {
-      const storageRef = firebase.storage().ref();
-      storageRef.child(this.selectedFile.name).put(this.selectedFile);
+        const storageRef = firebase.storage().ref();
+        if(!this.selectedFile){
+            storageRef.child(this.files[0].name).put(this.files[0]);
+            this.artPiece.imgFileName = this.files[0].name;
+        }else{           
+            storageRef.child(this.selectedFile.name).put(this.selectedFile);
+        }
     },
     createListingForArtPiece() {
-      this.onUpload();
-      artPieceService
-        .createListing(this.artPiece)
-        .then((response) => {
-          if (response.status == 201) {
-            this.$router.push({
-              path: "/",
-            });
-          }
+        this.onUpload();
+        artPieceService
+            .createListing(this.artPiece)
+            .then((response) => {
+                if (response.status == 201) {
+                this.$router.push({
+                    path: "/",
+                });
+            }
         })
         .catch((error) => {
-          const response = error.response;
-          this.listingError = true;
-          if (response.status !== 201) {
-            this.listingErrorMessage =
-              "There were problems creating this listing.";
-          }
+            const response = error.response;
+            this.listingError = true;
+            if (response.status !== 201) {
+                this.listingErrorMessage =
+                "There were problems creating this listing.";
+            }
         });
     },
   },
@@ -127,35 +215,70 @@ export default {
 
 <style>
 #listing {
-  background-color: #ab3f294b;
-  border-radius: 20px;
-  color: #f4f4f4eb; 
-  font-family: 'Quicksand', sans-serif;
-  width: 40%;
-  padding: 20px;
-  margin: auto;
-  display: flex;
-  text-align: center;
-  flex-direction: column;
-  align-items: center;
-  
+    background-color: #ab3f294b;
+    border-radius: 20px;
+    color: #f4f4f4eb; 
+    font-family: 'Quicksand', sans-serif;
+    width: 40%;
+    padding: 20px;
+    margin: auto;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;  
 }
 
 img {
-  width: 30%;
-  margin: auto;
-  display: block;
-  margin-bottom: 10px;
+    width: 30%;
+    margin: auto;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#image {
+    margin-left: 80px;
 }
 
 button {
-  margin: 10px;
+    margin: 10px;
 }
 
+p {
+    padding: 5px;
+}
 
 .label{
-  padding-top: 20px;
+    padding-top: 20px;
 }
 
+#dragDrop{
+    display: block;
+    height: 80px;
+    width: 90%;
+    background: #ccc;
+    margin: auto;
+    margin-top: 10px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+progress{
+    width: 80%;
+    margin: auto;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#preview img {
+    width: 100%;
+    max-height: 300px;
+}
 
 </style>
