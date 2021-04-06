@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <!-- <the-header/> -->
-    <img src="./assets/example-logo-660x330.png" alt="logo"/>
+    <img src="./assets/Infinity ART (1).png" alt="logo"/>
       <div>
     <div id="nav" class="sidenav">
       <router-link id="home" v-bind:to="{ name: 'home' }">Home</router-link>
