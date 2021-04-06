@@ -7,7 +7,14 @@ export default {
   },
 
   createListing(artPiece) {
-  return axios.post('/createListing', artPiece)
+    return axios.post('/createListing', artPiece)
+  },
+
+  getListingByArtId(artId){
+    return axios.get(`/artDetails/${artId}`)
   }
+
+
+
 
 }

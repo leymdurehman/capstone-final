@@ -81,7 +81,6 @@ public class JdbcArtPieceIntegrationTest  extends DAOIntegrationTest {
 	
 		
 	
-	
 	@Test
 	public void create_listing() {
 		
@@ -114,6 +113,23 @@ public class JdbcArtPieceIntegrationTest  extends DAOIntegrationTest {
 		Assert.assertEquals(orginialSize + 1, listings.size());
 	
 	}
+	
+	@Test
+	public void get_listing_by_art_id() {
+		
+		ArtPiece testArtPiece = testArtPiece();
+		int artID = artDao.createListing(testArtPiece);
+		
+		ArtPiece result = artDao.getListingByArtID(artID);
+		
+		Assert.assertEquals(artID, result.getArtID());
+	
+		
+		
+	}
+	
+	
+	
 
 	
 	private ArtPiece testArtPiece() {

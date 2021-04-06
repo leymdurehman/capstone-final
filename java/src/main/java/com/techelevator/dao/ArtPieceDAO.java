@@ -8,5 +8,6 @@ public interface ArtPieceDAO {
 
 	public int createListing(ArtPiece artPiece);
 	public List<ArtPiece> getAllListings();
+	public ArtPiece getListingByArtID(int artID);
 	
 }
