@@ -56,6 +56,33 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 		return listOfArt;
 	}
 	
+	
+	
+	@Override
+	public ArtPiece getListingByArtID(int artID) {
+		
+		
+		
+		
+		String sql = "SELECT art_id, title, date_created, price, img_file_name, is_sold, artist.artist_id, artist_name, dealer.dealer_id, username\n" + 
+						"FROM art_pieces  \n" + 
+						"JOIN artist ON artist.artist_id = art_pieces.artist_id \n" + 
+						"JOIN dealer ON dealer.dealer_id = art_pieces.dealer_id   \n" + 
+						"JOIN users ON users.user_id = dealer.user_id\n" + 
+						"WHERE art_id = ?";
+		SqlRowSet row = jdbcTemplate.queryForRowSet(sql, artID);
+		
+		row.next();
+			
+		ArtPiece art = mapRowToArt(row);
+		
+		
+		return art;
+	}
+
+	
+	
+	
 	private ArtPiece mapRowToArt(SqlRowSet row) {
 		
 		ArtPiece art = new ArtPiece();
@@ -87,4 +114,5 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 		return jdbcTemplate.queryForObject(sql, Integer.class, dealerName);
 	}
 
+	
 }
