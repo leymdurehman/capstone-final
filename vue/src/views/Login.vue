@@ -78,3 +78,23 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+
+button{
+  float: right;
+  margin-top: 7px;
+    padding: 5px 15px;
+    background-color: #ab3f29;
+    color: #f4f4f4eb;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
+    cursor: pointer;
+}
+
+input[type=text], [type=password]{
+    border-radius: 7px;
+}
+
+</style>

@@ -68,43 +68,6 @@ h1 {
   background-color: #ab3f29d0;
 }
 
-
-@media(max-width: 500px) {
-  
-.sidenav a{
-  padding: 5px;
-  margin-top: 5px;
-  left: -140px; 
-  font-size: 10px;
-  text-align: right;
-  transition: none; /* Add transition on hover */
-}
-.sidenav a:hover {
-  left: -140px; /* On mouse-over, make the elements appear as they should */
-}
-
-
-#home {
-  top: 20px;
-  background-color: #ab3f29d0; 
-  }
-#login {
-top: 50px;
-background-color: #ab3f29d0; 
-}
-
-#addart {
-top: 80px;
-background-color: #ab3f29d0;
-}
-
-#logout {
-top: 110px;
-background-color: #ab3f29d0;
-}
-    
-  }
-
   @media(max-width: 1024px) {
   
     .sidenav a{
@@ -141,6 +104,43 @@ background-color: #ab3f29d0;
     }
         
       }
+
+
+      @media(max-width: 500px) {
+  
+        .sidenav a{
+          padding: 5px;
+          margin-top: 5px;
+          left: -140px; 
+          font-size: 10px;
+          text-align: right;
+          transition: none; /* Add transition on hover */
+        }
+        .sidenav a:hover {
+          left: -140px; /* On mouse-over, make the elements appear as they should */
+        }
+        
+        
+        #home {
+          top: 20px;
+          background-color: #ab3f29d0; 
+          }
+        #login {
+        top: 50px;
+        background-color: #ab3f29d0; 
+        }
+        
+        #addart {
+        top: 80px;
+        background-color: #ab3f29d0;
+        }
+        
+        #logout {
+        top: 110px;
+        background-color: #ab3f29d0;
+        }
+            
+          }
 
 form.form-signin {
   background-color: #ab3f294b;
