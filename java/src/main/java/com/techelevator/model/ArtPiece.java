@@ -14,6 +14,8 @@ public class ArtPiece {
 	private double price;
 	private boolean isSold;
 	private String imgFileName;
+	private double fee;
+	private double commission;
 	
 	
 	
@@ -78,6 +80,18 @@ public class ArtPiece {
 	public void setImgFileName(String imgFileName) {
 		this.imgFileName = imgFileName;
 	}
+	public double getFee() {
+		return fee;
+	}
+	public void setFee(double fee) {
+		this.fee = fee;
+	}
+	public double getCommission() {
+		return commission;
+	}
+	public void setCommission(double commission) {
+		this.commission = commission;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -125,8 +139,5 @@ public class ArtPiece {
 			return false;
 		return true;
 	}
-	
-	
-	
 
 }
