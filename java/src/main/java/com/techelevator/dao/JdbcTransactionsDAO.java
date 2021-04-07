@@ -4,10 +4,12 @@ import java.time.LocalDate;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
 
 import com.techelevator.model.ArtPiece;
 
-public class JdbcTransactionsDAO {
+@Component
+public class JdbcTransactionsDAO implements TransactionsDao{
 
 	
 	
@@ -55,7 +57,7 @@ public class JdbcTransactionsDAO {
 			customerID = result.getInt("customer_id");
 		}
 		
-			return customerID;
+		return customerID;
 	}
 	
 	
