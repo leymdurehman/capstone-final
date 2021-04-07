@@ -274,6 +274,7 @@ img {
     border: none;
     box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
     padding: 5px 15px;
+    cursor: pointer;
 }
 
 p {
@@ -323,6 +324,7 @@ progress{
     border: none;
     box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
     padding: 5px 15px;
+    cursor: pointer;
 }
 input[type=submit] {
     background-color: #ab3f29;
@@ -331,6 +333,7 @@ input[type=submit] {
     border: none;
     box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
     padding: 5px 15px;
+    cursor: pointer;
 }
 
 input[type=submit]:disabled{
