@@ -35,18 +35,19 @@ export default {
 
 <style>
 .card{
-  background-color: #ab3f294b;
-  border-style: outset;
-  border-color:  #6325194b;
-  border-radius: 20px;
+  background-color: #ab3f2969;
+  border-width: 3px;
+  /* border-style: outset; */
+  box-shadow: 2px 2px 2px 2px #ab3f2985;
+  border-color:  #ab3f29;
+  border-radius: 5px;
   top: 95px;
   width: 400px;
   height: auto;
-  padding: 25px;
+  padding: 15px;
   margin: auto auto 20px auto; 
   display: flex;
   flex-direction: column;
-  align-items: center;  
   color: #f4f4f4eb; 
   font-family: 'Quicksand', sans-serif;
   
@@ -60,6 +61,11 @@ a:link {
 
     width: 100%;
     height: auto;
+    /* border: solid; */
+    border-color: #e06614;
+    /* border-style: outset; */
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px 3px #863121;
 }
 
 h2{
