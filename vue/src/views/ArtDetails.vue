@@ -2,12 +2,13 @@
   <div class = "card">
       <img class="myImg" :src="imgFile" v-bind:alt="artPiece.imgFileName"/>
     <div class="info">
-        <h2><i>{{ artPiece.title }}</i>,</h2>
+        <h2><i>{{ artPiece.title }}</i></h2>
         <h3>{{ artPiece.dateCreated }}</h3>
         <h4>{{ artPiece.artist }}</h4>
         <h5>${{artPiece.price}}</h5>
     </div>
     <div>
+        
         <button class="buy">BUY</button>
     </div>
   </div>
