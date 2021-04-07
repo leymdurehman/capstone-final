@@ -29,7 +29,8 @@ export default {
             .then((url) => {
             this.imgFile = url;
             });
-    }
+    },
+    
 }
 </script>
 
@@ -45,18 +46,32 @@ export default {
   width: 400px;
   height: auto;
   padding: 15px;
-  margin: auto auto 20px auto; 
+  margin: auto auto 20px 30px; 
+
   display: flex;
   flex-direction: column;
   color: #f4f4f4eb; 
   font-family: 'Quicksand', sans-serif;
   
 }
+@media (max-width: 500px) {
+.card{ 
+  
+  width: 250px;
 
+  }  
+}
 a:link {
   text-decoration: none;
 }
 
+@media (max-width: 1024px) {
+.card{ 
+  
+  width: 750px;
+
+  }  
+}
 .myImg{
 
     width: 100%;
@@ -67,6 +82,8 @@ a:link {
     border-radius: 5px;
     box-shadow: 3px 3px 3px 3px #863121;
 }
+
+
 
 h2{
     font-size: 1.25rem;

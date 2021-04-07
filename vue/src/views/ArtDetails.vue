@@ -82,5 +82,12 @@ h5{
     box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
    
 }
+.card{
 
+margin: auto auto 20px auto;
+
+
+
+
+}
 </style>

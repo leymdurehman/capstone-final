@@ -1,5 +1,8 @@
 <template>
   <div id="listing">
+      <div class="success">
+          <h2 v-if="statusMessage"> {{statusMessage}}</h2>
+      </div>
     <form >
         <div>
           <div class="label"> 
@@ -84,7 +87,12 @@
     </div>
 
     <div class="label">
-        <input type="submit" v-bind:disabled="!isFormValid" v-on:click.prevent="createListingForArtPiece()"/>
+        
+        <input type="submit" v-bind:disabled="!isFormValid" v-on:click="createListingForArtPiece()"/>
+    </div>
+
+    <div>
+            <button class="cancel" @click="returnHome()">Return Home</button>    
     </div>
 
 
@@ -109,7 +117,8 @@ export default {
         dragAndDropCapable: false,
         files: [],
         url: null,
-        uploadPercentage: 0
+        uploadPercentage: 0,
+        statusMessage: ""
     };
   },
     mounted(){
@@ -148,6 +157,20 @@ export default {
     
     resetInputText(){
         document.getElementById("image").value = "";
+    },
+    returnHome(){
+        this.$router.push({ path: '/'})
+    }
+    ,
+    clearForm(){
+        this.selectedFile = null;
+        this.artPiece = {};
+        this.listingError = false;
+        this.listingErrorMessage = "";
+        this.dragAndDropCapable = false;
+        this.files = [];
+        this.url = null;
+        this.uploadPercentage = 0;
     },
     removeFile( key ){
         this.files.splice( key, 1 );
@@ -192,16 +215,16 @@ export default {
             .createListing(this.artPiece)
             .then((response) => {
                 if (response.status == 201) {
-                this.$router.push({
-                    path: "/",
-                });
+
+                  this.clearForm();
+                  this.statusMessage = "Listing created!";
             }
         })
         .catch((error) => {
             const response = error.response;
             this.listingError = true;
             if (response.status !== 201) {
-                this.listingErrorMessage =
+                this.statusMessage =
                 "There were problems creating this listing.";
             }
         });
@@ -243,7 +266,7 @@ img {
     box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
 }
 
-button {
+.remove {
     margin: 10px;
     background-color: #ab3f29;
     color: #f4f4f4eb;
@@ -291,6 +314,16 @@ progress{
     max-height: 300px;
 }
 
+
+.cancel {
+    margin: 10px;
+    background-color: #ab3f29;
+    color: #f4f4f4eb;
+    border-radius: 2px;
+    border: none;
+    box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
+    padding: 5px 15px;
+}
 input[type=submit] {
     background-color: #ab3f29;
     color: #f4f4f4eb;

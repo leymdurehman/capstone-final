@@ -8,7 +8,7 @@
           >Login</router-link
         >
         <router-link id="addart" v-bind:to="{ name: 'AddArt' }"
-          >Create Listing</router-link
+          >Add Listing</router-link
         >
         <router-link
           id="logout"
