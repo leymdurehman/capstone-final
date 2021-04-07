@@ -7,6 +7,9 @@
         <h4>{{ artPiece.artist }}</h4>
         <h5>${{artPiece.price}}</h5>
     </div>
+    <div>
+        <button class="buy">BUY</button>
+    </div>
   </div>
 </template>
 
@@ -50,22 +53,6 @@ export default {
 
 <style>
 
-.card{
-  background-color: #ab3f294b;
-  border-radius: 20px;
-  top: 95px;
-  width: 400px;
-  height: auto;
-  padding: 25px;
-  margin: auto auto 20px auto; 
-  display: flex;
-  flex-direction: column;
-  /* align-items: center;   */
-  color: #f4f4f4eb; 
-  font-family: 'Quicksand', sans-serif;
-  flex-basis: auto;
-}
-
 .myImg{
 
     width: 100%;
@@ -73,8 +60,27 @@ export default {
 }
 
 .info{
-    margin-right: 100px;
+    
     text-align: left;
+}
+
+h5{
+    /* display: flex; */
+    float: right;
+    margin-top: -57px;
+}
+
+.buy{
+    float: right;
+    margin-top: -35px;
+    padding: 5px 15px;
+    margin-right: -3px;
+    background-color: #ab3f29;
+    color: #f4f4f4eb;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
+   
 }
 
 </style>

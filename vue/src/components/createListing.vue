@@ -70,7 +70,7 @@
 
     <div id="file-drag-drop">
         <form id="dragDrop" ref="fileform" @change="onFileChanged" >
-            <span class="drop-files">Drop the files here!</span>
+            <span class="drop-files">Drop Image Here</span>
             <!-- <progress max="100" :value.prop="uploadPercentage"></progress> -->
         </form>
     </div>
@@ -142,7 +142,7 @@ export default {
     },
   computed: {
     isFormValid() {
-        return this.artPiece.dealer && this.files[0]
+        return this.artPiece.dealer && (this.files[0] || this.selectedFile)
             && this.artPiece.artist && this.artPiece.title
             && this.artPiece.price && this.artPiece.dateCreated;
     }
@@ -236,11 +236,24 @@ img {
 }
 
 #image {
-    margin-left: 80px;
+    /* margin-left: 20px; */
+    margin-top: 5px;
+    margin-bottom: 10px;
+    background-color: #ab3f29;
+    color: #f4f4f4eb;
+    border-radius: 7px;
+    border: none;
+    box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
 }
 
 button {
     margin: 10px;
+    background-color: #ab3f29;
+    color: #f4f4f4eb;
+    border-radius: 2px;
+    border: none;
+    box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
+    padding: 5px 15px;
 }
 
 p {
@@ -280,5 +293,67 @@ progress{
     width: 100%;
     max-height: 300px;
 }
+
+input[type=submit] {
+    background-color: #ab3f29;
+    color: #f4f4f4eb;
+    border-radius: 2px;
+    border: none;
+    box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
+    padding: 5px 15px;
+}
+
+input[type=submit]:disabled{
+    background-color: #ab3f293f;
+    color: #f4f4f43a;
+    border-radius: 2px;
+    border: none;
+    box-shadow: 1.5px 1.5px 1.5px 1.5px #310f083a;
+    padding: 5px 15px;
+}
+
+input[type=file]{
+    /* background-color: #ab3f29; */
+    color: #f4f4f4eb;
+    /* border-radius: 20px; */
+    /* box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7; */
+    width: 200px;
+    /* padding: 5px 15px; */
+}
+
+#dragDrop{
+    display: flex;
+    justify-content: center;
+    background-color: #ab3f29;
+    color: #f4f4f4eb;
+    border-radius: 7px;
+    border: none;
+    border: inset;
+    border-color: #310f08b7;
+    /* box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7; */
+}
+
+#dragDrop:hover{
+     display: flex;
+    justify-content: center;
+    background-color: #702a1bc9;
+    color: #f4f4f480;
+    border-radius: 7px;
+    border: none;
+    border: inset;
+    border-color: #310f08b7;
+}
+
+.drop-files{
+    margin-top: 15px;
+}
+
+input[type=text], [type=date], [type=number]{
+    border-radius: 7px;
+}
+
+
+
+
 
 </style>

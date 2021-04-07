@@ -21,6 +21,7 @@ h1 {
   line-height: 25px;
   margin-left: 0em; 
   margin-bottom: 1em;
+  text-shadow: 2px 2px #2b2929fb;
 
   text-align: center; }
 /* Style the links inside the sidenav */

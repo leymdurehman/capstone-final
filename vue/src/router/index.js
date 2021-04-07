@@ -66,7 +66,10 @@ const router = new Router({
     {
       path: "/artDetails/:artId",
       name: "ArtDetails",
-      component: ArtDetails
+      component: ArtDetails,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })
