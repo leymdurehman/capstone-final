@@ -37,10 +37,8 @@ public class JdbcTransactionsDAO {
 		if(result.next()) {
 			orderID = result.getInt("order_id");
 		}
-	return orderID;
-
-		
-	}
+		return orderID;
+		}
 	
 	
 	public int getCustomerIDFromUsername(String username) {
