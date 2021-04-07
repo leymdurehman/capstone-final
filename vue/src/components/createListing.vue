@@ -61,9 +61,6 @@
            
             <input type="file" id="image" @change="onFileChanged" accept="image/*"/>
         </div>
-        <!-- <div class="label">
-            <input type="submit" v-bind:disabled="!isFormValid" />
-        </div> -->
     </form>
 
     <p>OR</p>
