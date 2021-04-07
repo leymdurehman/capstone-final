@@ -3,7 +3,7 @@
     <h1>Confirm Transaction</h1>
     <div id="transactionDetails">
       <div id="left">
-        <img class="myImg" :src="imgFile" v-bind:alt="artPiece.imgFileName" />
+        <img class="artImg" :src="imgFile" v-bind:alt="artPiece.imgFileName" />
       </div>
       <div id="right">
         <h2>
@@ -63,16 +63,16 @@ export default {
   width: 60%;
 }
 
-.myImg {
+.artImg {
   width: 40%;
-
-}
-
-#left {
   float: left;
 }
 
-#right {
+/* img {
+  float: left;
+} */
 
+#right {
+  float: right;
 }
 </style>
