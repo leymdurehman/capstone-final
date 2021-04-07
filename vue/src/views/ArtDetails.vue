@@ -80,6 +80,7 @@ h5{
     border-radius: 5px;
     border: none;
     box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
+    cursor: pointer;
    
 }
 .card{

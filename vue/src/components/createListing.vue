@@ -385,8 +385,4 @@ input[type=text], [type=date], [type=number]{
     border-radius: 7px;
 }
 
-
-
-
-
 </style>
