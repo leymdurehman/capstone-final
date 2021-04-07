@@ -74,7 +74,8 @@ public class JdbcArtPieceIntegrationTest  extends DAOIntegrationTest {
 			
 		// create artist id
 		
-		 jdbcTemplate.update("INSERT INTO artist (artist_id, artist_name) VALUES (?, ?)", ARTIST_ID_DUMMY, ARTIST_NAME_DUMMY);
+		jdbcTemplate.update("INSERT INTO artist (artist_id, artist_name) VALUES (?, ?)", ARTIST_ID_DUMMY, ARTIST_NAME_DUMMY);
+		
 		
 		
 		}
@@ -123,8 +124,6 @@ public class JdbcArtPieceIntegrationTest  extends DAOIntegrationTest {
 		ArtPiece result = artDao.getListingByArtID(artID);
 		
 		Assert.assertEquals(artID, result.getArtID());
-	
-		
 		
 	}
 	

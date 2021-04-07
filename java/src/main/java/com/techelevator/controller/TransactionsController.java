@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.dao.TransactionsDao;
 import com.techelevator.model.ArtPiece;
+import com.techelevator.model.Transactions;
 
-@CrossOrigin
+
 @RestController
+@CrossOrigin
+
 public class TransactionsController {
 	
 	private TransactionsDao dao;
@@ -22,9 +25,9 @@ public class TransactionsController {
 	}
 	
 	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(path="/buy", method=RequestMethod.POST)
-	public void createTransaction(@RequestBody ArtPiece artpiece, String customerName) {
-		dao.createTransaction(artpiece, customerName);
+	@RequestMapping(path="/orders", method=RequestMethod.POST)
+	public void createTransaction(@RequestBody Transactions transaction) {
+		dao.createTransaction(transaction);
 	}
 	
 	

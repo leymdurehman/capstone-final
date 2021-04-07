@@ -1,9 +1,9 @@
 package com.techelevator.dao;
 
-import com.techelevator.model.ArtPiece;
+import com.techelevator.model.Transactions;
 
 public interface TransactionsDao {
 
 	
-	public int createTransaction(ArtPiece artpiece, String username);
+	public int createTransaction(Transactions transaction);
 }
