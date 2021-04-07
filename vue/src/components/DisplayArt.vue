@@ -54,6 +54,13 @@ export default {
   font-family: 'Quicksand', sans-serif;
   
 }
+@media (max-width: 1024px) {
+.card{ 
+  
+  width: 750px;
+
+  }  
+}
 @media (max-width: 500px) {
 .card{ 
   
@@ -65,13 +72,6 @@ a:link {
   text-decoration: none;
 }
 
-@media (max-width: 1024px) {
-.card{ 
-  
-  width: 750px;
-
-  }  
-}
 .myImg{
 
     width: 100%;
