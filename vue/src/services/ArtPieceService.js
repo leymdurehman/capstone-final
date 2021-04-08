@@ -12,6 +12,17 @@ export default {
 
   getListingByArtId(artId){
     return axios.get(`/artDetails/${artId}`)
-  }
+  },
+
+  editListing(artPiece) {
+    return axios.put('/edit', artPiece)
+  },
+
+  deleteListing(artPiece) {
+    return axios.delete('/delete', artPiece)
+  },
+
+
+
 
 }

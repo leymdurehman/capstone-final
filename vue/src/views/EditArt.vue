@@ -35,8 +35,8 @@
         
       </div>
       <div id="edit">
-        <button id="confirmEdit" @click="startTransaction()">Confirm Edit</button>
-        <button id="deleteListing">Delete Listing</button>
+        <button id="confirmEdit" @click="sendEditedArtPiece()">Confirm Edit</button>
+        <button id="deleteListing" @click ="deleteArtPiece()">Delete Listing</button>
           <div class="failedEdit">
             <h2 v-if="statusMessage"> {{statusMessage}}</h2>
           </div>
@@ -47,7 +47,8 @@
 
 <script>
 import firebase from "firebase";
-import artPieceService from "@/services/ArtPieceService.js";
+import artPieceService from "@/services/ArtPieceService.js"
+;
 export default {
     name: "edit-art",
     data() {
@@ -60,6 +61,41 @@ export default {
 
     };
   },
+      methods:{
+        sendEditedArtPiece(){
+          artPieceService.editListing(this.artPiece).then((response) => {
+            if (response.status == 200) {
+              alert("Listing has been edited!");
+              this.$router.push({path : "/artDetails:id", params: { artId: this.artPiece.artId}})
+            }
+          }).catch((error) => {
+            const response = error.response;
+            if (response.status !== 200){
+              alert("There was a problem editing your listing");
+            }
+          });
+        },
+        
+        deleteArtPiece(){
+
+          if (confirm('Are you sure you want to delete this listing?')){
+
+          artPieceService.deleteListing(this.artPiece).then((response) => {
+            if (response.status == 200) {
+
+              alert("Listing has been deleted!");
+              this.$router.push({path : "/"});
+            }
+          }).catch((error) => {
+            const response = error.response;
+            if (response.status !== 200){
+              alert("There was a problem deleting your listing");
+            }
+          });
+          }
+        }
+   },
+
   created() {
     this.foundId = this.$route.params.artId;
     artPieceService

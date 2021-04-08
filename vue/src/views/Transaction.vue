@@ -10,6 +10,9 @@
         <h3>Date: {{ artPiece.dateCreated }}</h3>
         <h3>Artist: {{ artPiece.artist }}</h3>
         <h3>Price: ${{ artPiece.price.toFixed(2) }}</h3>
+        <h3>Fee: ${{transaction.fee}}</h3>
+        <h3>Commission: $ {{transaction.commission}}</h3>
+        <h3>Total Price: $ {{transaction.totalPrice}}</h3>
       </div>
       <div id="buyNow">
         <button id="confirm" @click="startTransaction()">Confirm</button>
@@ -33,15 +36,41 @@ export default {
       imgFile: {},
       foundId: 0,
       statusMessage: null,
-      transaction: {},
+      priceInfo: true,
+      transaction: {
+        fee: 0,
+        commission:0,
+        totalPrice: 0
+      },
 
     };
   },
+  // computed:{
+  //   fee(){
+  //    return this.transaction.fee = this.$store.state.fee * this.artPiece.price;
+  //   },
+  //   commission(){
+  //     return this.transaction.commission = this.$store.state.commission * this.artPiece.price;
+  //   },
+  //   totalPrice(){
+  //     return this.transaction.totalPrice = (this.$store.state.fee * this.artPiece.price) + 
+  //        (this.$store.state.commission * this.artPiece.price) + this.artPiece.price;
+  //   }
+  // },
+
 
   methods: {
 
+    //  setFeesCommissionTotalPrice(){
+    //   this.transaction.fee = this.$store.state.fee * this.artPiece.price;
+    //   this.transaction.commission = this.$store.state.commission * this.artPiece.price;
+    //   this.transaction.totalPrice = (this.$store.state.fee * this.artPiece.price) + 
+    //      (this.$store.state.commission * this.artPiece.price) + this.artPiece.price;
+    // },
+
     startTransaction(){
 
+       
       
        transactionService.postTransaction(this.transaction)
        .then((response) => {
@@ -55,7 +84,7 @@ export default {
             const response = error.response;
             if (response.status !== 201) {
                 this.statusMessage =
-                "There were problems placing you oder...";
+                "There were problems placing your order...";
             }
         });
 
@@ -69,9 +98,11 @@ export default {
         this.artPiece = response.data;
         this.transaction.customerId = this.$store.state.customerId;
         this.transaction.artID = this.artPiece.artID;
-        this.transaction.fee = this.$store.state.fee;
-        this.transaction.commission = this.$store.state.fee;
-        
+        this.transaction.fee = this.$store.state.fee * this.artPiece.price;
+        this.transaction.commission = this.$store.state.commission * this.artPiece.price;
+        this.transaction.totalPrice = (this.$store.state.fee * this.artPiece.price) + 
+         (this.$store.state.commission * this.artPiece.price) + this.artPiece.price;
+    
 
         let storage = firebase.storage();
         let storageRef = storage.ref();
