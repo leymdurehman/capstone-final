@@ -26,7 +26,7 @@ h1 {
   text-align: center; }
 /* Style the links inside the sidenav */
 
-.sidenav a {
+.sidenav a, #menuTab {
   position: fixed; /* Position them relative to the browser window */
   color: #f4f4f4eb; 
   font-family: 'Quicksand', sans-serif;
@@ -46,25 +46,32 @@ h1 {
   left: 0; /* On mouse-over, make the elements appear as they should */
 }
 
+#menuTab {
+  top: 20px;
+  background-color: #ab3f29;
+  left: 0;
+  font-weight: bolder;
+  width: 100px;
+}
 
 #home {
-  top: 20px;
+  top: 80px;
   background-color: #ab3f29d0; 
   }
 
 
 #login {
-  top: 80px;
+  top: 140px;
   background-color: #ab3f29d0; 
 }
 
 #addart {
-  top: 140px;
+  top: 200px;
   background-color: #ab3f29d0;
 }
 
 #logout {
-  top: 200px;
+  top: 260px;
   background-color: #ab3f29d0;
 }
 
