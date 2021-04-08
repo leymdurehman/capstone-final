@@ -66,7 +66,7 @@
         </div>
     </form>
 
-    <p>OR</p>
+    <div>Or</div>
 
     <div id="file-drag-drop">
         <form id="dragDrop" ref="fileform" @change="onFileChanged" >
@@ -279,10 +279,6 @@ img {
     cursor: pointer;
 }
 
-p {
-    padding: 5px;
-}
-
 .label{
     padding-top: 20px;
 }
@@ -293,17 +289,9 @@ p {
     width: 90%;
     background: #ccc;
     margin: auto;
-    margin-top: 10px;
+    margin-top: 5px;
     text-align: center;
     border-radius: 4px;
-}
-
-progress{
-    width: 80%;
-    margin: auto;
-    display: block;
-    margin-top: 20px;
-    margin-bottom: 20px;
 }
 
 #preview {
@@ -316,7 +304,6 @@ progress{
     width: 100%;
     max-height: 300px;
 }
-
 
 .cancel {
     margin: 10px;
@@ -349,7 +336,7 @@ input[type=submit]:disabled{
 
 input[type=file]{
     color: #f4f4f4eb;
-    width: 200px;
+    width: 250px;
   
 }
 
