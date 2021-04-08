@@ -33,7 +33,8 @@ export default {
       imgFile: {},
       foundId: 0,
       statusMessage: null,
-      transaction: {}
+      transaction: {},
+
     };
   },
 
@@ -41,6 +42,7 @@ export default {
 
     startTransaction(){
 
+      
        transactionService.postTransaction(this.transaction)
        .then((response) => {
                 if (response.status == 201) {
@@ -67,6 +69,9 @@ export default {
         this.artPiece = response.data;
         this.transaction.customerId = this.$store.state.customerId;
         this.transaction.artID = this.artPiece.artID;
+        this.transaction.fee = this.$store.state.fee;
+        this.transaction.commission = this.$store.state.fee;
+        
 
         let storage = firebase.storage();
         let storageRef = storage.ref();
