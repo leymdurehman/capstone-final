@@ -107,6 +107,7 @@ export default {
 
 #right-edit {
   grid-area: details;
+  padding-bottom: 10px;
 }
 
 #edit {
@@ -122,15 +123,14 @@ div#editDetails {
   justify-content: center;
 }
 
-@media(max-width: 500px) {
+@media (max-width: 720px) {
   div#editDetails {
     grid-template-areas:
-    ". image"
-    ". details"
-    ". confirm";
-    
-    padding: 20px;
+      ". image"
+      ". details"
+      ". confirm";
 
+    padding: 20px;
   }
 }
 
