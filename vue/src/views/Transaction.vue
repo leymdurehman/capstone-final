@@ -1,11 +1,11 @@
 <template>
   <div>
     <h1>Confirm Transaction</h1>
-    <div id="transactionDetails">
-      <div id="left">
+    <div id="confirm-grid">
+      <div id="left-confirm">
         <img class="artImg" :src="imgFile" v-bind:alt="artPiece.imgFileName" />
       </div>
-      <div id="right">
+      <div id="right-confirm">
         <h3>Title: {{ artPiece.title }}</h3>
         <h3>Date: {{ artPiece.dateCreated }}</h3>
         <h3>Artist: {{ artPiece.artist }}</h3>
@@ -13,8 +13,6 @@
         <h3>Fee: ${{transaction.fee}}</h3>
         <h3>Commission: $ {{transaction.commission}}</h3>
         <h3>Total Price: $ {{transaction.totalPrice}}</h3>
-      </div>
-      <div id="buyNow">
         <button id="confirm" @click="startTransaction()">Confirm</button>
         <div class="failed">
           <h2 v-if="statusMessage">{{ statusMessage }}</h2>
@@ -91,39 +89,55 @@ export default {
 </script>
 
 <style scoped>
-#transactionDetails {
+#confirm-grid {
   background-color: #ab3f294b;
   border-radius: 20px;
   color: #f4f4f4eb;
   font-family: "Quicksand", sans-serif;
-  margin: auto;
+  margin: 20px auto;
   padding: 20px;
   width: 60%;
   height: auto;
 }
 
 .artImg {
-  width: 90%;
+  width: 100%;
 }
 
-#left {
+#left-confirm {
   grid-area: image;
+  align-self: center;
+  margin-right: 20px;
 }
 
-#right {
+#right-confirm {
   grid-area: details;
+  padding: 5px;
 }
 
-#buyNow {
-  grid-area: confirm;
+#right-confirm > h3 {
+  padding-bottom: 5px;
 }
 
-div#transactionDetails {
+#confirm {
+  margin-top: 10px;
+}
+
+div#confirm-grid {
   display: grid;
-  grid-template-columns: 1fr 200px 200px 1fr;
+  grid-template-columns: repeat(auto-fit, 400px);
   grid-template-areas:
-    ". image details ."
-    ". . confirm .";
+    ". image details";
+  justify-content: center;
+}
+
+@media (max-width: 720px) {
+  div#confirm-grid {
+    grid-template-areas:
+      ". image"
+      ". details";
+    padding: 20px;
+  }
 }
 
 #confirm {
