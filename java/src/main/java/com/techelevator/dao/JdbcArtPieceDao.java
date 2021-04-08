@@ -79,10 +79,28 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 		
 		return art;
 	}
+	
+	@Override
+	public void updateArtPiece(ArtPiece updatedArtPiece) {
+		int artistId = getArtistId(updatedArtPiece.getArtist());
+		int dealerId = getDealerId(updatedArtPiece.getDealer());
+		
+		String sql = "UPDATE art_pieces SET title = ?, date_created = ?, price = ?, img_file_name = ?, artist_id = ?, dealer_id = ? WHERE art_id = ? RETURNING art_id";
+		
+		jdbcTemplate.queryForRowSet(sql, updatedArtPiece.getTitle(), updatedArtPiece.getDateCreated(), updatedArtPiece.getPrice(), updatedArtPiece.getImgFileName(), artistId, dealerId, updatedArtPiece.getArtID());
+		
+		
+	}
 
-	
-	
-	
+	@Override
+	public void deleteArtPiece(ArtPiece artPieceToDelete) {
+		String sql = "DELETE FROM art_pieces WHERE art_id = ?";
+
+		
+		jdbcTemplate.update(sql, artPieceToDelete.getArtID());
+	}
+
+
 	private ArtPiece mapRowToArt(SqlRowSet row) {
 		
 		ArtPiece art = new ArtPiece();
@@ -113,6 +131,7 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 		String sql = "SELECT dealer_id FROM dealer JOIN users ON users.user_id = dealer.user_id WHERE username = ?";
 		return jdbcTemplate.queryForObject(sql, Integer.class, dealerName);
 	}
+
 
 	
 }

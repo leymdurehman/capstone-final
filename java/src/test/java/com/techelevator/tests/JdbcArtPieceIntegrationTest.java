@@ -26,9 +26,7 @@ public class JdbcArtPieceIntegrationTest  extends DAOIntegrationTest {
  
 	private ArtPieceDAO artDao;
 	private JdbcTemplate jdbcTemplate;
-	private static final int ARTIST_ID_DUMMY = 88888;
-	private static final int DEALER_ID_DUMMY = 77777;
-	private static final int USER_ID_DUMMY = 11111;
+
 	private static final String USERNAME_DUMMY = "DUMMYuser";
 	private static final String PASS_DUMMY = "DUMMYpass";
 	private static final String ROLE_DUMMY = "ROLE_ADMIN";
@@ -37,6 +35,10 @@ public class JdbcArtPieceIntegrationTest  extends DAOIntegrationTest {
 	private LocalDate dateCreatedDummy = LocalDate.now();
 	private static final double PRICE_DUMMY = 99.99;
 	private static final String IMG_FILE_DUMMY = "DUMMYimagefile";
+	
+	private int artistId;
+	private int dealerId;
+
 
 	@BeforeClass
     public static void setupData() {
@@ -64,29 +66,28 @@ public class JdbcArtPieceIntegrationTest  extends DAOIntegrationTest {
 		
 		artDao = new JdbcArtPieceDao(jdbcTemplate);
 		
-		// create user 
+		// create user (dealer)
 		
-		jdbcTemplate.update("INSERT INTO users (user_id, username, password_hash, role) VALUES (?, ?, ?, ?);", USER_ID_DUMMY, USERNAME_DUMMY, PASS_DUMMY, ROLE_DUMMY);
+		String sql = "INSERT INTO users (user_id, username, password_hash, role) VALUES (DEFAULT, ?, ?, ?) RETURNING user_id";
 		
+		int dealerUserID = jdbcTemplate.queryForObject(sql, int.class, USERNAME_DUMMY, PASS_DUMMY, ROLE_DUMMY);
+	
 		// create dealer
 		
-		jdbcTemplate.update("INSERT INTO dealer (dealer_id, user_id) VALUES (?, ?)", DEALER_ID_DUMMY, USER_ID_DUMMY);
-			
+		sql = "INSERT INTO dealer (dealer_id, user_id) VALUES (DEFAULT, ?) RETURNING dealer_id";
+		this.dealerId = jdbcTemplate.queryForObject(sql, int.class, dealerUserID);
+					
 		// create artist id
-		
-		jdbcTemplate.update("INSERT INTO artist (artist_id, artist_name) VALUES (?, ?)", ARTIST_ID_DUMMY, ARTIST_NAME_DUMMY);
-		
+		sql = "INSERT INTO artist (artist_id, artist_name) VALUES (DEFAULT, ?) RETURNING artist_id";
+		this.artistId = jdbcTemplate.queryForObject(sql, int.class, ARTIST_NAME_DUMMY);
 		
 		
 		}
 	
-		
 	
 	@Test
 	public void create_listing() {
-		
-		ArtPiece testArtPiece = testArtPiece();
-		
+		ArtPiece testArtPiece = testArtPiece();		
 		int artID = artDao.createListing(testArtPiece);
 
 		Assert.assertTrue(artID > 0);
@@ -94,8 +95,7 @@ public class JdbcArtPieceIntegrationTest  extends DAOIntegrationTest {
 	}
 
 	@Test
-	public void get_all_listing() {
-		
+	public void get_all_listing() {		
 		int orginialSize = artDao.getAllListings().size();
 		ArtPiece testArtPiece = testArtPiece();
 		artDao.createListing(testArtPiece);
@@ -116,8 +116,7 @@ public class JdbcArtPieceIntegrationTest  extends DAOIntegrationTest {
 	}
 	
 	@Test
-	public void get_listing_by_art_id() {
-		
+	public void get_listing_by_art_id() {		
 		ArtPiece testArtPiece = testArtPiece();
 		int artID = artDao.createListing(testArtPiece);
 		
@@ -126,6 +125,34 @@ public class JdbcArtPieceIntegrationTest  extends DAOIntegrationTest {
 		Assert.assertEquals(artID, result.getArtID());
 		
 	}
+	
+	@Test
+	public void update_listing() {
+		ArtPiece testArtPiece = testArtPiece();		
+		int artID = artDao.createListing(testArtPiece);		
+		testArtPiece = artDao.getListingByArtID(artID);
+		testArtPiece.setTitle("updatedTestTitle");
+		
+		artDao.updateArtPiece(testArtPiece);
+		
+		ArtPiece updatedArtPiece = artDao.getListingByArtID(artID);
+		Assert.assertTrue(updatedArtPiece.getTitle().equals("updatedTestTitle"));
+	}
+
+	@Test
+	public void delete_listing() {
+		ArtPiece testArtPiece = testArtPiece();		
+		int artID = artDao.createListing(testArtPiece);		
+		testArtPiece = artDao.getListingByArtID(artID);
+		int initialListSize = artDao.getAllListings().size();
+		
+		artDao.deleteArtPiece(testArtPiece);
+		int resultListSize = artDao.getAllListings().size();
+		
+		Assert.assertEquals(initialListSize - 1, resultListSize);
+		
+	}
+
 	
 	
 	

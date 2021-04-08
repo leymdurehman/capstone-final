@@ -49,16 +49,17 @@ public class ArtPieceController {
 		return artDAO.getListingByArtID(artId);
 	}
 	
+	@RequestMapping(path="/edit", method=RequestMethod.PUT)
+	public void updateArtPiece(@RequestBody ArtPiece art) {
+		
+		artDAO.updateArtPiece(art);
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping(path="/delete", method=RequestMethod.DELETE)
+	public void deleteArtPiece(@RequestBody ArtPiece art) {
+		
+		artDAO.deleteArtPiece(art);
+	}
+
 	
 }
