@@ -9,6 +9,12 @@
       <h4>{{ artPiece.artist }}</h4>
       <h5 id="artPrice">${{ artPiece.price.toFixed(2) }}</h5>
     </div>
+
+    <div>
+        <router-link v-bind:to="{ name: 'EditArt' , params: { artId: artPiece.artID }}">
+            <button id="editArt">EDIT</button>
+        </router-link>
+    </div>
     <div>
       <router-link v-bind:to="{ name: 'Transaction' , params: { artId: artPiece.artID }}">
         <button class="buy">BUY</button>
@@ -47,7 +53,7 @@ export default {
         });
       })
       .catch(console.log("not working"));
-  },
+  }
 };
 </script>
 
@@ -81,5 +87,18 @@ export default {
 }
 .card {
   margin: auto auto 20px auto;
+}
+
+#editArt{
+  float: right;
+  margin-right: 65px;
+  margin-top: -35px;
+  padding: 5px 15px;
+  background-color: #ab3f29;
+  color: #f4f4f4eb;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
+  cursor: pointer;
 }
 </style>

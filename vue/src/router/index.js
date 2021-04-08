@@ -8,6 +8,7 @@ import store from '../store/index'
 import AddArt from '../views/AddArt.vue'
 import ArtDetails from '../views/ArtDetails.vue'
 import Transaction from '../views/Transaction.vue'
+import EditArt from '../views/EditArt.vue'
 
 Vue.use(Router)
 
@@ -76,6 +77,14 @@ const router = new Router({
       path: "/orderDetails/:artId",
       name: "Transaction",
       component: Transaction,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/editArt/:artId",
+      name: "EditArt",
+      component: EditArt,
       meta: {
         requiresAuth: true
       }

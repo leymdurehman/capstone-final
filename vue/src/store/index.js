@@ -24,8 +24,8 @@ export default new Vuex.Store({
     customerId: 1,
     artPieceData: [],
     activeArtPiece: 0,
-    fees: 0,
-    commission: 0
+    fees: .10,
+    commission: .10
 
   },
   mutations: {
