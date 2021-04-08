@@ -143,10 +143,9 @@ public class JdbcArtPieceIntegrationTest  extends DAOIntegrationTest {
 	public void delete_listing() {
 		ArtPiece testArtPiece = testArtPiece();		
 		int artID = artDao.createListing(testArtPiece);		
-		testArtPiece = artDao.getListingByArtID(artID);
 		int initialListSize = artDao.getAllListings().size();
 		
-		artDao.deleteArtPiece(testArtPiece);
+		artDao.deleteArtPiece(artID);
 		int resultListSize = artDao.getAllListings().size();
 		
 		Assert.assertEquals(initialListSize - 1, resultListSize);

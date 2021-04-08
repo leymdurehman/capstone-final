@@ -18,8 +18,8 @@ export default {
     return axios.put('/edit', artPiece)
   },
 
-  deleteListing(artPiece) {
-    return axios.delete('/delete', artPiece)
+  deleteListing(artID) {
+    return axios.delete(`/delete/${artID}`)
   },
 
 

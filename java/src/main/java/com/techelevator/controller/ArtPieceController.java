@@ -55,10 +55,11 @@ public class ArtPieceController {
 		artDAO.updateArtPiece(art);
 	}
 	
-	@RequestMapping(path="/delete", method=RequestMethod.DELETE)
-	public void deleteArtPiece(@RequestBody ArtPiece art) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+	@RequestMapping(path="/delete/{id}", method=RequestMethod.DELETE)
+	public void deleteArtPiece(@PathVariable int id) {
 		
-		artDAO.deleteArtPiece(art);
+		artDAO.deleteArtPiece(id);
 	}
 
 	

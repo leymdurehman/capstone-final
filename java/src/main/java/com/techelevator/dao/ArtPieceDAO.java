@@ -10,6 +10,6 @@ public interface ArtPieceDAO {
 	public List<ArtPiece> getAllListings();
 	public ArtPiece getListingByArtID(int artID);
 	public void updateArtPiece(ArtPiece updatedArtPiece);
-	public void deleteArtPiece(ArtPiece artPieceToDelete);
+	public void deleteArtPiece(int artID);
 	
 }
