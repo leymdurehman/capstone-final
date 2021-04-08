@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Edit Art</h1>
-    <div id="editDetails">
+    <div id="edit-grid">
       <div id="left-edit">
         <img
           class="artImgEdit"
@@ -36,13 +36,13 @@
           </div>
           <input type="text" v-model.trim="artPiece.dealer" />
         </form>
-      </div>
-      <div id="edit">
-        <button id="confirmEdit" @click="sendEditedArtPiece()">Confirm Edit</button>
-        <button id="deleteListing" @click ="deleteArtPiece()">Delete Listing</button>
-          <!-- <div class="failedEdit">
-            <h2 v-if="statusMessage"> {{statusMessage}}</h2>
-          </div> -->
+
+        <button id="confirmEdit" @click="sendEditedArtPiece()">
+          Confirm Edit
+        </button>
+        <button id="deleteListing" @click="deleteArtPiece()">
+          Delete Listing
+        </button>
       </div>
     </div>
   </div>
@@ -50,8 +50,7 @@
 
 <script>
 import firebase from "firebase";
-import artPieceService from "@/services/ArtPieceService.js"
-;
+import artPieceService from "@/services/ArtPieceService.js";
 export default {
   name: "edit-art",
   data() {
@@ -61,40 +60,46 @@ export default {
       foundId: 0,
     };
   },
-      methods:{
-        sendEditedArtPiece(){
-          artPieceService.editListing(this.artPiece).then((response) => {
-            if (response.status == 200) {
-              alert("Listing has been edited!");
-              this.$router.push({name : 'ArtDetails', params: { artId: this.artPiece.artID}})
-            }
-          }).catch((error) => {
-            const response = error.response;
-            if (response.status !== 200){
-              alert("There was a problem editing your listing");
-            }
-          });
-        },
-        
-        deleteArtPiece(){
+  methods: {
+    sendEditedArtPiece() {
+      artPieceService
+        .editListing(this.artPiece)
+        .then((response) => {
+          if (response.status == 200) {
+            alert("Listing has been edited!");
+            this.$router.push({
+              name: "ArtDetails",
+              params: { artId: this.artPiece.artID },
+            });
+          }
+        })
+        .catch((error) => {
+          const response = error.response;
+          if (response.status !== 200) {
+            alert("There was a problem editing your listing");
+          }
+        });
+    },
 
-          if (confirm('Are you sure you want to delete this listing?')){
-
-          artPieceService.deleteListing(this.artPiece.artID).then((response) => {
+    deleteArtPiece() {
+      if (confirm("Are you sure you want to delete this listing?")) {
+        artPieceService
+          .deleteListing(this.artPiece.artID)
+          .then((response) => {
             if (response.status == 204) {
-
               alert("Listing has been deleted!");
-              this.$router.push({path : "/"});
+              this.$router.push({ path: "/" });
             }
-          }).catch((error) => {
+          })
+          .catch((error) => {
             const response = error.response;
-            if (response.status !== 204){
+            if (response.status !== 204) {
               alert("There was a problem deleting your listing");
             }
           });
-          }
-        }
-   },
+      }
+    },
+  },
 
   created() {
     this.foundId = this.$route.params.artId;
@@ -118,7 +123,7 @@ export default {
 </script>
 
 <style scoped>
-#editDetails {
+#edit-grid {
   background-color: #ab3f294b;
   border-radius: 20px;
   color: #f4f4f4eb;
@@ -141,30 +146,30 @@ export default {
 
 #right-edit {
   grid-area: details;
+  padding: 5px;
 }
 
-#edit {
-  grid-area: confirm;
+form > div {
+  margin-top: 5px;
 }
 
-div#editDetails {
+form :last-child {
+  margin-bottom: 10px;
+}
+
+div#edit-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, 400px);
-  grid-template-areas:
-    ". image details"
-    ". . confirm";
+  grid-template-areas: ". image details";
   justify-content: center;
 }
 
-@media(max-width: 500px) {
-  div#editDetails {
+@media (max-width: 720px) {
+  div#edit-grid {
     grid-template-areas:
-    ". image"
-    ". details"
-    ". confirm";
-    
+      ". image"
+      ". details";
     padding: 20px;
-
   }
 }
 
