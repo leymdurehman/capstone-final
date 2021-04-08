@@ -111,4 +111,3 @@ INSERT INTO customer (customer_id, user_id) VALUES (DEFAULT, 1);
 --VALUES (DEFAULT, 'TestTitle', '2020-05-02', 500.00, 'images.jpeg', 1, 1);
 
 COMMIT TRANSACTION;
-

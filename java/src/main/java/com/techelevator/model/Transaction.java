@@ -16,6 +16,9 @@ public class Transaction{
 		private LocalDate dateCreated;
 		private double price;
 		private String imgFileName;
+		private double fee;
+		private double commission;
+		private double totalPrice;
 		
 		public int getArtID() {
 			return artId;
@@ -88,5 +91,23 @@ public class Transaction{
 		}
 		public void setDateSold(LocalDate dateSold) {
 			this.dateSold = dateSold;
+		}
+		public double getFee() {
+			return fee;
+		}
+		public void setFee(double fee) {
+			this.fee = fee;
+		}
+		public double getCommission() {
+			return commission;
+		}
+		public void setCommission(double comission) {
+			this.commission = comission;
+		}
+		public double getTotalPrice() {
+			return totalPrice;
+		}
+		public void setTotalPrice(double totalPrice) {
+			this.totalPrice = totalPrice;
 		}
 }

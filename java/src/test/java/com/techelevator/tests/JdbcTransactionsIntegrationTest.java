@@ -42,6 +42,13 @@ public class JdbcTransactionsIntegrationTest extends DAOIntegrationTest{
 	private static final String ROLE_COSTUMER_DUMMY = "ROLE_USER";
 	private static final int ART_ID_DUMMY = 00000;
 	private static final int ORDER_ID_DUMMY = 4637;
+	private static final double FEE_DUMMY = 0.1;
+	private static final double COMMISSION_DUMMY = 0.5;
+	private static final double TOTAL_PRICE_DUMMY = 159.98;
+	
+	private int costumerId;
+	private int artId;
+	
 	
 	@BeforeClass
     public static void setupData() {
@@ -67,33 +74,32 @@ public class JdbcTransactionsIntegrationTest extends DAOIntegrationTest{
 		
 		// create user (dealer)
 		
-		jdbcTemplate.update("INSERT INTO users (user_id, username, password_hash, role) VALUES (?, ?, ?, ?);", USER_ID_DUMMY, USERNAME_DUMMY, PASS_DUMMY, ROLE_DUMMY);
+		String sql = "INSERT INTO users (user_id, username, password_hash, role) VALUES (DEFAULT, ?, ?, ?) RETURNING user_id";
 		
+		int dealerUserID = jdbcTemplate.queryForObject(sql, int.class, USERNAME_DUMMY, PASS_DUMMY, ROLE_DUMMY);
+				
 		// create user2 (customer)
 		
-		jdbcTemplate.update("INSERT INTO users (user_id, username, password_hash, role) VALUES (?, ?, ?, ?);", USER_ID_COSTUMER_DUMMY, COSTUMER_USERNAME_DUMMY, PASS_COSTUMER_DUMMY, ROLE_COSTUMER_DUMMY);
+		sql = "INSERT INTO users (user_id, username, password_hash, role) VALUES (DEFAULT, ?, ?, ?) RETURNING user_id";
+		int costumerUserId = jdbcTemplate.queryForObject(sql, int.class, COSTUMER_USERNAME_DUMMY, PASS_COSTUMER_DUMMY, ROLE_COSTUMER_DUMMY);
 	
 		// create dealer
 		
-		jdbcTemplate.update("INSERT INTO dealer (dealer_id, user_id) VALUES (?, ?)", DEALER_ID_DUMMY, USER_ID_DUMMY);
+		sql = "INSERT INTO dealer (dealer_id, user_id) VALUES (DEFAULT, ?) RETURNING dealer_id";
+		int dealerId = jdbcTemplate.queryForObject(sql, int.class, dealerUserID);
 		
 		// create customer
-		
-		jdbcTemplate.update("INSERT INTO customer (customer_id, user_id) VALUES (?, ?);", COSTUMER_ID_DUMMY, USER_ID_COSTUMER_DUMMY);
+		sql = "INSERT INTO customer (customer_id, user_id) VALUES (DEFAULT, ?) RETURNING customer_id";
+		this.costumerId = jdbcTemplate.queryForObject(sql, int.class, costumerUserId);
 			
 		// create artist id
-		
-		jdbcTemplate.update("INSERT INTO artist (artist_id, artist_name) VALUES (?, ?)", ARTIST_ID_DUMMY, ARTIST_NAME_DUMMY);
+		sql = "INSERT INTO artist (artist_id, artist_name) VALUES (DEFAULT, ?) RETURNING artist_id";
+		int artistId = jdbcTemplate.queryForObject(sql, int.class, ARTIST_NAME_DUMMY);
 		 
 		// create art piece for sale
+		sql = "INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?) RETURNING art_id";
+		this.artId = jdbcTemplate.queryForObject(sql, int.class,TITLE_DUMMY, dateCreatedDummy, PRICE_DUMMY, IMG_FILE_DUMMY, artistId, dealerId);
 		 
-		jdbcTemplate.update("INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id) VALUES (?, ?, ?, ?, ?, ?, ?);", 
-				 				ART_ID_DUMMY, TITLE_DUMMY, dateCreatedDummy, PRICE_DUMMY, IMG_FILE_DUMMY, ARTIST_ID_DUMMY, DEALER_ID_DUMMY);
-		 
-		 // insert transaction
-//		jdbcTemplate.update("INSERT INTO transactions (?, customer_id, art_id, date_of_sale) VALUES (default, ?, ?, ?);", ORDER_ID_DUMMY, COSTUMER_ID_DUMMY, ART_ID_DUMMY, dateCreatedDummy);
-		 
-		 // 
 	}
 	
 		@Test
@@ -103,7 +109,7 @@ public class JdbcTransactionsIntegrationTest extends DAOIntegrationTest{
 			
 			int orderID = dao.createTransaction(testTransaction);
 			
-			Assert.assertTrue(orderID > 0);	
+			Assert.assertTrue(orderID > 0);
 			
 		}
 	
@@ -114,13 +120,11 @@ public class JdbcTransactionsIntegrationTest extends DAOIntegrationTest{
 			
 			Transaction test = new Transaction();
 			test.setDateSold((dateCreatedDummy));
-			test.setCustomerId(COSTUMER_ID_DUMMY);
-			test.setArtist(ARTIST_NAME_DUMMY);
-			test.setDealer(USERNAME_DUMMY);
-			test.setTitle(TITLE_DUMMY);
-			test.setDateCreated(dateCreatedDummy);
-			test.setPrice(PRICE_DUMMY);
-			test.setImgFileName(IMG_FILE_DUMMY);
+			test.setCustomerId(this.costumerId);
+			test.setTotalPrice(TOTAL_PRICE_DUMMY);
+			test.setArtID(this.artId);
+			test.setFee(FEE_DUMMY);
+			test.setCommission(COMMISSION_DUMMY);
 			return test;
 		}
 
