@@ -1,45 +1,50 @@
 <template>
   <div>
-      <h1>Edit Art</h1>
-      <div id="editDetails">
+    <h1>Edit Art</h1>
+    <div id="editDetails">
       <div id="left-edit">
-        <img class="artImgEdit" :src="imgFile" v-bind:alt="artPiece.imgFileName" />
+        <img
+          class="artImgEdit"
+          :src="imgFile"
+          v-bind:alt="artPiece.imgFileName"
+        />
       </div>
       <div id="right-edit">
-          <form>
-            <div>
-                <label>Artist: </label>
-            </div>
-            <input type="text" v-model.trim="artPiece.artist">
+        <form>
+          <div>
+            <label>Artist: </label>
+          </div>
+          <input type="text" v-model.trim="artPiece.artist" />
 
-            <div>
-                <label>Title: </label>
-            </div>
-            <input type="text" v-model.trim="artPiece.title"/>
+          <div>
+            <label>Title: </label>
+          </div>
+          <input type="text" v-model.trim="artPiece.title" />
 
-            <div>
-                <label>Date: </label>
-            </div>
-            <input type="date" v-model.trim="artPiece.dateCreated"/>
+          <div>
+            <label>Date: </label>
+          </div>
+          <input type="date" v-model.trim="artPiece.dateCreated" />
 
-            <div>
-                <label>Price: </label>
-            </div>
-            <input type="number" v-model.trim="artPiece.price">
+          <div>
+            <label>Price: </label>
+          </div>
+          <input type="number" v-model.trim="artPiece.price" />
 
-            <div>
-                <label>Dealer: </label>
-            </div>
-            <input type="text" v-model.trim="artPiece.dealer">
-          </form>
-        
+          <div>
+            <label>Dealer: </label>
+          </div>
+          <input type="text" v-model.trim="artPiece.dealer" />
+        </form>
       </div>
       <div id="edit">
-        <button id="confirmEdit" @click="startTransaction()">Confirm Edit</button>
+        <button id="confirmEdit" @click="startTransaction()">
+          Confirm Edit
+        </button>
         <button id="deleteListing">Delete Listing</button>
-          <div class="failedEdit">
-            <h2 v-if="statusMessage"> {{statusMessage}}</h2>
-          </div>
+        <div class="failedEdit">
+          <h2 v-if="statusMessage">{{ statusMessage }}</h2>
+        </div>
       </div>
     </div>
   </div>
@@ -49,15 +54,12 @@
 import firebase from "firebase";
 import artPieceService from "@/services/ArtPieceService.js";
 export default {
-    name: "edit-art",
-    data() {
+  name: "edit-art",
+  data() {
     return {
-
       artPiece: {},
       imgFile: {},
       foundId: 0,
-   
-
     };
   },
   created() {
@@ -78,55 +80,61 @@ export default {
       })
       .catch(console.log("not working"));
   },
-
-}
-
+};
 </script>
 
 <style scoped>
-
 #editDetails {
   background-color: #ab3f294b;
   border-radius: 20px;
   color: #f4f4f4eb;
   font-family: "Quicksand", sans-serif;
-  margin: auto;
+  margin: 20px auto;
   padding: 20px;
-  width: 40%;
+  width: 70%;
   height: auto;
-  
 }
 
 .artImgEdit {
-  width: 90%;
-  
+  width: 100%;
 }
 
-#left-edit{
+#left-edit {
   grid-area: image;
+  align-self: center;
+  margin-right: 20px;
 }
 
 #right-edit {
   grid-area: details;
 }
 
-#edit{
+#edit {
   grid-area: confirm;
 }
 
-div#editDetails{
+div#editDetails {
   display: grid;
-  grid-template-columns: 1fr 200px 200px 1fr;
-  grid-template-areas: 
-      ". image details ."
-      ". . confirm .";
-
-    padding: 10px;
-
+  grid-template-columns: repeat(auto-fit, 400px);
+  grid-template-areas:
+    ". image details"
+    ". . confirm";
+  justify-content: center;
 }
 
+@media(max-width: 500px) {
+  div#editDetails {
+    grid-template-areas:
+    ". image"
+    ". details"
+    ". confirm";
+    
+    padding: 20px;
 
-#confirmEdit{
+  }
+}
+
+#confirmEdit {
   margin-top: 7px;
   margin-bottom: 10px;
   padding: 5px 15px;
@@ -136,10 +144,10 @@ div#editDetails{
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
   cursor: pointer;
-  width: 100%
+  width: 100%;
 }
 
-#deleteListing{
+#deleteListing {
   padding: 5px 15px;
   background-color: #ab3f29;
   color: #f4f4f4eb;
@@ -147,7 +155,6 @@ div#editDetails{
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
   cursor: pointer;
-  width: 100%
+  width: 100%;
 }
-
 </style>

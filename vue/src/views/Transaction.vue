@@ -13,9 +13,9 @@
       </div>
       <div id="buyNow">
         <button id="confirm" @click="startTransaction()">Confirm</button>
-          <div class="failed">
-            <h2 v-if="statusMessage"> {{statusMessage}}</h2>
-          </div>
+        <div class="failed">
+          <h2 v-if="statusMessage">{{ statusMessage }}</h2>
+        </div>
       </div>
     </div>
   </div>
@@ -34,32 +34,26 @@ export default {
       foundId: 0,
       statusMessage: null,
       transaction: {},
-
     };
   },
 
   methods: {
-
-    startTransaction(){
-
-      
-       transactionService.postTransaction(this.transaction)
-       .then((response) => {
-                if (response.status == 201) {
-
-                  alert("Order has been confirmed! \nThank you for your purchase!");
-                  this.$router.push({ path: '/'});
-            }
+    startTransaction() {
+      transactionService
+        .postTransaction(this.transaction)
+        .then((response) => {
+          if (response.status == 201) {
+            alert("Order has been confirmed! \nThank you for your purchase!");
+            this.$router.push({ path: "/" });
+          }
         })
         .catch((error) => {
-            const response = error.response;
-            if (response.status !== 201) {
-                this.statusMessage =
-                "There were problems placing you oder...";
-            }
+          const response = error.response;
+          if (response.status !== 201) {
+            this.statusMessage = "There were problems placing you oder...";
+          }
         });
-
-    }
+    },
   },
   created() {
     this.foundId = this.$route.params.artId;
@@ -71,7 +65,6 @@ export default {
         this.transaction.artID = this.artPiece.artID;
         this.transaction.fee = this.$store.state.fee;
         this.transaction.commission = this.$store.state.fee;
-        
 
         let storage = firebase.storage();
         let storageRef = storage.ref();
@@ -83,8 +76,6 @@ export default {
       })
       .catch(console.log("not working"));
   },
-
-  
 };
 </script>
 
@@ -96,17 +87,15 @@ export default {
   font-family: "Quicksand", sans-serif;
   margin: auto;
   padding: 20px;
-  width: 40%;
+  width: 60%;
   height: auto;
-  
 }
 
 .artImg {
   width: 90%;
-  
 }
 
-#left{
+#left {
   grid-area: image;
 }
 
@@ -114,21 +103,19 @@ export default {
   grid-area: details;
 }
 
-#buyNow{
+#buyNow {
   grid-area: confirm;
 }
 
-div#transactionDetails{
+div#transactionDetails {
   display: grid;
   grid-template-columns: 1fr 200px 200px 1fr;
-  grid-template-areas: 
-      ". image details ."
-      ". . confirm .";
-
+  grid-template-areas:
+    ". image details ."
+    ". . confirm .";
 }
 
-
-#confirm{
+#confirm {
   padding: 5px 15px;
   background-color: #ab3f29;
   color: #f4f4f4eb;
@@ -136,6 +123,6 @@ div#transactionDetails{
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
   cursor: pointer;
-  width: 100%
+  width: 100%;
 }
 </style>

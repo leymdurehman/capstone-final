@@ -39,7 +39,7 @@
         </div>
         <div>
           <div class="label">
-            <label for="price">Price: $</label>
+            <label for="price">Price:</label>
           </div>
             <input
                 type="number"
@@ -241,6 +241,7 @@ export default {
     color: #f4f4f4eb; 
     font-family: 'Quicksand', sans-serif;
     width: 40%;
+    min-width: 300px;
     padding: 20px;
     margin: auto;
     display: flex;
