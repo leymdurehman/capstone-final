@@ -10,9 +10,9 @@
         <h3>Date: {{ artPiece.dateCreated }}</h3>
         <h3>Artist: {{ artPiece.artist }}</h3>
         <h3>Price: ${{ artPiece.price.toFixed(2) }}</h3>
-        <h3>Fee: ${{transaction.fee}}</h3>
-        <h3>Commission: $ {{transaction.commission}}</h3>
-        <h3>Total Price: $ {{transaction.totalPrice}}</h3>
+        <h3>Fee: ${{transaction.fee.toFixed(2)}}</h3>
+        <h3>Commission: $ {{transaction.commission.toFixed(2)}}</h3>
+        <h3>Total Price: $ {{transaction.totalPrice.toFixed(2)}}</h3>
         <button id="confirm" @click="startTransaction()">Confirm</button>
         <div class="failed">
           <h2 v-if="statusMessage">{{ statusMessage }}</h2>
