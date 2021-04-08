@@ -16,9 +16,9 @@
       </div>
       <div id="buyNow">
         <button id="confirm" @click="startTransaction()">Confirm</button>
-          <div class="failed">
-            <h2 v-if="statusMessage"> {{statusMessage}}</h2>
-          </div>
+        <div class="failed">
+          <h2 v-if="statusMessage">{{ statusMessage }}</h2>
+        </div>
       </div>
     </div>
   </div>
@@ -36,37 +36,11 @@ export default {
       imgFile: {},
       foundId: 0,
       statusMessage: null,
-      priceInfo: true,
-      transaction: {
-        fee: 0,
-        commission:0,
-        totalPrice: 0
-      },
-
+      transaction: {},
     };
   },
-  // computed:{
-  //   fee(){
-  //    return this.transaction.fee = this.$store.state.fee * this.artPiece.price;
-  //   },
-  //   commission(){
-  //     return this.transaction.commission = this.$store.state.commission * this.artPiece.price;
-  //   },
-  //   totalPrice(){
-  //     return this.transaction.totalPrice = (this.$store.state.fee * this.artPiece.price) + 
-  //        (this.$store.state.commission * this.artPiece.price) + this.artPiece.price;
-  //   }
-  // },
-
 
   methods: {
-
-    //  setFeesCommissionTotalPrice(){
-    //   this.transaction.fee = this.$store.state.fee * this.artPiece.price;
-    //   this.transaction.commission = this.$store.state.commission * this.artPiece.price;
-    //   this.transaction.totalPrice = (this.$store.state.fee * this.artPiece.price) + 
-    //      (this.$store.state.commission * this.artPiece.price) + this.artPiece.price;
-    // },
 
     startTransaction(){
 
@@ -87,8 +61,7 @@ export default {
                 "There were problems placing your order...";
             }
         });
-
-    }
+    },
   },
   created() {
     this.foundId = this.$route.params.artId;
@@ -114,8 +87,6 @@ export default {
       })
       .catch(console.log("not working"));
   },
-
-  
 };
 </script>
 
@@ -127,17 +98,15 @@ export default {
   font-family: "Quicksand", sans-serif;
   margin: auto;
   padding: 20px;
-  width: 40%;
+  width: 60%;
   height: auto;
-  
 }
 
 .artImg {
   width: 90%;
-  
 }
 
-#left{
+#left {
   grid-area: image;
 }
 
@@ -145,21 +114,19 @@ export default {
   grid-area: details;
 }
 
-#buyNow{
+#buyNow {
   grid-area: confirm;
 }
 
-div#transactionDetails{
+div#transactionDetails {
   display: grid;
   grid-template-columns: 1fr 200px 200px 1fr;
-  grid-template-areas: 
-      ". image details ."
-      ". . confirm .";
-
+  grid-template-areas:
+    ". image details ."
+    ". . confirm .";
 }
 
-
-#confirm{
+#confirm {
   padding: 5px 15px;
   background-color: #ab3f29;
   color: #f4f4f4eb;
@@ -167,6 +134,6 @@ div#transactionDetails{
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
   cursor: pointer;
-  width: 100%
+  width: 100%;
 }
 </style>

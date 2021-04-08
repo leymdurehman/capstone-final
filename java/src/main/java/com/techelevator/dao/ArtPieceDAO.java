@@ -9,5 +9,7 @@ public interface ArtPieceDAO {
 	public int createListing(ArtPiece artPiece);
 	public List<ArtPiece> getAllListings();
 	public ArtPiece getListingByArtID(int artID);
+	public void updateArtPiece(ArtPiece updatedArtPiece);
+	public void deleteArtPiece(ArtPiece artPieceToDelete);
 	
 }

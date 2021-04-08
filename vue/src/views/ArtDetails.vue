@@ -101,4 +101,14 @@ export default {
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
   cursor: pointer;
 }
+
+@media(max-width: 500px) {
+  #editArt{
+    padding: 5px;
+    margin-right: 50px;
+  }
+  .buy {
+    padding: 5px;
+  }
+}
 </style>
