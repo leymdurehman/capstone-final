@@ -54,12 +54,14 @@ export default {
 }
 @media (max-width: 1024px) {
   .card {
-    width: 70%;
+    width: 60%;
+    min-width: 200px;
   }
 }
 @media (max-width: 500px) {
   .card {
     width: 250px;
+    min-width: 0px;
   }
 }
 a:link {
