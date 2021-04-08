@@ -35,6 +35,7 @@ export default {
       foundId: 0,
       statusMessage: null,
       transaction: {},
+      currentDefaultFees: {}
     };
   },
 
@@ -67,14 +68,8 @@ export default {
       .getListingByArtId(this.foundId)
       .then((response) => {
         this.artPiece = response.data;
+        this.transaction.artID = this.foundId;
         this.transaction.customerId = this.$store.state.customerId;
-        this.transaction.artID = this.artPiece.artID;
-        this.transaction.fee = this.$store.state.fee * this.artPiece.price;
-        this.transaction.commission = this.$store.state.commission * this.artPiece.price;
-        this.transaction.totalPrice = (this.$store.state.fee * this.artPiece.price) + 
-         (this.$store.state.commission * this.artPiece.price) + this.artPiece.price;
-    
-
         let storage = firebase.storage();
         let storageRef = storage.ref();
         let imgRef = storageRef.child(this.artPiece.imgFileName);
@@ -84,6 +79,17 @@ export default {
         });
       })
       .catch(console.log("not working"));
+    transactionService.getCurrentDefaultFees().then((response) => {
+      this.currentDefaultFees = response.data;
+      this.transaction.fee = (this.currentDefaultFees.fee / 100) * this.artPiece.price;
+      this.transaction.commission = (this.currentDefaultFees.commission / 100) * this.artPiece.price;
+      this.transaction.totalPrice = (this.transaction.fee) + (this.transaction.commission) 
+         + (this.artPiece.price);
+     }).catch((error) => {
+      const response = error.response
+      console.log(response);
+      });
+  
   },
 };
 </script>
