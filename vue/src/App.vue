@@ -3,6 +3,7 @@
     <img src="./assets/Infinity ART (1).png" alt="logo" />
     <div>
       <div id="nav" class="sidenav">
+        <div id="menuTab">Menu</div>
         <router-link id="home" v-bind:to="{ name: 'home' }">Home</router-link>
         <router-link id="login" v-bind:to="{ name: 'login' }"
           >Login</router-link
