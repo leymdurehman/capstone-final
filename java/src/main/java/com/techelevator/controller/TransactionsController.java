@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.dao.TransactionsDao;
 import com.techelevator.model.ArtPiece;
+import com.techelevator.model.Fee;
 import com.techelevator.model.Transaction;
 
 
@@ -28,6 +29,17 @@ public class TransactionsController {
 	@RequestMapping(path="/orders", method=RequestMethod.POST)
 	public void createTransaction(@RequestBody Transaction transaction) {
 		dao.createTransaction(transaction);
+	}
+	
+	@RequestMapping(path="/fees", method=RequestMethod.PUT)
+	public void setDefaultFee(@RequestBody Fee newFee) {
+		dao.setFees(newFee);
+	}
+	
+	
+	@RequestMapping(path="/fees", method=RequestMethod.GET)
+	public Fee getCurrentFees() {
+		return dao.getFees();
 	}
 	
 	

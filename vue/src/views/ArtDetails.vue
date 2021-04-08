@@ -54,7 +54,10 @@ export default {
           this.imgFile = url;
         });
       })
-      .catch(console.log("not working"));
+      .catch((error) => {
+      const response = error.response
+      console.log(response);
+      });
   }
 };
 </script>

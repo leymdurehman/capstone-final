@@ -301,8 +301,8 @@ img {
 }
 
 #preview img {
-    width: 100%;
-    max-height: 300px;
+    width: 50%;
+    max-height: 100%;
 }
 
 .cancel {

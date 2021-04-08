@@ -24,8 +24,8 @@ export default new Vuex.Store({
     customerId: 1,
     artPieceData: [],
     activeArtPiece: 0,
-    fee: .10,
-    commission: .10
+    fee: [],
+    commission: []
 
   },
   mutations: {
@@ -48,11 +48,14 @@ export default new Vuex.Store({
     SET_ART_DATA(state, data){
       this.state.artPieceData = data;
     },
-    SET_ACTIVE_ART_PEICE(state, artID){
-      state.activeArtPiece = artID;
-    },
     SET_CUSTOMER_ID(state, customerId){
-      state.customerId = customerId;
+      this.state.customerId = customerId;
+    },
+    SET_FEE(state, fee){
+      this.state.fee = fee;
+    },
+    SET_COMMISSION(state, commission){
+      this.state.commission = commission;
     }
   }
 
