@@ -84,16 +84,16 @@ export default {
     deleteArtPiece() {
       if (confirm("Are you sure you want to delete this listing?")) {
         artPieceService
-          .deleteListing(this.artPiece)
+          .deleteListing(this.artPiece.artID)
           .then((response) => {
-            if (response.status == 200) {
+            if (response.status == 204) {
               alert("Listing has been deleted!");
               this.$router.push({ path: "/" });
             }
           })
           .catch((error) => {
             const response = error.response;
-            if (response.status !== 200) {
+            if (response.status !== 204) {
               alert("There was a problem deleting your listing");
             }
           });
@@ -160,8 +160,7 @@ form :last-child {
 div#edit-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, 400px);
-  grid-template-areas:
-    ". image details";
+  grid-template-areas: ". image details";
   justify-content: center;
 }
 

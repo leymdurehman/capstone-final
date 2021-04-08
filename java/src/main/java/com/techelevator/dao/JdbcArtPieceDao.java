@@ -40,6 +40,7 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 
 	@Override
 	public List<ArtPiece> getAllListings() {
+		
 		String sql = "SELECT art_id, title, date_created, price, img_file_name, is_sold, artist.artist_id, artist_name, dealer.dealer_id, username " + 
 				"FROM art_pieces " + 
 				"JOIN artist ON artist.artist_id = art_pieces.artist_id " + 
@@ -60,10 +61,7 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 	
 	@Override
 	public ArtPiece getListingByArtID(int artID) {
-		
-		
-		
-		
+	
 		String sql = "SELECT art_id, title, date_created, price, img_file_name, is_sold, artist.artist_id, artist_name, dealer.dealer_id, username\n" + 
 						"FROM art_pieces  \n" + 
 						"JOIN artist ON artist.artist_id = art_pieces.artist_id \n" + 
@@ -93,11 +91,11 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 	}
 
 	@Override
-	public void deleteArtPiece(ArtPiece artPieceToDelete) {
+	public void deleteArtPiece(int artID) {
 		String sql = "DELETE FROM art_pieces WHERE art_id = ?";
 
 		
-		jdbcTemplate.update(sql, artPieceToDelete.getArtID());
+		jdbcTemplate.update(sql, artID);
 	}
 
 
