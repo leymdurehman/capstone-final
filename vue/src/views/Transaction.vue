@@ -10,6 +10,9 @@
         <h3>Date: {{ artPiece.dateCreated }}</h3>
         <h3>Artist: {{ artPiece.artist }}</h3>
         <h3>Price: ${{ artPiece.price.toFixed(2) }}</h3>
+        <h3>Fee: ${{transaction.fee}}</h3>
+        <h3>Commission: $ {{transaction.commission}}</h3>
+        <h3>Total Price: $ {{transaction.totalPrice}}</h3>
       </div>
       <div id="buyNow">
         <button id="confirm" @click="startTransaction()">Confirm</button>
@@ -38,20 +41,25 @@ export default {
   },
 
   methods: {
-    startTransaction() {
-      transactionService
-        .postTransaction(this.transaction)
-        .then((response) => {
-          if (response.status == 201) {
-            alert("Order has been confirmed! \nThank you for your purchase!");
-            this.$router.push({ path: "/" });
-          }
+
+    startTransaction(){
+
+       
+      
+       transactionService.postTransaction(this.transaction)
+       .then((response) => {
+                if (response.status == 201) {
+
+                  alert("Order has been confirmed! \nThank you for your purchase!");
+                  this.$router.push({ path: '/'});
+            }
         })
         .catch((error) => {
-          const response = error.response;
-          if (response.status !== 201) {
-            this.statusMessage = "There were problems placing you oder...";
-          }
+            const response = error.response;
+            if (response.status !== 201) {
+                this.statusMessage =
+                "There were problems placing your order...";
+            }
         });
     },
   },
@@ -63,8 +71,11 @@ export default {
         this.artPiece = response.data;
         this.transaction.customerId = this.$store.state.customerId;
         this.transaction.artID = this.artPiece.artID;
-        this.transaction.fee = this.$store.state.fee;
-        this.transaction.commission = this.$store.state.fee;
+        this.transaction.fee = this.$store.state.fee * this.artPiece.price;
+        this.transaction.commission = this.$store.state.commission * this.artPiece.price;
+        this.transaction.totalPrice = (this.$store.state.fee * this.artPiece.price) + 
+         (this.$store.state.commission * this.artPiece.price) + this.artPiece.price;
+    
 
         let storage = firebase.storage();
         let storageRef = storage.ref();
