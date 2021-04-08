@@ -302,7 +302,7 @@ img {
 
 #preview img {
     width: 100%;
-    max-height: 300px;
+    max-height: 100%;
 }
 
 .cancel {
