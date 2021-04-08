@@ -175,3 +175,7 @@ form.form-signin > div {
 
   flex-wrap: wrap;
 }
+
+input[type=text], [type=date], [type=number], [type=password]{
+  border-radius: 7px;
+}

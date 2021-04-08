@@ -7,7 +7,7 @@
       </h2>
       <h3>{{ artPiece.dateCreated }}</h3>
       <h4>{{ artPiece.artist }}</h4>
-      <h5>${{ artPiece.price }}</h5>
+      <h5 id="artPrice">${{ artPiece.price.toFixed(2) }}</h5>
     </div>
     <div>
       <router-link v-bind:to="{ name: 'Transaction' , params: { artId: artPiece.artID }}">
@@ -61,7 +61,7 @@ export default {
   text-align: left;
 }
 
-h5 {
+#artPrice {
   /* display: flex; */
   float: right;
   margin-top: -57px;

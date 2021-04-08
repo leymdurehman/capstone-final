@@ -21,8 +21,11 @@ export default new Vuex.Store({
   state: {
     token: currentToken || '',
     user: currentUser || {},
+    customerId: 1,
     artPieceData: [],
     activeArtPiece: 0,
+    fees: 0,
+    commission: 0
 
   },
   mutations: {
@@ -47,6 +50,9 @@ export default new Vuex.Store({
     },
     SET_ACTIVE_ART_PEICE(state, artID){
       state.activeArtPiece = artID;
+    },
+    SET_CUSTOMER_ID(state, customerId){
+      state.customerId = customerId;
     }
   }
 

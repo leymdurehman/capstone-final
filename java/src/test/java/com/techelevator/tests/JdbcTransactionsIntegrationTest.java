@@ -17,7 +17,7 @@ import com.techelevator.dao.ArtPieceDAO;
 import com.techelevator.dao.JdbcTransactionsDAO;
 import com.techelevator.dao.TransactionsDao;
 import com.techelevator.model.ArtPiece;
-import com.techelevator.model.Transactions;
+import com.techelevator.model.Transaction;
 
 
 public class JdbcTransactionsIntegrationTest extends DAOIntegrationTest{
@@ -99,7 +99,7 @@ public class JdbcTransactionsIntegrationTest extends DAOIntegrationTest{
 		@Test
 		public void create_transaction() {
 			
-			Transactions testTransaction = testTransaction();
+			Transaction testTransaction = testTransaction();
 			
 			int orderID = dao.createTransaction(testTransaction);
 			
@@ -110,9 +110,9 @@ public class JdbcTransactionsIntegrationTest extends DAOIntegrationTest{
 	
 	
 	
-		private Transactions testTransaction() {
+		private Transaction testTransaction() {
 			
-			Transactions test = new Transactions();
+			Transaction test = new Transaction();
 			test.setDateSold((dateCreatedDummy));
 			test.setCustomerId(COSTUMER_ID_DUMMY);
 			test.setArtist(ARTIST_NAME_DUMMY);

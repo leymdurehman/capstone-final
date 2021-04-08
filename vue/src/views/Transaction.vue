@@ -6,15 +6,16 @@
         <img class="artImg" :src="imgFile" v-bind:alt="artPiece.imgFileName" />
       </div>
       <div id="right">
-        <h2>
-          <i>{{ artPiece.title }}</i>
-        </h2>
-        <h3>{{ artPiece.dateCreated }}</h3>
-        <h4>{{ artPiece.artist }}</h4>
-        <h5>${{ artPiece.price }}</h5>
-        <router-link v-bind:to="{ name: 'home' }">
-          <button class="buy">Confirm</button>
-        </router-link>
+        <h3>Title: {{ artPiece.title }}</h3>
+        <h3>Date: {{ artPiece.dateCreated }}</h3>
+        <h3>Artist: {{ artPiece.artist }}</h3>
+        <h3>Price: ${{ artPiece.price.toFixed(2) }}</h3>
+      </div>
+      <div id="buyNow">
+        <button id="confirm" @click="startTransaction()">Confirm</button>
+          <div class="failed">
+            <h2 v-if="statusMessage"> {{statusMessage}}</h2>
+          </div>
       </div>
     </div>
   </div>
@@ -23,6 +24,7 @@
 <script>
 import firebase from "firebase";
 import artPieceService from "@/services/ArtPieceService.js";
+import transactionService from "@/services/TransactionService.js";
 export default {
   name: "transaction-details",
   data() {
@@ -30,7 +32,32 @@ export default {
       artPiece: null,
       imgFile: {},
       foundId: 0,
+      statusMessage: null,
+      transaction: {}
     };
+  },
+
+  methods: {
+
+    startTransaction(){
+
+       transactionService.postTransaction(this.transaction)
+       .then((response) => {
+                if (response.status == 201) {
+
+                  alert("Order has been confirmed! \nThank you for your purchase!");
+                  this.$router.push({ path: '/'});
+            }
+        })
+        .catch((error) => {
+            const response = error.response;
+            if (response.status !== 201) {
+                this.statusMessage =
+                "There were problems placing you oder...";
+            }
+        });
+
+    }
   },
   created() {
     this.foundId = this.$route.params.artId;
@@ -38,6 +65,8 @@ export default {
       .getListingByArtId(this.foundId)
       .then((response) => {
         this.artPiece = response.data;
+        this.transaction.customerId = this.$store.state.customerId;
+        this.transaction.artID = this.artPiece.artID;
 
         let storage = firebase.storage();
         let storageRef = storage.ref();
@@ -49,6 +78,8 @@ export default {
       })
       .catch(console.log("not working"));
   },
+
+  
 };
 </script>
 
@@ -60,19 +91,46 @@ export default {
   font-family: "Quicksand", sans-serif;
   margin: auto;
   padding: 20px;
-  width: 60%;
+  width: 40%;
+  height: auto;
+  
 }
 
 .artImg {
-  width: 40%;
-  float: left;
+  width: 90%;
+  
 }
 
-/* img {
-  float: left;
-} */
+#left{
+  grid-area: image;
+}
 
 #right {
-  float: right;
+  grid-area: details;
+}
+
+#buyNow{
+  grid-area: confirm;
+}
+
+div#transactionDetails{
+  display: grid;
+  grid-template-columns: 1fr 200px 200px 1fr;
+  grid-template-areas: 
+      ". image details ."
+      ". . confirm .";
+
+}
+
+
+#confirm{
+  padding: 5px 15px;
+  background-color: #ab3f29;
+  color: #f4f4f4eb;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
+  cursor: pointer;
+  width: 100%
 }
 </style>

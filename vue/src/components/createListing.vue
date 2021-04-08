@@ -163,6 +163,7 @@ export default {
     }
     ,
     clearForm(){
+        this.removeFile();
         this.selectedFile = null;
         this.artPiece = {};
         this.listingError = false;
@@ -346,12 +347,9 @@ input[type=submit]:disabled{
 }
 
 input[type=file]{
-    /* background-color: #ab3f29; */
     color: #f4f4f4eb;
-    /* border-radius: 20px; */
-    /* box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7; */
     width: 200px;
-    /* padding: 5px 15px; */
+  
 }
 
 #dragDrop{

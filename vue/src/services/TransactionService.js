@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default {
 
-    postTransaction() {
-      return axios.post('/orderDetails')
+    postTransaction(transactions) {
+      return axios.post('/orders', transactions)
     }
 }

@@ -93,8 +93,5 @@ button{
     cursor: pointer;
 }
 
-input[type=text], [type=password]{
-    border-radius: 7px;
-}
 
 </style>

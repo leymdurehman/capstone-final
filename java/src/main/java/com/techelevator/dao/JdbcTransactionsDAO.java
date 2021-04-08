@@ -7,7 +7,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import com.techelevator.model.ArtPiece;
-import com.techelevator.model.Transactions;
+import com.techelevator.model.Transaction;
 
 @Component
 public class JdbcTransactionsDAO implements TransactionsDao{
@@ -24,7 +24,7 @@ public class JdbcTransactionsDAO implements TransactionsDao{
 	
 	// create transaction - insert 
 	
-	public int createTransaction(Transactions transaction) {
+	public int createTransaction(Transaction transaction) {
 		
 		LocalDate dateSold = LocalDate.now();
 		

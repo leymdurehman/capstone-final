@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techelevator.dao.TransactionsDao;
 import com.techelevator.model.ArtPiece;
-import com.techelevator.model.Transactions;
+import com.techelevator.model.Transaction;
 
 
 @RestController
@@ -26,7 +26,7 @@ public class TransactionsController {
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path="/orders", method=RequestMethod.POST)
-	public void createTransaction(@RequestBody Transactions transaction) {
+	public void createTransaction(@RequestBody Transaction transaction) {
 		dao.createTransaction(transaction);
 	}
 	

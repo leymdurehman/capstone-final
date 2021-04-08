@@ -3,7 +3,7 @@
   <div class="card">
       <img class="myImg" :src="imgFile" v-bind:alt="artPiece.imgFileName"/>
       <h2>{{ artPiece.title }}</h2>
-      <h3>{{ artPiece.artist }}</h3>
+      <h3 id="mainArtist">{{ artPiece.artist }}</h3>
   </div>
 </router-link>
 </template>
@@ -90,7 +90,7 @@ h2{
     font-style: italic;
 }
 
-h3{
+#mainArtist{
     font-size: 1rem;
     
 }

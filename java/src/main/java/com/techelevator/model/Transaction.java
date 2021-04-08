@@ -2,12 +2,12 @@ package com.techelevator.model;
 
 import java.time.LocalDate;
 
-public class Transactions{
+public class Transaction{
 
 		private int orderId;
 		private int customerId;
 		private LocalDate dateSold;
-		private int artID;
+		private int artId;
 		private int artistId;
 		private String artist;
 		private int dealerId;
@@ -18,10 +18,10 @@ public class Transactions{
 		private String imgFileName;
 		
 		public int getArtID() {
-			return artID;
+			return artId;
 		}
 		public void setArtID(int artID) {
-			this.artID = artID;
+			this.artId = artID;
 		}
 		public int getArtistId() {
 			return artistId;
