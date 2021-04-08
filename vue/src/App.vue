@@ -15,8 +15,8 @@
           id="logout"
           v-bind:to="{ name: 'logout' }"
           v-if="$store.state.token != ''"
-          >Logout</router-link
-        >
+          >Logout</router-link>
+          <router-link id="settings" v-bind:to="{name: 'Settings'}">Settings</router-link>
       </div>
       <router-view />
     </div>
