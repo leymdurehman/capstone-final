@@ -92,6 +92,9 @@ CREATE TABLE transactions (
         customer_id int not null,
         art_id int not null,
         date_of_sale date not null,
+        fee numeric not null,
+        commission numeric not null,
+        total_price numeric not null,
         
         CONSTRAINT fk_transactions_customer_id FOREIGN KEY (customer_id) REFERENCES customer (customer_id),
         CONSTRAINT fk_transactions_art_id FOREIGN KEY (art_id) REFERENCES art_pieces (art_id)
