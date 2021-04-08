@@ -7,17 +7,19 @@
       </h2>
       <h3>{{ artPiece.dateCreated }}</h3>
       <h4>{{ artPiece.artist }}</h4>
-      <h5 id="artPrice">${{ artPiece.price.toFixed(2) }}</h5>
+      <h5 id="artPrice" v-if="!artPiece.sold">${{ artPiece.price.toFixed(2) }}</h5>
+      <h5 id="soldArt" v-if="artPiece.sold">${{ artPiece.price.toFixed(2) }}</h5>
+      <h5 id= "soldTag" v-if="artPiece.sold">SOLD</h5>
     </div>
 
     <div>
         <router-link v-bind:to="{ name: 'EditArt' , params: { artId: artPiece.artID }}">
-            <button id="editArt">EDIT</button>
+            <button v-if="!artPiece.sold" id="editArt">EDIT</button>
         </router-link>
     </div>
     <div>
       <router-link v-bind:to="{ name: 'Transaction' , params: { artId: artPiece.artID }}">
-        <button class="buy">BUY</button>
+        <button v-if="!artPiece.sold" class="buy">BUY</button>
       </router-link>
     </div>
   </div>
@@ -58,6 +60,12 @@ export default {
 </script>
 
 <style>
+
+
+
+
+
+
 .myImg {
   width: 100%;
   height: auto;
@@ -110,5 +118,19 @@ export default {
   .buy {
     padding: 5px;
   }
+}
+#soldArt {
+  text-decoration: line-through;
+  float: right;
+  margin-top: -57px;
+}
+
+#soldTag {
+  float: right;
+  margin-top: -35px;
+  margin-right: -3px;
+  font-size: 30px;
+  color:  #000000d5;
+  font-weight: bold;
 }
 </style>

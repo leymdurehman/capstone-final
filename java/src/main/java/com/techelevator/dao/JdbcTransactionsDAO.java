@@ -20,11 +20,11 @@ public class JdbcTransactionsDAO implements TransactionsDao{
 		this.jdbcTemplate = jdbcTemplate;
 		
 	}
-	
-	
-	// create transaction - insert 
+
 	
 	public int createTransaction(Transaction transaction) {
+		
+		sellArt(transaction.getArtID());
 		
 		LocalDate dateSold = LocalDate.now();
 		
@@ -34,5 +34,22 @@ public class JdbcTransactionsDAO implements TransactionsDao{
 		return jdbcTemplate.queryForObject(sql, int.class, transaction.getCustomerId(), transaction.getArtID(), dateSold, transaction.getFee(), transaction.getCommission(), transaction.getTotalPrice());
 		
 	}
+	
+	
+	private void sellArt(int artID) {
+		
+		String sql = "UPDATE art_pieces SET is_sold = true WHERE art_id = ?";
+		
+		jdbcTemplate.update(sql, artID);	
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
