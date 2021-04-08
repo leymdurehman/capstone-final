@@ -40,9 +40,9 @@
       <div id="edit">
         <button id="confirmEdit" @click="sendEditedArtPiece()">Confirm Edit</button>
         <button id="deleteListing" @click ="deleteArtPiece()">Delete Listing</button>
-          <div class="failedEdit">
+          <!-- <div class="failedEdit">
             <h2 v-if="statusMessage"> {{statusMessage}}</h2>
-          </div>
+          </div> -->
       </div>
     </div>
   </div>
@@ -66,7 +66,7 @@ export default {
           artPieceService.editListing(this.artPiece).then((response) => {
             if (response.status == 200) {
               alert("Listing has been edited!");
-              this.$router.push({path : "/artDetails:id", params: { artId: this.artPiece.artId}})
+              this.$router.push({name : 'ArtDetails', params: { artId: this.artPiece.artID}})
             }
           }).catch((error) => {
             const response = error.response;
@@ -78,7 +78,7 @@ export default {
         
         deleteArtPiece(){
 
-          if (confirm('Are you sure you want to delete this listing?')){
+          // if (confirm('Are you sure you want to delete this listing?')){
 
           artPieceService.deleteListing(this.artPiece).then((response) => {
             if (response.status == 200) {
@@ -92,7 +92,7 @@ export default {
               alert("There was a problem deleting your listing");
             }
           });
-          }
+          // }
         }
    },
 
