@@ -43,7 +43,7 @@ export default {
   border-color: #ab3f29;
   border-radius: 5px;
   top: 95px;
-  width: 400px;
+  width: 450px;
   height: auto;
   padding: 15px;
   margin: 20px;
@@ -54,14 +54,12 @@ export default {
 }
 @media (max-width: 1024px) {
   .card {
-    width: 60%;
-    min-width: 200px;
+    /* max-width: 350px; */
   }
 }
 @media (max-width: 500px) {
   .card {
     width: 250px;
-    min-width: 0px;
   }
 }
 a:link {
@@ -69,7 +67,7 @@ a:link {
 }
 
 .myImg {
-  width: 100%;
+  width: 60%;
   height: auto;
   /* border: solid; */
   border-color: #e06614;

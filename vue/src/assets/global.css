@@ -75,7 +75,7 @@ h1 {
   background-color: #ab3f29d0;
 }
 
-@media(max-width: 1024px) {
+@media(max-width: 800px) {
 
   .sidenav a, #menuTab{
     padding: 20px;
