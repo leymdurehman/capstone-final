@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,7 @@ import com.techelevator.model.ArtPiece;
 import com.techelevator.model.Fee;
 import com.techelevator.model.Transaction;
 
-
+@PreAuthorize("isAuthenticated()")
 @RestController
 @CrossOrigin
 
@@ -31,12 +32,13 @@ public class TransactionsController {
 		dao.createTransaction(transaction);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(path="/fees", method=RequestMethod.PUT)
 	public void setDefaultFee(@RequestBody Fee newFee) {
 		dao.setFees(newFee);
 	}
 	
-	
+	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(path="/fees", method=RequestMethod.GET)
 	public Fee getCurrentFees() {
 		return dao.getFees();
