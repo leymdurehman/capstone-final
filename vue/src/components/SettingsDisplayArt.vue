@@ -42,7 +42,7 @@ export default {
   border-color: #ab3f29;
   border-radius: 5px;
   top: 95px;
-  width: 450px;
+  width: 150px;
   height: auto;
   padding: 15px;
   margin: 20px;
@@ -61,7 +61,7 @@ a:link {
 }
 
 .settingsMyImg {
-  width: 60%;
+  width: 95%;
   height: auto;
   border-color: #e06614;
   border-radius: 5px;

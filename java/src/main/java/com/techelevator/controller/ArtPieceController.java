@@ -78,5 +78,7 @@ public class ArtPieceController {
     	artDAO.setFeesToDefault(id);
     	
     }
+    
+    
 
 }

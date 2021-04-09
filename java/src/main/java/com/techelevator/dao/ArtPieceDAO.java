@@ -14,5 +14,6 @@ public interface ArtPieceDAO {
 	public void overrideFee(ArtPiece art);
 	public void overrideCommision(ArtPiece art);
 	public void setFeesToDefault(int artID);
+
 	
 }

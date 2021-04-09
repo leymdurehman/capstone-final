@@ -22,6 +22,18 @@ export default {
     return axios.delete(`/delete/${artID}`)
   },
 
+  updateOverrideCommission(artPiece){
+    return axios.put('/overrideCommission', artPiece)
+  },
+
+  updateOverrideFee(artPiece){
+    return axios.put('/overrideFee', artPiece)
+  },
+
+  updateFeesToDefault(artID){
+    return axios.put(`/setDefault/${artID}`)
+  }
+
 
 
 
