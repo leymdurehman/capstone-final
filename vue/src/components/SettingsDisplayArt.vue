@@ -1,11 +1,11 @@
 <template>
   <router-link
-    v-bind:to="{ name: 'ArtDetails', params: { artId: artPiece.artID } }"
+    v-bind:to="{ name: 'FeeOverride', params: { artId: artPiece.artID } }"
   >
-    <div class="card">
-      <img class="myImg" :src="imgFile" v-bind:alt="artPiece.imgFileName" />
+    <div class="settingsCard">
+      <img class="settingsMyImg" :src="imgFile" v-bind:alt="artPiece.imgFileName" />
       <h2>{{ artPiece.title }}</h2>
-      <h3 id="mainArtist">{{ artPiece.artist }}</h3>
+      <h3 id="settingsMainArtist">{{ artPiece.artist }}</h3>
     </div>
   </router-link>
 </template>
@@ -13,7 +13,7 @@
 <script>
 import firebase from "firebase";
 export default {
-  name: "display-art",
+  name: "settings-display-art",
   props: ["artPiece"],
 
   data() {
@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style>
-.card {
+.settingsCard {
   background-color: #ab3f2969;
   border-width: 3px;
   box-shadow: 2px 2px 2px 2px #ab3f2985;
@@ -52,7 +52,7 @@ export default {
   font-family: "Quicksand", sans-serif;
 }
 @media (max-width: 500px) {
-  .card {
+  .settingsCard {
     width: 250px;
   }
 }
@@ -60,7 +60,7 @@ a:link {
   text-decoration: none;
 }
 
-.myImg {
+.settingsMyImg {
   width: 60%;
   height: auto;
   border-color: #e06614;
@@ -73,7 +73,7 @@ h2 {
   font-style: italic;
 }
 
-#mainArtist {
+#settingsMainArtist {
   font-size: 1rem;
 }
 </style>
