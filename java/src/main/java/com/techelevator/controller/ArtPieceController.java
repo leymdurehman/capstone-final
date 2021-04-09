@@ -61,6 +61,22 @@ public class ArtPieceController {
 		
 		artDAO.deleteArtPiece(id);
 	}
+    
+    
+    @RequestMapping(path="/overrideFee", method=RequestMethod.PUT)
+	public void updateOverrideFee(@RequestBody ArtPiece art) {
+		artDAO.overrideFee(art);
+	}
+    
+    @RequestMapping(path="/overrideCommission", method=RequestMethod.PUT)
+	public void updateOverrideCommission(@RequestBody ArtPiece art) {
+    	artDAO.overrideCommision(art);
+	}
+    
+    @RequestMapping(path="/setDefault/{id}", method=RequestMethod.PUT)
+	public void updateFeesToDefault(@PathVariable int id) {
+    	artDAO.setFeesToDefault(id);
+    	
+    }
 
-	
 }

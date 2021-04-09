@@ -16,10 +16,7 @@ public class ArtPiece {
 	private String imgFileName;
 	private double feeOverride;
 	private double commissionOverride;
-	private boolean hasFeeOverride;
-	private boolean hasCommissionOverride;
-	
-	
+
 	
 	public int getArtID() {
 		return artID;
@@ -93,19 +90,7 @@ public class ArtPiece {
 	public void setCommissionOverride(double commissionOverride) {
 		this.commissionOverride = commissionOverride;
 	}
-	public boolean isHasFeeOverride() {
-		return hasFeeOverride;
-	}
-	public void setHasFeeOverride(boolean hasFeeOverride) {
-		this.hasFeeOverride = hasFeeOverride;
-	}
-	public boolean isHasCommissionOverride() {
-		return hasCommissionOverride;
-	}
-	public void setHasCommissionOverride(boolean hasCommissionOverride) {
-		this.hasCommissionOverride = hasCommissionOverride;
-	}
-
+	
 	
 
 	@Override
