@@ -43,6 +43,11 @@
         <button id="deleteListing" @click="deleteArtPiece()">
           Delete Listing
         </button>
+        <router-link
+      v-bind:to="{ name: 'ArtDetails', params: { artId: artPiece.artID } }"
+  >
+        <button id="backDetails">Back</button>
+        </router-link>
       </div>
     </div>
   </div>
@@ -195,5 +200,20 @@ div#edit-grid {
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
   cursor: pointer;
   width: 100%;
+}
+
+
+
+#backDetails {
+  padding: 5px 15px;
+  margin-top: 10px;
+  background-color: #ab3f29;
+  color: #f4f4f4eb;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
+  cursor: pointer;
+  width: 100%;
+  
 }
 </style>

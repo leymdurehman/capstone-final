@@ -10,9 +10,16 @@
       <h5 id="artPrice" v-if="!artPiece.sold">${{ artPiece.price.toFixed(2) }}</h5>
       <h5 id="soldArt" v-if="artPiece.sold">${{ artPiece.price.toFixed(2) }}</h5>
       <h5 id= "soldTag" v-if="artPiece.sold">SOLD</h5>
-    </div>
-
+      </div>
     <div>
+        <router-link
+      v-bind:to="{ name: 'home'}">
+        <button id="goBack">BACK</button>
+        </router-link>
+    </div>
+    <div>
+
+      <!-- <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"></div> -->
         <router-link v-bind:to="{ name: 'EditArt' , params: { artId: artPiece.artID }}">
             <button v-if="!artPiece.sold" id="editArt">EDIT</button>
         </router-link>
@@ -86,7 +93,7 @@ export default {
 
 .buy {
   float: right;
-  margin-top: -35px;
+  margin-top: -65px;
   padding: 5px 15px;
   margin-right: -3px;
   background-color: #ab3f29;
@@ -103,7 +110,7 @@ export default {
 #editArt{
   float: right;
   margin-right: 65px;
-  margin-top: -35px;
+  margin-top: -65px;
   padding: 5px 15px;
   background-color: #ab3f29;
   color: #f4f4f4eb;
@@ -135,5 +142,22 @@ export default {
   font-size: 30px;
   color:  #000000d5;
   font-weight: bold;
+}
+
+#goBack{
+  
+  
+  
+  
+  float: right;
+  margin-top: 5px;
+  margin-right: -3px;
+  padding: 5px 11px;
+  background-color: #ab3f29;
+  color: #f4f4f4eb;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
+  cursor: pointer;
 }
 </style>

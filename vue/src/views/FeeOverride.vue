@@ -103,7 +103,7 @@ export default {
             .updateOverrideCommission(this.artPiece)
               .then((response) => {
                 if(response.status == 200){
-                  alert("Succesully overridden commission");
+                  alert("Successfully overridden commission");
                 }
             }).catch((error) => {
               const response = error.response
@@ -114,7 +114,7 @@ export default {
             .updateOverrideFee(this.artPiece)
               .then((response) => {
                 if(response.status == 200){
-                  alert("Succesully overridden fee");
+                  alert("Successfully overridden fee");
                 }
             }).catch((error) => {
               const response = error.response

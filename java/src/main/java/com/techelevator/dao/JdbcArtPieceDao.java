@@ -41,7 +41,7 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 	@Override
 	public List<ArtPiece> getAllListings() {
 		
-		String sql = "SELECT art_id, title, date_created, price, img_file_name, is_sold, artist.artist_id, artist_name, dealer.dealer_id, username, override_fee, override_commission " + 
+		String sql = "SELECT art_id, title, date_created, price, img_file_name, is_sold, artist.artist_id, artist_name, dealer.dealer_id, username, override_fee, override_commission, has_override " + 
 				"FROM art_pieces " + 
 				"JOIN artist ON artist.artist_id = art_pieces.artist_id " + 
 				"JOIN dealer ON dealer.dealer_id = art_pieces.dealer_id " + 
@@ -62,7 +62,7 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 	@Override
 	public ArtPiece getListingByArtID(int artID) {
 	
-		String sql = "SELECT art_id, title, date_created, price, img_file_name, is_sold, artist.artist_id, artist_name, dealer.dealer_id, username, override_fee, override_commission " + 
+		String sql = "SELECT art_id, title, date_created, price, img_file_name, is_sold, artist.artist_id, artist_name, dealer.dealer_id, username, override_fee, override_commission, has_override " + 
 						"FROM art_pieces " + 
 						"JOIN artist ON artist.artist_id = art_pieces.artist_id " + 
 						"JOIN dealer ON dealer.dealer_id = art_pieces.dealer_id " + 
@@ -100,21 +100,21 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 	
 	@Override
 	public void overrideFee(ArtPiece art) {
-		String sql = "UPDATE art_pieces SET override_fee = ? WHERE art_id = ?";
+		String sql = "UPDATE art_pieces SET override_fee = ?, has_override = true WHERE art_id = ?";
 		jdbcTemplate.update(sql, art.getFeeOverride(), art.getArtID());
 		
 	}
 	
 	@Override
 	public void overrideCommision(ArtPiece art) {
-		String sql = "UPDATE art_pieces SET override_commission = ? WHERE art_id = ?";
+		String sql = "UPDATE art_pieces SET override_commission = ?, has_override = true WHERE art_id = ?";
 		jdbcTemplate.update(sql, art.getCommissionOverride(), art.getArtID());
 		
 	}
 	
 	@Override
 	public void setFeesToDefault(int artID) {
-		String sql = "UPDATE art_pieces SET override_fee = null, override_commission = null WHERE art_id = ?";
+		String sql = "UPDATE art_pieces SET override_fee = null, override_commission = null, has_override = false WHERE art_id = ?";
 		jdbcTemplate.update(sql, artID);
 	}
 	
@@ -134,7 +134,8 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 		art.setDealerId(row.getInt("dealer_id"));
 		art.setArtistId(row.getInt("artist_id"));
 		art.setDealer(row.getString("username"));
-		
+		art.setHasOverride(row.getBoolean("has_override"));
+	
 		if (row.getDouble("override_commission") >= 0 ) {
 			art.setCommissionOverride(row.getDouble("override_commission"));
 		}

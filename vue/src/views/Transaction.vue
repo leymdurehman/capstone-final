@@ -48,8 +48,20 @@ export default {
   }
   ,
   methods: {
+      isOverride(){
+        if (this.artPiece.hasOverride){
 
-    startTransaction(){  
+          this.transaction.commission = this.artPiece.commissionOverride;
+          this.transaction.fee = this.artPiece.feeOverride;
+
+          this.transaction.fee = ((this.artPiece.feeOverride / 100) * (this.artPiece.price));
+          this.transaction.commission = ((this.artPiece.commissionOverride / 100) * this.artPiece.price);
+          this.transaction.totalPrice = ((((this.artPiece.feeOverride / 100) * (this.artPiece.price))) 
+          + (((this.artPiece.commissionOverride / 100) * this.artPiece.price)) + (this.artPiece.price));
+        }
+
+      },
+      startTransaction(){  
        transactionService.postTransaction(this.transaction)
        .then((response) => {
                 if (response.status == 201) {
@@ -97,7 +109,7 @@ export default {
       this.transaction.fee = ((this.currentDefaultFees.fee / 100) * (this.artPiece.price));
       this.transaction.commission = ((this.currentDefaultFees.commission / 100) * this.artPiece.price);
       this.transaction.totalPrice = ((((this.currentDefaultFees.fee / 100) * (this.artPiece.price))) + (((this.currentDefaultFees.commission / 100) * this.artPiece.price)) + (this.artPiece.price));
-
+      this.isOverride();
      }).catch((error) => {
       const response = error.response
       console.log(response);

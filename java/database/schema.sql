@@ -82,7 +82,8 @@ CREATE TABLE art_pieces (
         dealer_id int not null,
         override_fee numeric,
         override_commission numeric,
-
+        has_override boolean default false,
+    
         
         CONSTRAINT fk_art_pieces_artist_id FOREIGN KEY (artist_id) REFERENCES artist (artist_id),
         CONSTRAINT fk_art_pieces_dealer_id FOREIGN KEY (dealer_id) REFERENCES dealer (dealer_id)
