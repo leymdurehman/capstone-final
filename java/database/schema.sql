@@ -80,8 +80,10 @@ CREATE TABLE art_pieces (
         is_sold boolean default false,
         artist_id int not null,
         dealer_id int not null,
-        --override_fee numeric,
-        --override_commission numeric,
+        override_fee numeric,
+        override_commission numeric,
+        has_override boolean default false,
+    
         
         CONSTRAINT fk_art_pieces_artist_id FOREIGN KEY (artist_id) REFERENCES artist (artist_id),
         CONSTRAINT fk_art_pieces_dealer_id FOREIGN KEY (dealer_id) REFERENCES dealer (dealer_id)
@@ -100,6 +102,20 @@ CREATE TABLE transactions (
         CONSTRAINT fk_transactions_art_id FOREIGN KEY (art_id) REFERENCES art_pieces (art_id)
 );
 
+
+
+
+DROP TABLE IF EXISTS fees;
+
+CREATE TABLE fees (
+        fee_id serial primary key,
+        fee numeric default 0.0,
+        commission numeric default 0.0
+
+);
+
+INSERT INTO fees (fee_id) VALUES (DEFAULT);
+
 --DUMMY DATA
 
 INSERT INTO dealer (dealer_id, user_id) VALUES (DEFAULT, 2);
@@ -111,3 +127,6 @@ INSERT INTO customer (customer_id, user_id) VALUES (DEFAULT, 1);
 --VALUES (DEFAULT, 'TestTitle', '2020-05-02', 500.00, 'images.jpeg', 1, 1);
 
 COMMIT TRANSACTION;
+
+
+

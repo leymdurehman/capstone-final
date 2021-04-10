@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Edit Art</h1>
+    <h1>Override Fee</h1>
     <div id="edit-grid">
       <div id="left-edit">
         <img
@@ -10,44 +10,35 @@
         />
       </div>
       <div id="right-edit">
+        <h2 id="currentDefaultFee">Default Fee: {{currentDefaultFees.fee}}%</h2>
+        <h2 id="currentDefaulFee">Default Commission: {{currentDefaultFees.commission}}%</h2>
         <form>
           <div>
-            <label>Artist: </label>
+            <label>Fee: </label>
           </div>
-          <input type="text" v-model.trim="artPiece.artist" />
+          <input type="number" v-model.trim="artPiece.feeOverride" />
 
           <div>
-            <label>Title: </label>
+            <label>Commission: </label>
           </div>
-          <input type="text" v-model.trim="artPiece.title" />
+          <input type="number" v-model.trim="artPiece.commissionOverride" />
 
-          <div>
-            <label>Date: </label>
-          </div>
-          <input type="date" v-model.trim="artPiece.dateCreated" />
-
-          <div>
-            <label>Price: </label>
-          </div>
-          <input type="number" v-model.trim="artPiece.price" />
-
-          <div>
-            <label>Dealer: </label>
-          </div>
-          <input type="text" v-model.trim="artPiece.dealer" />
         </form>
 
-        <button id="confirmEdit" @click="sendEditedArtPiece()">
-          Confirm Edit
+        <button id="confirmOverride" @click="sendOverride()">
+          Confirm Override
         </button>
-        <button id="deleteListing" @click="deleteArtPiece()">
-          Delete Listing
-        </button>
-        <router-link
-      v-bind:to="{ name: 'ArtDetails', params: { artId: artPiece.artID } }"
-  >
-        <button id="backDetails">Back</button>
+
+          <button id="resetToDefault" @click="resetToDefault()">
+            Reset Fees To Default
+          </button>
+     
+
+      <div>
+        <router-link v-bind:to="{ name: 'Settings' }"> 
+          <button id="backToSettings">Go Back</button>
         </router-link>
+      </div>
       </div>
     </div>
   </div>
@@ -56,13 +47,15 @@
 <script>
 import firebase from "firebase";
 import artPieceService from "@/services/ArtPieceService.js";
+import transactionService from "@/services/TransactionService.js";
 export default {
-  name: "edit-art",
+  name: "fee-override",
   data() {
     return {
       artPiece: {},
       imgFile: {},
       foundId: 0,
+      currentDefaultFees: {},
     };
   },
   methods: {
@@ -104,26 +97,89 @@ export default {
           });
       }
     },
+
+    sendOverride(){
+          artPieceService
+            .updateOverrideCommission(this.artPiece)
+              .then((response) => {
+                if(response.status == 200){
+                  alert("Successfully overridden commission");
+                }
+            }).catch((error) => {
+              const response = error.response
+              console.log(response);
+            });
+       
+          artPieceService
+            .updateOverrideFee(this.artPiece)
+              .then((response) => {
+                if(response.status == 200){
+                  alert("Successfully overridden fee");
+                }
+            }).catch((error) => {
+              const response = error.response
+              console.log(response);
+            });
+      
+
+    },
+
+    resetToDefault(){
+        artPieceService
+          .updateFeesToDefault(this.artPiece.artID)
+            .then((response) => {
+                    if(response.status == 200){
+                      alert("Fees reset to default");
+                    }
+                }).catch((error) => {
+                  const response = error.response
+                  console.log(response);
+                });
+
+        artPieceService
+        .getListingByArtId(this.foundId)
+          .then((response) => {
+            this.artPiece = response.data;
+
+            let storage = firebase.storage();
+            let storageRef = storage.ref();
+            let imgRef = storageRef.child(this.artPiece.imgFileName);
+
+          imgRef.getDownloadURL().then((url) => {
+            this.imgFile = url;
+          });
+        })
+        .catch(this.response.error);
+    }
+
   },
 
   created() {
     this.foundId = this.$route.params.artId;
     artPieceService
       .getListingByArtId(this.foundId)
-      .then((response) => {
-        this.artPiece = response.data;
-        // this.title = this.artPiece.title;
+        .then((response) => {
+          this.artPiece = response.data;
 
-        let storage = firebase.storage();
-        let storageRef = storage.ref();
-        let imgRef = storageRef.child(this.artPiece.imgFileName);
+          let storage = firebase.storage();
+          let storageRef = storage.ref();
+          let imgRef = storageRef.child(this.artPiece.imgFileName);
 
         imgRef.getDownloadURL().then((url) => {
           this.imgFile = url;
         });
       })
       .catch(console.log("not working"));
-  },
+
+    transactionService
+      .getCurrentDefaultFees()
+        .then((response) => {
+          this.currentDefaultFees = response.data;
+     }).catch((error) => {
+      const response = error.response
+      console.log(response);
+      });
+  }
 };
 </script>
 
@@ -178,7 +234,7 @@ div#edit-grid {
   }
 }
 
-#confirmEdit {
+#confirmOverride {
   margin-top: 7px;
   margin-bottom: 10px;
   padding: 5px 15px;
@@ -202,11 +258,10 @@ div#edit-grid {
   width: 100%;
 }
 
-
-
-#backDetails {
+#resetToDefault{
+  margin-top: 7px;
+  margin-bottom: 10px;
   padding: 5px 15px;
-  margin-top: 10px;
   background-color: #ab3f29;
   color: #f4f4f4eb;
   border-radius: 5px;
@@ -214,6 +269,18 @@ div#edit-grid {
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
   cursor: pointer;
   width: 100%;
-  
+}
+
+#backToSettings{
+  margin-top: 7px;
+  margin-bottom: 10px;
+  padding: 5px 15px;
+  background-color: #ab3f29;
+  color: #f4f4f4eb;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
+  cursor: pointer;
+  width: 100%;
 }
 </style>

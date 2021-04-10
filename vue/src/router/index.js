@@ -9,6 +9,8 @@ import AddArt from '../views/AddArt.vue'
 import ArtDetails from '../views/ArtDetails.vue'
 import Transaction from '../views/Transaction.vue'
 import EditArt from '../views/EditArt.vue'
+import Settings from '../views/Settings.vue'
+import FeeOverride from '../views/FeeOverride.vue'
 
 Vue.use(Router)
 
@@ -88,7 +90,24 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: "/settings",
+      name: "Settings",
+      component: Settings,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/override/:artId",
+      name: "FeeOverride",
+      component: FeeOverride,
+      meta: {
+        requiresAuth: true
+      }
     }
+
   ]
 })
 

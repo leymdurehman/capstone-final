@@ -14,8 +14,11 @@ public class ArtPiece {
 	private double price;
 	private boolean isSold;
 	private String imgFileName;
-	
-	
+	private double feeOverride;
+	private double commissionOverride;
+	private boolean hasOverride;
+
+
 	
 	public int getArtID() {
 		return artID;
@@ -77,8 +80,27 @@ public class ArtPiece {
 	public void setImgFileName(String imgFileName) {
 		this.imgFileName = imgFileName;
 	}
+	public double getFeeOverride() {
+		return feeOverride;
+	}
+	public void setFeeOverride(double feeOverride) {
+		this.feeOverride = feeOverride;
+	}
+	public double getCommissionOverride() {
+		return commissionOverride;
+	}
+	public void setCommissionOverride(double commissionOverride) {
+		this.commissionOverride = commissionOverride;
+	}
 	
-	
+
+	public boolean isHasOverride() {
+		return hasOverride;
+	}
+	public void setHasOverride(boolean hasOverride) {
+		this.hasOverride = hasOverride;
+	}
+
 
 	@Override
 	public boolean equals(Object obj) {

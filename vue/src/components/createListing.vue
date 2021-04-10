@@ -71,7 +71,6 @@
     <div id="file-drag-drop">
         <form id="dragDrop" ref="fileform" @change="onFileChanged" >
             <span class="drop-files">Drop Image Here</span>
-            <!-- <progress max="100" :value.prop="uploadPercentage"></progress> -->
         </form>
     </div>
 
@@ -302,7 +301,7 @@ img {
 }
 
 #preview img {
-    width: 100%;
+    width: 50%;
     max-height: 100%;
 }
 

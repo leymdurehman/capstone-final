@@ -9,11 +9,18 @@
         <h3>Title: {{ artPiece.title }}</h3>
         <h3>Date: {{ artPiece.dateCreated }}</h3>
         <h3>Artist: {{ artPiece.artist }}</h3>
-        <h3>Price: ${{ artPiece.price.toFixed(2) }}</h3>
-        <h3>Fee: ${{transaction.fee}}</h3>
-        <h3>Commission: $ {{transaction.commission}}</h3>
-        <h3>Total Price: $ {{transaction.totalPrice}}</h3>
+        <h3>Price: ${{ artPiece.price}}</h3>
+        <!-- <h3>Fee: ${{transaction.fee.toFixed(2)}}</h3>
+        <h3>Commission: $ {{transaction.commission.toFixed(2)}}</h3> -->
+        <h5> + Additional fees</h5>
+        <h3>Total Price: ${{(transaction.totalPrice).toFixed(2)}}</h3>
         <button id="confirm" @click="startTransaction()">Confirm</button>
+
+        <router-link
+      v-bind:to="{ name: 'ArtDetails', params: { artId: artPiece.artID } }"
+  >
+        <button id="confirm">Cancel</button>
+        </router-link>
         <div class="failed">
           <h2 v-if="statusMessage">{{ statusMessage }}</h2>
         </div>
@@ -35,15 +42,26 @@ export default {
       foundId: 0,
       statusMessage: null,
       transaction: {},
+      currentDefaultFees: {},
+    
     };
-  },
-
+  }
+  ,
   methods: {
+      isOverride(){
+        if (this.artPiece.hasOverride){
 
-    startTransaction(){
+          this.transaction.commission = this.artPiece.commissionOverride;
+          this.transaction.fee = this.artPiece.feeOverride;
 
-       
-      
+          this.transaction.fee = ((this.artPiece.feeOverride / 100) * (this.artPiece.price));
+          this.transaction.commission = ((this.artPiece.commissionOverride / 100) * this.artPiece.price);
+          this.transaction.totalPrice = ((((this.artPiece.feeOverride / 100) * (this.artPiece.price))) 
+          + (((this.artPiece.commissionOverride / 100) * this.artPiece.price)) + (this.artPiece.price));
+        }
+
+      },
+      startTransaction(){  
        transactionService.postTransaction(this.transaction)
        .then((response) => {
                 if (response.status == 201) {
@@ -60,6 +78,14 @@ export default {
             }
         });
     },
+    returnToArtDetail(){
+
+  
+        this.$router.push({ path: '/'})
+    
+        
+
+    },
   },
   created() {
     this.foundId = this.$route.params.artId;
@@ -67,14 +93,8 @@ export default {
       .getListingByArtId(this.foundId)
       .then((response) => {
         this.artPiece = response.data;
+        this.transaction.artID = this.foundId;
         this.transaction.customerId = this.$store.state.customerId;
-        this.transaction.artID = this.artPiece.artID;
-        this.transaction.fee = this.$store.state.fee * this.artPiece.price;
-        this.transaction.commission = this.$store.state.commission * this.artPiece.price;
-        this.transaction.totalPrice = (this.$store.state.fee * this.artPiece.price) + 
-         (this.$store.state.commission * this.artPiece.price) + this.artPiece.price;
-    
-
         let storage = firebase.storage();
         let storageRef = storage.ref();
         let imgRef = storageRef.child(this.artPiece.imgFileName);
@@ -84,6 +104,17 @@ export default {
         });
       })
       .catch(console.log("not working"));
+      transactionService.getCurrentDefaultFees().then((response) => {
+      this.currentDefaultFees = response.data;
+      this.transaction.fee = ((this.currentDefaultFees.fee / 100) * (this.artPiece.price));
+      this.transaction.commission = ((this.currentDefaultFees.commission / 100) * this.artPiece.price);
+      this.transaction.totalPrice = ((((this.currentDefaultFees.fee / 100) * (this.artPiece.price))) + (((this.currentDefaultFees.commission / 100) * this.artPiece.price)) + (this.artPiece.price));
+      this.isOverride();
+     }).catch((error) => {
+      const response = error.response
+      console.log(response);
+      });
+  
   },
 };
 </script>

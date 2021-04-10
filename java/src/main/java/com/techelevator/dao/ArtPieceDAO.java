@@ -11,5 +11,9 @@ public interface ArtPieceDAO {
 	public ArtPiece getListingByArtID(int artID);
 	public void updateArtPiece(ArtPiece updatedArtPiece);
 	public void deleteArtPiece(int artID);
+	public void overrideFee(ArtPiece art);
+	public void overrideCommision(ArtPiece art);
+	public void setFeesToDefault(int artID);
+
 	
 }
