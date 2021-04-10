@@ -38,7 +38,6 @@ public class TransactionsController {
 		dao.setFees(newFee);
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(path="/fees", method=RequestMethod.GET)
 	public Fee getCurrentFees() {
 		return dao.getFees();

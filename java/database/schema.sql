@@ -35,7 +35,8 @@ INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpUL
 CREATE TABLE artist(
         artist_id serial primary key,
         user_id int,
-        artist_name varchar(56) NOT NULL
+        artist_name varchar(56) NOT NULL,
+        is_seller boolean default false 
         
 );
 
@@ -79,7 +80,7 @@ CREATE TABLE art_pieces (
         img_file_name varchar(250) not null,
         is_sold boolean default false,
         artist_id int not null,
-        dealer_id int not null,
+        dealer_id int,
         override_fee numeric,
         override_commission numeric,
         has_override boolean default false,

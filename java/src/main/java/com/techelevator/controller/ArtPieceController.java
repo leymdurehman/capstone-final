@@ -31,7 +31,7 @@ public class ArtPieceController {
 		this.artDAO = artDAO;
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('DEALER', 'ARTIST', 'SELLER', 'ADMIN')")
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path = "/createListing", method=RequestMethod.POST)
 	public void createListing( @RequestBody ArtPiece art){
@@ -52,14 +52,14 @@ public class ArtPieceController {
 	}
 	
 
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN', 'DEALER', 'SELLER')")
 	@RequestMapping(path="/edit", method=RequestMethod.PUT)
 	public void updateArtPiece(@RequestBody ArtPiece art) {
 		
 		artDAO.updateArtPiece(art);
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN', 'DEALER', 'SELLER')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
 	@RequestMapping(path="/delete/{id}", method=RequestMethod.DELETE)
 	public void deleteArtPiece(@PathVariable int id) {

@@ -1,7 +1,11 @@
 <template>
   <div>
     <h1>Settings</h1>
+      <div class="registerOther">
+        <register-others/>
+        </div>
     <div id="changeSettings">
+      
       <form>
         <div>
           <label>Set Default Fee Percent (%): </label>
@@ -43,6 +47,7 @@
         />
       </div>
     </div>
+
   </div>
 </template>
 
@@ -50,11 +55,13 @@
 import transactionService from "@/services/TransactionService.js"; 
 import SettingsDisplayArt from "../components/SettingsDisplayArt.vue";
 import artPieceService from "@/services/ArtPieceService.js";
+import RegisterOthers from "../components/RegisterOthers.vue";
 
 export default {
   name: 'settings',
   components: {
     SettingsDisplayArt,
+    RegisterOthers
   },
 
 
