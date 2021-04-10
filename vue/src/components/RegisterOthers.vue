@@ -1,7 +1,7 @@
 <template>
   <div id="register" class="text-center">
     <form class="form-register" @submit.prevent="register">
-      <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
+      <h2 class="h3 mb-3 font-weight-normal">Register New User Account</h2>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
@@ -101,4 +101,46 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+h2 { 
+  color: #ffffff; 
+  font-family: 'Quicksand', sans-serif; 
+  font-weight: 700;  
+  line-height: 25px;
+  margin-left: 0em; 
+  margin-bottom: 1em;
+  /* text-shadow: 2px 2px #2b2929fb; */
+  text-align: center; 
+}
+
+form.form-register {
+  background-color: #ab3f294b;
+  border-radius: 20px;
+  top: 80px;
+  width: fit-content;
+  min-width: 300px;
+  padding: 40px;
+  margin: auto;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #f4f4f4eb; 
+  font-family: 'Quicksand', sans-serif;
+}
+
+form.form-register > input {
+  margin-bottom: 10px;
+}
+
+button {
+  margin-top: 7px;
+  padding: 5px 15px;
+  background-color: #ab3f29;
+  color: #f4f4f4eb;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
+  cursor: pointer;
+}
+</style>

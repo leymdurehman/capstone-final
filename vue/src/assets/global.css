@@ -22,39 +22,53 @@ h1 {
   margin-left: 0em; 
   margin-bottom: 1em;
   text-shadow: 2px 2px #2b2929fb;
+  text-align: center; 
+}
 
-  text-align: center; }
-/* Style the links inside the sidenav */
-
-.sidenav a, #menuTab {
+.sidenav {
+  display: flex;
+  flex-direction: column;
   position: fixed; /* Position them relative to the browser window */
   color: #f4f4f4eb; 
   font-family: 'Quicksand', sans-serif;
-  left: -180px; /* Position them outside of the screen */
-  margin-top: 1em;
+  text-align: right;
+  top: 20px;
+  left: -50px;
+  /* margin-top: 1em; */
   transition: 0.3s; /* Add transition on hover */
-  padding: 15px; /* 15px padding */
-  width: 200px; /* Set a specific width */
-  text-decoration: none; /* Remove underline */
+  padding: 20px;
+  width: 200px;
+  background-color: #ab3f29;
   font-size: 20px; /* Increase font size */
   border-radius: 0 5px 5px 0; /* Rounded corners on the top right and bottom right side */
+  margin: 1em;
 }
-
-
+/* Style the links inside the sidenav */
+.sidenav a {
+  color: #f4f4f4eb; 
+  font-family: 'Quicksand', sans-serif;
+  transition: 0.3s; /* Add transition on hover */
+  padding: 15px;
+  text-align: right;
+  font-size: 20px; /* Increase font size */
+  border-radius: 0 5px 5px 0; /* Rounded corners on the top right and bottom right side */
+  background-color: #ab3f29d0;
+}
 
 .sidenav a:hover {
-  left: 0; /* On mouse-over, make the elements appear as they should */
+  margin-right: -100px; /* On mouse-over, make the elements appear as they should */
+  background-color: grey;
 }
 
-#menuTab {
+/* #menuTab {
   top: 20px;
   background-color: #ab3f29;
   left: 0;
   font-weight: bolder;
   width: 100px;
-}
+} */
 
-#home {
+/* #home {
   top: 80px;
   background-color: #ab3f29d0; 
   }
@@ -78,7 +92,7 @@ h1 {
 #settings {
   top: 320px;
   background-color: #ab3f29d0;
-}
+} */
 
 @media(max-width: 800px) {
 
@@ -171,25 +185,6 @@ h1 {
     background-color: #ab3f29d0;
   }
 
-}
-
-form.form-signin {
-  background-color: #ab3f294b;
-  border-radius: 20px;
-  top: 80px;
-  width: 50%;
-  min-width: 300px;
-  padding: 20px;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #f4f4f4eb; 
-  font-family: 'Quicksand', sans-serif;
-}
-
-form.form-signin > div {
-  padding: 10px;
 }
 
 .card .art-title {
