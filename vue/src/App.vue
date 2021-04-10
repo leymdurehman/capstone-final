@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/Infinity ART (1).png" alt="logo" />
+    <img src="./assets/Infinity ART (2) main.png" alt="logo" />
     <div>
       <div id="nav" class="sidenav">
         <div id="menuTab">Menu</div>

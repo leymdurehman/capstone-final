@@ -248,6 +248,7 @@ export default {
     text-align: center;
     flex-direction: column;
     align-items: center;  
+    margin-bottom: 10px;
 }
 
 img {
