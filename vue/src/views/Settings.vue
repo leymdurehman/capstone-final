@@ -1,41 +1,10 @@
 <template>
   <div>
     <h1>Settings</h1>
-      <div class="registerOther">
-        <register-others/>
-        </div>
-    <div id="changeSettings">
-      
-      <form>
-        <div>
-          <label>Set Default Fee Percent (%): </label>
-        </div>
-        <input
-          type="number"
-          step="0.01"
-          min="0.01"
-          max="99.99"
-          v-model.trim="currentDefaultFees.fee"
-        />
 
-        <div>
-          <label>Set Default Commission Percent (%): </label>
-        </div>
-        <input
-          type="number"
-          step="0.01"
-          min="0.01"
-          max="99.99"
-          v-model.trim="currentDefaultFees.commission"
-        />
+    <register-others />
 
-        <div>
-          <button id="setChanges" @click.prevent="setFee()">
-            Set Default Fees
-          </button>
-        </div>
-      </form>
-    </div>
+    <fee-settings/>
 
     <div>
       <h2 class="override">Override Default Fee</h2>
@@ -47,92 +16,68 @@
         />
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-import transactionService from "@/services/TransactionService.js"; 
+import transactionService from "@/services/TransactionService.js";
 import SettingsDisplayArt from "../components/SettingsDisplayArt.vue";
 import artPieceService from "@/services/ArtPieceService.js";
 import RegisterOthers from "../components/RegisterOthers.vue";
+import FeeSettings from '../components/FeeSettings.vue';
 
 export default {
-  name: 'settings',
+  name: "settings",
   components: {
     SettingsDisplayArt,
-    RegisterOthers
+    RegisterOthers,
+    FeeSettings,
   },
 
-
-  data(){
-    return{
+  data() {
+    return {
       currentDefaultFees: {},
-    }
+    };
   },
-  created(){
-
-    transactionService.getCurrentDefaultFees().then((response) => {
+  created() {
+    transactionService
+      .getCurrentDefaultFees()
+      .then((response) => {
         this.currentDefaultFees = response.data;
-    }).catch((error) => {
-      const response = error.response
-      console.log(response);
+      })
+      .catch((error) => {
+        const response = error.response;
+        console.log(response);
       });
 
-      artPieceService
-        .getAllListings()
-          .then((response) => {
-            this.$store.commit("SET_ART_DATA", response.data);
-          })
-            .catch((err) => console.error(err));
-
+    artPieceService
+      .getAllListings()
+      .then((response) => {
+        this.$store.commit("SET_ART_DATA", response.data);
+      })
+      .catch((err) => console.error(err));
   },
 
   methods: {
-    
-    setFee(){
-
-      transactionService.setDefaultFee(this.currentDefaultFees).then((response) => {
-        if(response.status == 200){
-           alert("Fees Updated");
-        }
-       
-    }).catch((error) => {
-      const response = error.response
-      console.log(response);
-      });
-    }
-  }
-}
+    setFee() {
+      transactionService
+        .setDefaultFee(this.currentDefaultFees)
+        .then((response) => {
+          if (response.status == 200) {
+            alert("Fees Updated");
+          }
+        })
+        .catch((error) => {
+          const response = error.response;
+          console.log(response);
+        });
+    },
+  },
+};
 </script>
 
 <style scoped>
-#changeSettings {
-  background-color: #ab3f294b;
-  border-radius: 20px;
-  color: #f4f4f4eb;
-  font-family: "Quicksand", sans-serif;
-  width: 40%;
-  min-width: 300px;
-  padding: 20px;
-  margin: auto;
-  display: flex;
-  text-align: center;
-  flex-direction: column;
-  align-items: center;
-}
 
-#setChanges {
-  margin-top: 10px;
-  padding: 5px 15px;
-  background-color: #ab3f29;
-  color: #f4f4f4eb;
-  border-radius: 5px;
-  border: none;
-  box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
-  cursor: pointer;
-  width: 50%;
-}
 
 .override {
   color: #ffffff;

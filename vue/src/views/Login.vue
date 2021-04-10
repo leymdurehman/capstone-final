@@ -80,8 +80,26 @@ export default {
 </script>
 
 <style scoped>
+form.form-signin {
+  background-color: #ab3f294b;
+  border-radius: 20px;
+  top: 80px;
+  width: fit-content;
+  min-width: 300px;
+  padding: 30px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #f4f4f4eb; 
+  font-family: 'Quicksand', sans-serif;
+}
+
+form.form-signin > div {
+  padding: 10px;
+}
+
 button {
-  float: right;
   margin-top: 7px;
   padding: 5px 15px;
   background-color: #ab3f29;

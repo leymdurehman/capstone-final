@@ -1,11 +1,11 @@
 <template>
   <div id="register" class="text-center">
+    <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
     <form class="form-register" @submit.prevent="register">
-      <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
-      <label for="username" class="sr-only">Username</label>
+      <label for="username" class="sr-only">Username: </label>
       <input
         type="text"
         id="username"
@@ -15,7 +15,7 @@
         required
         autofocus
       />
-      <label for="password" class="sr-only">Password</label>
+      <label for="password" class="sr-only">Password: </label>
       <input
         type="password"
         id="password"
@@ -90,4 +90,34 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+form.form-register {
+  background-color: #ab3f294b;
+  border-radius: 20px;
+  top: 80px;
+  width: 50%;
+  min-width: 300px;
+  padding: 20px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #f4f4f4eb; 
+  font-family: 'Quicksand', sans-serif;
+}
+
+form.form-register > input {
+  margin-bottom: 10px;
+}
+
+button {
+  margin-top: 7px;
+  padding: 5px 15px;
+  background-color: #ab3f29;
+  color: #f4f4f4eb;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
+  cursor: pointer;
+}
+</style>
