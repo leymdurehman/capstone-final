@@ -34,7 +34,7 @@ INSERT INTO users (username,password_hash,role, email) VALUES ('admin','$2a$08$U
 INSERT INTO users (username,password_hash,role, email) VALUES ('artist','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ARTIST', 'artist@email.com');
 INSERT INTO users (username,password_hash,role, email) VALUES ('dealer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_DEALER', 'dealer@email.com');
 INSERT INTO users (username,password_hash,role, email) VALUES ('seller','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_SELLER', 'seller@email.com');
-
+INSERT INTO users (username,password_hash,role, email) VALUES ('sellerArtist','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_SELLER', 'sellerArtist@email.com');
 
 
 CREATE TABLE artist(
@@ -65,6 +65,7 @@ CREATE TABLE customer(
         
         CONSTRAINT fk_customer_user_id FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
+
 
 CREATE TABLE artist_dealer(
         artist_id int NOT NULL,
@@ -124,15 +125,29 @@ INSERT INTO fees (fee_id) VALUES (DEFAULT);
 
 --DUMMY DATA
 
-INSERT INTO dealer (dealer_id, user_id) VALUES (DEFAULT, 2);
-INSERT INTO artist (artist_id, artist_name) VALUES (DEFAULT, 'TestArtist');
-INSERT INTO artist_dealer (artist_id, dealer_id) VALUES (1, 1);
 INSERT INTO customer (customer_id, user_id) VALUES (DEFAULT, 1);
+INSERT INTO management (manager_id, user_id) VALUES (DEFAULT, 2);
+INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT, 3, 'artist', false );
+INSERT INTO dealer (dealer_id, user_id) VALUES (DEFAULT, 4);
+INSERT INTO artist_dealer (artist_id, dealer_id) VALUES (1, 1);
+
+
+INSERT INTO artist (artist_id, artist_name) VALUES (DEFAULT, 'DeadArtist');
+INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT, 6, 'sellerArtist', true );
+
+
+
+
 
 --INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id) 
---VALUES (DEFAULT, 'TestTitle', '2020-05-02', 500.00, 'images.jpeg', 1, 1);
+--VALUES (DEFAULT, 'Test Art', '2020-05-02', 999.99, 'picture.jpeg', 1, 1);
+
+--INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id) 
+--VALUES (DEFAULT, 'More Art', '2019-05-02', 500.01, 'art.png', 3);
+
+
+
+
 
 COMMIT TRANSACTION;
-
-
 

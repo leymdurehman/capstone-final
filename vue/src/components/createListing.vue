@@ -110,7 +110,9 @@ export default {
   data() {
     return {
         selectedFile: null,
-        artPiece: {},
+        artPiece: {
+            dealer: ""
+        },
         listingError: false,
         listingErrorMessage: "",
         dragAndDropCapable: false,
@@ -147,7 +149,7 @@ export default {
     },
   computed: {
     isFormValid() {
-        return this.artPiece.dealer && (this.files[0] || this.selectedFile)
+        return (this.files[0] || this.selectedFile)
             && this.artPiece.artist && this.artPiece.title
             && this.artPiece.price && this.artPiece.dateCreated;
     }

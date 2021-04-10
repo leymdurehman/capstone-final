@@ -9,6 +9,8 @@ public class ArtPiece {
 	private String artist;
 	private int dealerId;
 	private String dealer;
+	private int sellerId;
+	private String seller;
 	private String title;
 	private LocalDate dateCreated;
 	private double price;
@@ -17,9 +19,17 @@ public class ArtPiece {
 	private double feeOverride;
 	private double commissionOverride;
 	private boolean hasOverride;
+	private boolean isSeller;
+	private boolean isAvailable;
 
 
 	
+	public boolean isAvailable() {
+		return isAvailable;
+	}
+	public void setAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
+	}
 	public int getArtID() {
 		return artID;
 	}
@@ -92,16 +102,33 @@ public class ArtPiece {
 	public void setCommissionOverride(double commissionOverride) {
 		this.commissionOverride = commissionOverride;
 	}
-	
-
 	public boolean isHasOverride() {
 		return hasOverride;
 	}
 	public void setHasOverride(boolean hasOverride) {
 		this.hasOverride = hasOverride;
 	}
+	public int getSellerId() {
+		return sellerId;
+	}
+	public void setSellerId(int sellerId) {
+		this.sellerId = sellerId;
+	}
+	public String getSeller() {
+		return seller;
+	}
+	public void setSeller(String seller) {
+		this.seller = seller;
+	}
+	public boolean isSeller() {
+		return isSeller;
+	}
+	public void setSeller(boolean isSeller) {
+		this.isSeller = isSeller;
+	}
 
-
+	
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

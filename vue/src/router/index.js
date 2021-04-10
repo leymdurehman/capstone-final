@@ -11,6 +11,7 @@ import Transaction from '../views/Transaction.vue'
 import EditArt from '../views/EditArt.vue'
 import Settings from '../views/Settings.vue'
 import FeeOverride from '../views/FeeOverride.vue'
+import MyAccount from '../views/MyAccount.vue'
 
 Vue.use(Router)
 
@@ -103,6 +104,14 @@ const router = new Router({
       path: "/override/:artId",
       name: "FeeOverride",
       component: FeeOverride,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/myAccount",
+      name: "MyAccount",
+      component: MyAccount,
       meta: {
         requiresAuth: true
       }
