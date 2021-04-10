@@ -25,74 +25,6 @@ h1 {
   text-align: center; 
 }
 
-.sidenav {
-  display: flex;
-  flex-direction: column;
-  position: fixed; /* Position them relative to the browser window */
-  color: #f4f4f4eb; 
-  font-family: 'Quicksand', sans-serif;
-  text-align: right;
-  top: 20px;
-  left: -50px;
-  /* margin-top: 1em; */
-  transition: 0.3s; /* Add transition on hover */
-  padding: 20px;
-  width: 200px;
-  background-color: #ab3f29;
-  font-size: 20px; /* Increase font size */
-  border-radius: 0 5px 5px 0; /* Rounded corners on the top right and bottom right side */
-  margin: 1em;
-}
-/* Style the links inside the sidenav */
-.sidenav a {
-  color: #f4f4f4eb; 
-  font-family: 'Quicksand', sans-serif;
-  transition: 0.3s; /* Add transition on hover */
-  padding: 15px;
-  text-align: right;
-  font-size: 20px; /* Increase font size */
-  border-radius: 0 5px 5px 0; /* Rounded corners on the top right and bottom right side */
-  background-color: #ab3f29d0;
-}
-
-.sidenav a:hover {
-  margin-right: -100px; /* On mouse-over, make the elements appear as they should */
-  background-color: grey;
-}
-
-/* #menuTab {
-  top: 20px;
-  background-color: #ab3f29;
-  left: 0;
-  font-weight: bolder;
-  width: 100px;
-} */
-
-/* #home {
-  top: 80px;
-  background-color: #ab3f29d0; 
-  }
-
-
-#login {
-  top: 140px;
-  background-color: #ab3f29d0; 
-}
-
-#addart {
-  top: 200px;
-  background-color: #ab3f29d0;
-}
-
-#logout {
-  top: 260px;
-  background-color: #ab3f29d0;
-}
-
-#settings {
-  top: 320px;
-  background-color: #ab3f29d0;
-} */
 
 @media(max-width: 800px) {
 
@@ -202,6 +134,6 @@ h1 {
   flex-wrap: wrap;
 }
 
-input[type=text], [type=date], [type=number], [type=password]{
+input[type=text], [type=date], [type=number], [type=password], [type=email]{
   border-radius: 7px;
 }

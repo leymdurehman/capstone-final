@@ -32,11 +32,19 @@
         v-model="user.confirmPassword"
         required
       />
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        placeholder="Email Address"
+        v-model="user.email"
+        required
+      />
       <div id="dropdownMenu">
         <label for="cars">Choose a role:</label>
 
         <select name="cars" id="cars" v-model="user.role">
-          <option value="admin" >Manager</option>
+          <option value="admin">Manager</option>
           <option value="dealer">Dealer</option>
           <option value="artist">Artist</option>
           <option value="seller">Seller</option>
@@ -102,15 +110,15 @@ export default {
 </script>
 
 <style scoped>
-h2 { 
-  color: #ffffff; 
-  font-family: 'Quicksand', sans-serif; 
-  font-weight: 700;  
+h2 {
+  color: #ffffff;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
   line-height: 25px;
-  margin-left: 0em; 
+  margin-left: 0em;
   margin-bottom: 1em;
   /* text-shadow: 2px 2px #2b2929fb; */
-  text-align: center; 
+  text-align: center;
 }
 
 form.form-register {
@@ -125,8 +133,8 @@ form.form-register {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #f4f4f4eb; 
-  font-family: 'Quicksand', sans-serif;
+  color: #f4f4f4eb;
+  font-family: "Quicksand", sans-serif;
 }
 
 form.form-register > input {
