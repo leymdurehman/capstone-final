@@ -25,11 +25,23 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 	public int createListing(ArtPiece artPiece) {
 		
 		int artistId = getArtistId(artPiece.getArtist());
-		int dealerId = getDealerId(artPiece.getDealer());
 		
-		String sql = "INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id) "
-				+ "VALUES (DEFAULT, ?, CAST ( ? AS DATE ), ?, ?, ?, ?) RETURNING art_id";
-		SqlRowSet result = jdbcTemplate.queryForRowSet(sql, artPiece.getTitle(), artPiece.getDateCreated(), artPiece.getPrice(), artPiece.getImgFileName(), artistId, dealerId);
+		
+		SqlRowSet result = null;
+		if(!artPiece.getDealer().equals("")) {
+			int dealerId = getDealerId(artPiece.getDealer());
+			String sql = "INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id) "
+					+ "VALUES (DEFAULT, ?, CAST ( ? AS DATE ), ?, ?, ?, ?) RETURNING art_id";
+			result = jdbcTemplate.queryForRowSet(sql, artPiece.getTitle(), artPiece.getDateCreated(), artPiece.getPrice(), artPiece.getImgFileName(), artistId, dealerId);
+			
+		} else {
+			
+			String sql = "INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id) "
+					+ "VALUES (DEFAULT, ?, CAST ( ? AS DATE ), ?, ?, ?) RETURNING art_id";
+			result = jdbcTemplate.queryForRowSet(sql, artPiece.getTitle(), artPiece.getDateCreated(), artPiece.getPrice(), artPiece.getImgFileName(), artistId);
+			
+		}
+	
 		
 			int artID = 0;
 			if(result.next()) {
@@ -41,17 +53,21 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 	@Override
 	public List<ArtPiece> getAllListings() {
 		
-		String sql = "SELECT art_id, title, date_created, price, img_file_name, is_sold, artist.artist_id, artist_name, dealer.dealer_id, username, override_fee, override_commission, has_override " + 
+		String sql = "SELECT art_id, title, date_created, price, img_file_name, is_sold, artist.artist_id, artist_name, dealer_id, override_fee, override_commission, has_override, is_available " + 
 				"FROM art_pieces " + 
-				"JOIN artist ON artist.artist_id = art_pieces.artist_id " + 
-				"JOIN dealer ON dealer.dealer_id = art_pieces.dealer_id " + 
-				"JOIN users ON users.user_id = dealer.user_id";
+				"JOIN artist ON artist.artist_id = art_pieces.artist_id";
 		
 		SqlRowSet row = jdbcTemplate.queryForRowSet(sql);
 		
 		List<ArtPiece> listOfArt = new ArrayList<ArtPiece>();
 		while(row.next()) {
 			ArtPiece art = mapRowToArt(row);
+			art = mapArtistSeller(art);
+			
+			if (art.getDealerId() > 0) {
+				art = mapDealerToArt(art);
+			}
+			
 			listOfArt.add(art);
 		}
 		return listOfArt;
@@ -62,7 +78,7 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 	@Override
 	public ArtPiece getListingByArtID(int artID) {
 	
-		String sql = "SELECT art_id, title, date_created, price, img_file_name, is_sold, artist.artist_id, artist_name, dealer.dealer_id, username, override_fee, override_commission, has_override " + 
+		String sql = "SELECT art_id, title, date_created, price, img_file_name, is_sold, artist.artist_id, artist_name, dealer.dealer_id, username, override_fee, override_commission, has_override, is_available " + 
 						"FROM art_pieces " + 
 						"JOIN artist ON artist.artist_id = art_pieces.artist_id " + 
 						"JOIN dealer ON dealer.dealer_id = art_pieces.dealer_id " + 
@@ -73,21 +89,28 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 		row.next();
 			
 		ArtPiece art = mapRowToArt(row);
+		art = mapArtistSeller(art);
 		
-		
+		if (art.getDealerId() > 0) {
+			art = mapDealerToArt(art);
+		}
 		return art;
 	}
 	
 	@Override
 	public void updateArtPiece(ArtPiece updatedArtPiece) {
 		int artistId = getArtistId(updatedArtPiece.getArtist());
-		int dealerId = getDealerId(updatedArtPiece.getDealer());
 		
-		String sql = "UPDATE art_pieces SET title = ?, date_created = ?, price = ?, img_file_name = ?, artist_id = ?, dealer_id = ? WHERE art_id = ? RETURNING art_id";
-		
-		jdbcTemplate.queryForRowSet(sql, updatedArtPiece.getTitle(), updatedArtPiece.getDateCreated(), updatedArtPiece.getPrice(), updatedArtPiece.getImgFileName(), artistId, dealerId, updatedArtPiece.getArtID());
-		
-		
+		if (!updatedArtPiece.getDealer().equals("")) {
+			
+			int dealerId = getDealerId(updatedArtPiece.getDealer());
+			String sql = "UPDATE art_pieces SET title = ?, date_created = ?, price = ?, img_file_name = ?, artist_id = ?, dealer_id = ? WHERE art_id = ? RETURNING art_id";
+			jdbcTemplate.queryForRowSet(sql, updatedArtPiece.getTitle(), updatedArtPiece.getDateCreated(), updatedArtPiece.getPrice(), updatedArtPiece.getImgFileName(), artistId, dealerId, updatedArtPiece.getArtID());
+			
+		} else {
+			String sql = "UPDATE art_pieces SET title = ?, date_created = ?, price = ?, img_file_name = ?, artist_id = ? WHERE art_id = ? RETURNING art_id";
+			jdbcTemplate.queryForRowSet(sql, updatedArtPiece.getTitle(), updatedArtPiece.getDateCreated(), updatedArtPiece.getPrice(), updatedArtPiece.getImgFileName(), artistId, updatedArtPiece.getArtID());
+		}
 	}
 
 	@Override
@@ -131,11 +154,14 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 		art.setPrice(row.getDouble("price"));
 		art.setImgFileName(row.getString("img_file_name"));
 		art.setSold(row.getBoolean("is_sold"));
-		art.setDealerId(row.getInt("dealer_id"));
 		art.setArtistId(row.getInt("artist_id"));
-		art.setDealer(row.getString("username"));
 		art.setHasOverride(row.getBoolean("has_override"));
-	
+		art.setAvailable(row.getBoolean("is_available"));
+		
+		if (row.getDouble("dealer_id") > 0) {
+			art.setDealerId(row.getInt("dealer_id"));
+		}
+		
 		if (row.getDouble("override_commission") >= 0 ) {
 			art.setCommissionOverride(row.getDouble("override_commission"));
 		}
@@ -158,6 +184,28 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 		String sql = "SELECT dealer_id FROM dealer JOIN users ON users.user_id = dealer.user_id WHERE username = ?";
 		return jdbcTemplate.queryForObject(sql, Integer.class, dealerName);
 	}
+	
+	private ArtPiece mapArtistSeller(ArtPiece art) {
+		
+		String sql = "SELECT artist_id, user_id, artist_name, is_seller FROM artist WHERE artist_id = ?";
+		SqlRowSet row = jdbcTemplate.queryForRowSet(sql, art.getArtistId());
+		row.next();
+		art.setSeller(row.getBoolean("is_seller"));
+		
+		return art;
+	}
+	
+	private ArtPiece mapDealerToArt(ArtPiece art) {
+		
+		String sql = "SELECT username FROM dealer " + 
+				"JOIN users ON users.user_id = dealer.user_id WHERE dealer_id = ?";
+		String dealerName = jdbcTemplate.queryForObject(sql, String.class, art.getDealerId());
+		
+		art.setDealer(dealerName);
+		
+		return art;
+	}
+	
 
 
 
