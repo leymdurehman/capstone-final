@@ -134,6 +134,6 @@ h1 {
   flex-wrap: wrap;
 }
 
-input[type=text], [type=date], [type=number], [type=password]{
+input[type=text], [type=date], [type=number], [type=password], [type=email]{
   border-radius: 7px;
 }
