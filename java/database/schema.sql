@@ -24,11 +24,16 @@ CREATE TABLE users (
 	username varchar(50) NOT NULL,
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
+	email varchar(250) NOT NULL,
+	
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
-INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
-INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
+INSERT INTO users (username,password_hash,role, email) VALUES ('customer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER', 'customer@email.com');
+INSERT INTO users (username,password_hash,role, email) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN', 'admin@email.com');
+INSERT INTO users (username,password_hash,role, email) VALUES ('artist','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ARTIST', 'artist@email.com');
+INSERT INTO users (username,password_hash,role, email) VALUES ('dealer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_DEALER', 'dealer@email.com');
+INSERT INTO users (username,password_hash,role, email) VALUES ('seller','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_SELLER', 'seller@email.com');
 
 
 

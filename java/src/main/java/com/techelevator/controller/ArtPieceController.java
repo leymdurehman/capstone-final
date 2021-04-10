@@ -31,7 +31,7 @@ public class ArtPieceController {
 		this.artDAO = artDAO;
 	}
 	
-	@PreAuthorize("hasRole('DEALER', 'ARTIST', 'SELLER', 'ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEALER') or hasRole('ROLE_ARTIST') or hasRole('ROLE_SELLER')")
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path = "/createListing", method=RequestMethod.POST)
 	public void createListing( @RequestBody ArtPiece art){
