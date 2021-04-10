@@ -15,6 +15,7 @@ public class User {
    @JsonIgnore
    private boolean activated;
    private Set<Authority> authorities = new HashSet<>();
+   private String email;
 
    public User() { }
 
@@ -99,4 +100,12 @@ public class User {
               ", authorities=" + authorities +
               '}';
    }
+
+public String getEmail() {
+	return email;
+}
+
+public void setEmail(String email) {
+	this.email = email;
+}
 }

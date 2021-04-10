@@ -17,12 +17,15 @@
         <button id="goBack">BACK</button>
         </router-link>
     </div>
-    <div>
+      <div>
 
       <!-- <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"></div> -->
-        <router-link v-bind:to="{ name: 'EditArt' , params: { artId: artPiece.artID }}">
+      <div id="editAuth" v-if="$store.state.user.authorities[0].name == ('ROLE_ADMIN')">
+        <router-link v-bind:to="{ name: 'EditArt' , params: { artId: artPiece.artID }}" >
             <button v-if="!artPiece.sold" id="editArt">EDIT</button>
         </router-link>
+      </div>
+        
     </div>
     <div>
       <router-link v-bind:to="{ name: 'Transaction' , params: { artId: artPiece.artID }}">
