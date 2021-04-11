@@ -34,11 +34,7 @@
 </template>
 
 <script>
-
 import transactionService from "@/services/TransactionService.js";
-
-
-
 export default {
     data() {
     return {

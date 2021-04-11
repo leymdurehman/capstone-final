@@ -90,6 +90,7 @@ CREATE TABLE art_pieces (
         override_fee numeric,
         override_commission numeric,
         has_override boolean default false,
+        is_available boolean default false,
     
         
         CONSTRAINT fk_art_pieces_artist_id FOREIGN KEY (artist_id) REFERENCES artist (artist_id),

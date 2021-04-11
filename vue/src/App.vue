@@ -50,6 +50,7 @@
   </div>
 </template>
 
+
 <style scoped>
 #logo {
   width: 180px;
@@ -91,7 +92,7 @@
   background-color: #ab3f29d0;
   margin-right: 100px;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   border-right: 15px solid #ab3f29;
 }
 
