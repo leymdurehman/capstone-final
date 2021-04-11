@@ -65,7 +65,7 @@ export default {
             return x.sold;
         });
 
-        if (this.$store.state.user.authorities[0].name == 'ROLE_ARTIST'){
+        if ((this.$store.state.user.authorities[0].name == 'ROLE_ARTIST') || (this.$store.state.user.authorities[0].name == 'ROLE_SELLER')){
             const soldForArtist = soldArt.filter((x) => {
             return x.artist === this.$store.state.user.username;
             });
@@ -90,7 +90,26 @@ export default {
                 return x.available;
          });
             numOfAvailableArt = availableArt.length;
+        }
 
+        let availableArt = [];
+
+        availableArt = this.$store.state.artPieceData.filter((x) => {
+            return x.available;
+        });
+
+        if ((this.$store.state.user.authorities[0].name == 'ROLE_ARTIST') || (this.$store.state.user.authorities[0].name == 'ROLE_SELLER')){
+            const availableForArtist = availableArt.filter((x) => {
+            return x.artist === this.$store.state.user.username;
+            });
+         numOfAvailableArt = availableForArtist.length;
+        }
+
+        if (this.$store.state.user.authorities[0].name == 'ROLE_DEALER'){
+            const availableForDealer = availableArt.filter((x) => {
+            return x.dealer === this.$store.state.user.username;
+            });
+         numOfAvailableArt = availableForDealer.length;
         }
 
         return numOfAvailableArt;
@@ -98,13 +117,32 @@ export default {
     },
     totalUnavailable() {
 
-        let numOfUnavailableArt = 0;
+         let numOfUnavailableArt = 0;
         if(this.$store.state.user.authorities[0].name == 'ROLE_ADMIN'){
-
             const unavailableArt = this.$store.state.artPieceData.filter((x) => {
                 return !x.available;
-        });
+         });
             numOfUnavailableArt = unavailableArt.length;
+        }
+
+        let unavailableArt = [];
+
+        unavailableArt = this.$store.state.artPieceData.filter((x) => {
+            return !x.available;
+        });
+
+        if ((this.$store.state.user.authorities[0].name == 'ROLE_ARTIST') || (this.$store.state.user.authorities[0].name == 'ROLE_SELLER')){
+            const unavailableForArtist = unavailableArt.filter((x) => {
+            return x.artist === this.$store.state.user.username;
+            });
+         numOfUnavailableArt = unavailableForArtist.length;
+        }
+
+        if (this.$store.state.user.authorities[0].name == 'ROLE_DEALER'){
+            const unavailableForDealer = unavailableArt.filter((x) => {
+            return x.dealer === this.$store.state.user.username;
+            });
+         numOfUnavailableArt = unavailableForDealer.length;
         }
 
         return numOfUnavailableArt;
