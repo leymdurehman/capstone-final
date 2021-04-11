@@ -26,7 +26,7 @@ h1 {
 }
 
 
-@media(max-width: 800px) {
+/* @media(max-width: 800px) {
 
   .sidenav a, #menuTab{
     padding: 20px;
@@ -34,11 +34,11 @@ h1 {
     left: -100px; 
     font-size: 15px;
     text-align: end;
-    transition: none; /* Add transition on hover */
+    transition: none;
 
   }
   .sidenav a:hover {
-    left: -100px; /* On mouse-over, make the elements appear as they should */
+    left: -100px; 
   }
   
   #menuTab {
@@ -74,17 +74,17 @@ h1 {
     background-color: #ab3f29d0;
   }
 }
+*/
 
+@media(max-width: 700px) {
 
-@media(max-width: 500px) {
-
-  .sidenav a, #menuTab{
+  /* .sidenav a, #menuTab{
     position: absolute;
     padding: 4px;
     margin-top: 0px;
     font-size: 1em;
     text-align: right;
-    transition: none; /* Add transition on hover */
+    transition: none;
   }
   
   
@@ -115,9 +115,9 @@ h1 {
   #settings {
     top: 150px;
     background-color: #ab3f29d0;
-  }
+  } */
 
-}
+} 
 
 .card .art-title {
   font-size: 1.5rem;
