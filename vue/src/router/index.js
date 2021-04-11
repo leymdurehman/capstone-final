@@ -65,7 +65,7 @@ const router = new Router({
       }
     },
     {
-      path: "/createListing",
+      path: "/addListing",
       name: "AddArt",
       component: AddArt,
       meta: {
