@@ -45,9 +45,6 @@ export default {
     );
   },
   computed: {
-  //   totalNumberOfArt() {
-  //     return this.artPieces.length;
-  //   },
     totalNumberSold() {
 
         let numOfArtSold = 0;
@@ -153,23 +150,10 @@ export default {
     artPieceService
       .getAllListings()
       .then((response) => {
-        // this.artPieces = response.data;
-        // this.numberOfArtPieces = this.artPieces.length;
-        // this.numOfArtPiecesSold = this.totalNumberSold();
-        // this.numOfArtPiecesForSale = this.numberOfArtPieces - this.numberOfArtPiecesSold;
         this.$store.commit("SET_ART_DATA", response.data);
       })
       .catch((err) => console.error(err));
   }
-  // ,
-  // methods: {
-  //   totalNumberSold() {
-  //     const soldArt = this.artPieces.filter((x) => {
-  //       return x.sold;
-  //     });
-  //      return soldArt.length;
-  //   }
-  // }
 }
 </script>
 <style scoped>

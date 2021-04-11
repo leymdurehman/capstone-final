@@ -52,7 +52,7 @@ public class ArtPieceController {
 	}
 	
 
-	@PreAuthorize("hasRole('ADMIN', 'DEALER', 'SELLER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEALER') or hasRole('ROLE_ARTIST') or hasRole('ROLE_SELLER')")
 	@RequestMapping(path="/edit", method=RequestMethod.PUT)
 	public void updateArtPiece(@RequestBody ArtPiece art) {
 		

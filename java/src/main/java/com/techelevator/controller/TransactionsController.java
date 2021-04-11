@@ -1,5 +1,7 @@
 package com.techelevator.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -43,7 +45,10 @@ public class TransactionsController {
 		return dao.getFees();
 	}
 	
-	
+	@RequestMapping(path = "/transactions", method=RequestMethod.GET)
+	public List<Transaction> getAllTransactions(){
+		return dao.getAllTransactions();
+	}
 
 	
 	
