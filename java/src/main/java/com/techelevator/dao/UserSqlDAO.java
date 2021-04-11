@@ -83,8 +83,39 @@ public class UserSqlDAO implements UserDAO {
                 }
                 , keyHolder) == 1;
         int newUserId = (int) keyHolder.getKeys().get(id_column);
+        
+        insertRoleToTable(ssRole, newUserId, username);
+        
 
         return userCreated;
+    }
+    
+    private void insertRoleToTable(String role, int userId, String username) {
+    	String sql = "";
+    	
+    	if(!(role.equalsIgnoreCase("ROLE_ARTIST") || (role.equalsIgnoreCase("ROLE_SELLER")))) {
+    		
+    		if (role.equalsIgnoreCase("ROLE_ADMIN")) {
+        		sql =  "INSERT INTO management (manager_id, user_id) VALUES (DEFAULT, ?)";
+        	}
+        	if (role.equalsIgnoreCase("ROLE_DEALER")) {
+        		sql = "INSERT INTO dealer (dealer_id, user_id) VALUES (DEFAULT, ?)";
+        	}
+        	if (role.equalsIgnoreCase("ROLE_USER")) {
+        		sql = "INSERT INTO customer (customer_id, user_id) VALUES (DEFAULT, ?)";
+        	}
+        	jdbcTemplate.update(sql, userId);
+    	}
+    	
+    	if(role.equalsIgnoreCase("ROLE_ARTIST")) {
+    		sql = "INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT, ?, ?, ?)";
+    		jdbcTemplate.update(sql, userId, username, false);
+    	}
+    	if(role.equalsIgnoreCase("ROLE_SELLER")) {
+    		sql = "INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT, ?, ?, ?)";
+    		jdbcTemplate.update(sql, userId, username, true);
+    	}
+    	
     }
 
     private User mapRowToUser(SqlRowSet rs) {
