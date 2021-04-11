@@ -76,7 +76,7 @@
   color: #f4f4f4eb;
   font-family: "Quicksand", sans-serif;
   text-align: right;
-  top: 20px;
+  top: 10px;
   padding: 20px;
   width: 400px;
   font-size: 20px; /* Increase font size */
@@ -86,9 +86,12 @@
 #menuTab {
   background-color: #ab3f29;
   padding: 20px;
-  margin: 10px 10px;
+  padding-right: 40px;
+  margin: 5px;
+  margin-right: -30px;
   border-radius: 5px;
   font-weight: bolder;
+  text-decoration: underline;
 }
 
 /* Style the links inside the sidenav */
@@ -111,8 +114,14 @@
 .tab:hover {
   margin-right: -30px;
 }
-.router-link-exact-active{
+.router-link-active{
   margin-right: -30px;
   background-color: #ab3f29;
+}
+
+@media(max-width: 700px) {
+  .router-link-active{
+    margin-right: 100px;
+  }
 }
 </style>
