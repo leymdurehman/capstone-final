@@ -35,15 +35,27 @@
           >Logout</router-link
         >
 
+        <div id="authMyAccount" v-if="$store.state.token != ''">
+          <router-link
+            class="tab"
+            id="myAccount"
+            v-bind:to="{ name: 'MyAccount' }"
+            v-if="$store.state.user.authorities[0].name != 'ROLE_USER'"
+          >
+            My Account</router-link
+          >
+        </div>
+
         <div id="authSettings" v-if="$store.state.token != ''">
           <router-link
             class="tab"
             id="settings"
             v-bind:to="{ name: 'Settings' }"
-            v-if="$store.state.user.authorities[0].name == 'ROLE_ADMIN'"
+            v-if="$store.state.user.authorities[0].name == 'ROLE_ADMIN' || 'ROLE_DEALER'"
             >Settings</router-link
           >
         </div>
+
       </div>
       <router-view />
     </div>
@@ -64,7 +76,7 @@
   color: #f4f4f4eb;
   font-family: "Quicksand", sans-serif;
   text-align: right;
-  top: 20px;
+  top: 10px;
   padding: 20px;
   width: 400px;
   font-size: 20px; /* Increase font size */
@@ -74,9 +86,12 @@
 #menuTab {
   background-color: #ab3f29;
   padding: 20px;
-  margin: 10px 10px;
+  padding-right: 40px;
+  margin: 5px;
+  margin-right: -30px;
   border-radius: 5px;
   font-weight: bolder;
+  text-decoration: underline;
 }
 
 /* Style the links inside the sidenav */
@@ -99,8 +114,14 @@
 .tab:hover {
   margin-right: -30px;
 }
-.router-link-exact-active{
+.router-link-active{
   margin-right: -30px;
   background-color: #ab3f29;
+}
+
+@media(max-width: 700px) {
+  .router-link-active{
+    margin-right: 100px;
+  }
 }
 </style>

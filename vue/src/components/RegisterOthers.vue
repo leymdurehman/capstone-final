@@ -41,9 +41,8 @@
         required
       />
       <div id="dropdownMenu">
-        <label for="cars">Choose a role:</label>
-
-        <select name="cars" id="cars" v-model="user.role">
+        <label for="role">Choose a role:</label>
+        <select name="role" id="role" v-model="user.role">
           <option value="admin">Manager</option>
           <option value="dealer">Dealer</option>
           <option value="artist">Artist</option>

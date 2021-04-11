@@ -30,6 +30,10 @@ const router = new Router({
   routes: [
     {
       path: '/',
+      redirect: '/home'
+    },
+    {
+      path: '/home',
       name: 'home',
       component: Home,
       meta: {
@@ -61,7 +65,7 @@ const router = new Router({
       }
     },
     {
-      path: "/createListing",
+      path: "/addListing",
       name: "AddArt",
       component: AddArt,
       meta: {

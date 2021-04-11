@@ -190,8 +190,8 @@ export default {
   color: #f4f4f4eb;
   font-family: "Quicksand", sans-serif;
   margin: 20px auto;
-  padding: 20px;
-  width: 70%;
+  padding: 40px;
+  width: fit-content;
   height: auto;
 }
 
@@ -220,7 +220,7 @@ form :last-child {
 
 div#edit-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 400px);
+  grid-template-columns: repeat(auto-fit);
   grid-template-areas: ". image details";
   justify-content: center;
 }
