@@ -44,8 +44,8 @@
         <label for="cars">Choose a role:</label>
 
         <select name="cars" id="cars" v-model="user.role">
-          <option value="admin">Manager</option>
-          <option value="dealer">Dealer</option>
+          <option value="admin" v-show="$store.state.user.authorities[0].name == 'ROLE_ADMIN'">Manager</option>
+          <option value="dealer" v-show="$store.state.user.authorities[0].name == 'ROLE_ADMIN'">Dealer</option>
           <option value="artist">Artist</option>
           <option value="seller">Seller</option>
         </select>

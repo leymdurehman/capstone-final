@@ -35,15 +35,27 @@
           >Logout</router-link
         >
 
+        <div id="authMyAccount" v-if="$store.state.token != ''">
+          <router-link
+            class="tab"
+            id="myAccount"
+            v-bind:to="{ name: 'MyAccount' }"
+            v-if="$store.state.user.authorities[0].name != 'ROLE_USER'"
+          >
+            My Account</router-link
+          >
+        </div>
+
         <div id="authSettings" v-if="$store.state.token != ''">
           <router-link
             class="tab"
             id="settings"
             v-bind:to="{ name: 'Settings' }"
-            v-if="$store.state.user.authorities[0].name == 'ROLE_ADMIN'"
+            v-if="$store.state.user.authorities[0].name == 'ROLE_ADMIN' || 'ROLE_DEALER'"
             >Settings</router-link
           >
         </div>
+
       </div>
       <router-view />
     </div>
