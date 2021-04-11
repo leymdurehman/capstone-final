@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Create Listing</h1>
+    <h1>Add Listing</h1>
     <create-listing />
   </div>
 </template>
