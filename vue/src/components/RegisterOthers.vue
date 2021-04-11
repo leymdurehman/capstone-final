@@ -41,7 +41,7 @@
         required
       />
       <div id="dropdownMenu">
-        <label for="role">Choose a role:</label>
+        <label for="role">Choose a role: </label>
         <select name="role" id="role" v-model="user.role">
           <option value="admin">Manager</option>
           <option value="dealer">Dealer</option>
@@ -50,7 +50,6 @@
         </select>
       </div>
 
-      <router-link :to="{ name: 'login' }">Have an account?</router-link>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
       </button>

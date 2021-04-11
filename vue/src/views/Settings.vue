@@ -7,7 +7,7 @@
     <fee-settings/>
 
     <div>
-      <h2 class="override">Override Default Fee</h2>
+      <h2 class="override">Override Default Fees</h2>
       <div class="art-container">
         <settings-display-art
           v-for="artPiece in $store.state.artPieceData"
@@ -77,19 +77,17 @@ export default {
 </script>
 
 <style scoped>
-
-
-.override {
+h2 {
   color: #ffffff;
   font-family: "Quicksand", sans-serif;
-  font-size: 24px;
+  /* font-size: 24px; */
   font-weight: 700;
   line-height: 25px;
   margin-top: 1em;
   margin-left: 0em;
   margin-bottom: 1em;
   text-shadow: 2px 2px #2b2929fb;
-
   text-align: center;
 }
+
 </style>
