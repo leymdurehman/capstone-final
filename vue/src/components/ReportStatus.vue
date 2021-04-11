@@ -1,7 +1,6 @@
 <template>
     <div>
         <div id="reportStatus">
-            <h2>{{$store.state.user}}</h2>
         <h1>Status Report</h1>
         <h2>Total number of art in Gallery: {{totalNumberOfArt}}</h2>
         <h2>Total number of sold art: {{totalNumberSold}}</h2>
@@ -12,28 +11,36 @@
         <div class="pietest">
         <PieChart/>
         </div>
+        
+        <div id="reportStatus">
+          <transaction-status/>
+        </div>
 
     </div>
     
 </template>
 
 <script>
-// import firebase from "firebase";
 import artPieceService from "@/services/ArtPieceService.js";
-import PieChart from "../components/PieChart.vue"
-// import transactionService from "@/services/TransactionService.js";
+import PieChart from "../components/PieChart.vue";
+import TransactionStatus from './TransactionStatus.vue';
+
+
+
+
 export default {
   name: "ReportStatus",
   components: {
-      PieChart
+    PieChart,
+    TransactionStatus
+    
   },
   data() {
     return {
-        
-      grossRevenue: 0,
-      netProfits: 0,
-      totalCommissionsPaid: 0,
-      totalPaidToArtists: 0,
+      // grossRevenue: 0,
+      // netProfits: 0,
+      // totalCommissionsPaid: 0,
+      // totalPaidToArtists: 0,
       artPieces: [],
       transactions: null,
     };

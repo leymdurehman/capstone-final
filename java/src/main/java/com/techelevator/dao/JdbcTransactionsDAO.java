@@ -74,7 +74,7 @@ public class JdbcTransactionsDAO implements TransactionsDao{
 		
 		//
 		
-		String sql = "SELECT order_id, customer_id, price, transactions.art_id, date_of_sale, fee, commission, total_price, users.username, artist.artist_name FROM artist \n" + 
+		String sql = "SELECT order_id, customer_id, price, transactions.art_id, date_of_sale, fee, commission, total_price, users.username, artist.artist_name, img_file_name, title FROM artist \n" + 
 				"JOIN art_pieces ON art_pieces.artist_id = artist.artist_id\n" + 
 				"JOIN dealer ON art_pieces.dealer_id = dealer.dealer_id\n" + 
 				"JOIN users ON users.user_id = dealer.user_id\n" + 
@@ -100,6 +100,8 @@ public class JdbcTransactionsDAO implements TransactionsDao{
 		
 		Transaction transaction = new Transaction();
 		
+		transaction.setTitle(row.getString("title"));
+		transaction.setImgFileName(row.getString("img_file_name"));
 		transaction.setOrderId(row.getInt("order_id"));
 		transaction.setCustomerId(row.getInt("customer_id"));
 		transaction.setPrice(row.getDouble("price"));
