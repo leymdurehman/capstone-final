@@ -4,9 +4,12 @@
 
     <register-others />
 
-    <fee-settings/>
+    <div v-show="$store.state.user.authorities[0].name == 'ROLE_ADMIN'">
+      <fee-settings/>
+    </div>
+    
 
-    <div>
+    <div v-if="$store.state.user.authorities[0].name == 'ROLE_ADMIN'">
       <h2 class="override">Override Default Fees</h2>
       <div class="art-container">
         <settings-display-art

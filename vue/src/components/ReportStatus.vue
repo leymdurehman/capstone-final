@@ -1,6 +1,7 @@
 <template>
     <div>
         <div id="reportStatus">
+            <!-- <h2>{{$store.state.user}}</h2> -->
         <h1>Status Report</h1>
         <h2>Total number of art in Gallery: {{totalNumberOfArt}}</h2>
         <h2>Total number of sold art: {{totalNumberSold}}</h2>
@@ -8,7 +9,9 @@
         <h2>Unavailable art for sale: {{totalUnavailable}}</h2>
         </div>
 
-        <pie-chart/>
+        <div class="pietest">
+        <PieChart/>
+        </div>
 
     </div>
     
@@ -79,7 +82,6 @@ export default {
   border-radius: 20px;
   top: 80px;
   width: fit-content;
-  min-width: 300px;
   padding: 40px;
   margin: auto;
   margin-bottom: 20px;
