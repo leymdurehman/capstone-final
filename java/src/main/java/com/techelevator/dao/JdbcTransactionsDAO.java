@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.techelevator.model.ArtPiece;
 import com.techelevator.model.Fee;
 import com.techelevator.model.Transaction;
+import com.techelevator.model.User;
 
 @Component
 public class JdbcTransactionsDAO implements TransactionsDao{
@@ -24,7 +25,7 @@ public class JdbcTransactionsDAO implements TransactionsDao{
 		
 	}
 
-	
+	@Override
 	public int createTransaction(Transaction transaction) {
 		
 		sellArt(transaction.getArtID());
@@ -35,15 +36,6 @@ public class JdbcTransactionsDAO implements TransactionsDao{
 		String sql = "INSERT INTO transactions (order_id, customer_id, art_id, date_of_sale, fee, commission, total_price) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?) RETURNING order_id";
 		
 		return jdbcTemplate.queryForObject(sql, int.class, transaction.getCustomerId(), transaction.getArtID(), dateSold, transaction.getFee(), transaction.getCommission(), transaction.getTotalPrice());
-		
-	}
-	
-	
-	private void sellArt(int artID) {
-		
-		String sql = "UPDATE art_pieces SET is_sold = true, is_available = false WHERE art_id = ?";
-		
-		jdbcTemplate.update(sql, artID);	
 		
 	}
 
@@ -139,7 +131,22 @@ public class JdbcTransactionsDAO implements TransactionsDao{
 		return transactions;
 	}
 	
-	public Transaction mapRowToTransaction(SqlRowSet row) {
+	@Override
+	public String getEmailByUsername(String name) {
+		String sql = "SELECT email FROM users WHERE username = ?";
+		return jdbcTemplate.queryForObject(sql, String.class, name);
+	}
+
+	
+	private void sellArt(int artID) {
+		
+		String sql = "UPDATE art_pieces SET is_sold = true, is_available = false WHERE art_id = ?";
+		
+		jdbcTemplate.update(sql, artID);	
+		
+	}
+	
+	private Transaction mapRowToTransaction(SqlRowSet row) {
 		
 		Transaction transaction = new Transaction();
 		

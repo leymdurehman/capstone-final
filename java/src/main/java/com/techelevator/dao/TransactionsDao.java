@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.techelevator.model.Fee;
 import com.techelevator.model.Transaction;
+import com.techelevator.model.User;
 
 public interface TransactionsDao {
 
@@ -14,4 +15,6 @@ public interface TransactionsDao {
 	public List<Transaction> getAllTransactions();
 	List<Transaction> getTransactions30Days();
 	List<Transaction> getTransactions7Days();
+	public String getEmailByUsername(String user);
+
 }
