@@ -15,7 +15,7 @@
       </h5>
       <h5 id="soldTag" v-if="artPiece.sold">SOLD</h5>
       <h4 id="unavailibleTag" v-if="!artPiece.available && !artPiece.sold">
-        *Available Soon*
+        Available Soon!
       </h4>
     </div>
     <div>
@@ -108,7 +108,7 @@ button {
 
 #artPrice {
   float: right;
-  margin-top: -50px;
+  margin-top: -60px;
 }
 
 .card {
@@ -137,10 +137,10 @@ button {
 
 #soldTag {
   float: right;
-  margin-right: -3px;
+  margin-top: -32px;
+  margin-left: 20px;
   font-size: 30px;
-  color: #000000d5;
-  font-weight: bold;
+  color: #000000;
 }
 
 #goBack {

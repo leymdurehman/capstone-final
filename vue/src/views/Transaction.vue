@@ -13,7 +13,7 @@
         <!-- <h3>Fee: ${{transaction.fee.toFixed(2)}}</h3>
         <h3>Commission: $ {{transaction.commission.toFixed(2)}}</h3> -->
         <h5>+ Additional Fees</h5>
-        <h3>Total Price: ${{ transaction.totalPrice.toFixed(2) }}</h3>
+        <h3>Total Price: ${{ transaction.totalPrice }}</h3>
         <button id="confirm" @click="startTransaction()">Confirm</button>
 
         <router-link
@@ -124,11 +124,11 @@ export default {
 #confirm-grid {
   background-color: #ab3f294b;
   border-radius: 20px;
-  color: #f4f4f4eb;
+  color: #fff;
   font-family: "Quicksand", sans-serif;
   margin: 20px auto;
   padding: 20px;
-  width: 60%;
+  width: fit-content;
   height: auto;
 }
 
@@ -144,37 +144,35 @@ export default {
 
 #right-confirm {
   grid-area: details;
+  align-self: center;
   padding: 5px;
 }
 
 #right-confirm > h3 {
-  padding-bottom: 5px;
-}
-
-#confirm {
-  margin-top: 10px;
+line-height: 2rem;
 }
 
 div#confirm-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 400px);
-  grid-template-areas: ". image details";
+  grid-template-columns: repeat(auto-fit);
+  grid-template-areas: "image details";
   justify-content: center;
 }
 
 @media (max-width: 720px) {
   div#confirm-grid {
     grid-template-areas:
-      ". image"
-      ". details";
+      "image"
+      "details";
     padding: 20px;
   }
 }
 
-#confirm {
+button {
+  margin-top: 10px;
   padding: 5px 15px;
   background-color: #ab3f29;
-  color: #f4f4f4eb;
+  color: #fff;
   border-radius: 5px;
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;

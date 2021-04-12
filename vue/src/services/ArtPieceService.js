@@ -33,8 +33,4 @@ export default {
   updateFeesToDefault(artID){
     return axios.put(`/setDefault/${artID}`)
   }
-
-
-
-
 }

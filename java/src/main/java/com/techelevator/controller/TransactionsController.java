@@ -49,9 +49,15 @@ public class TransactionsController {
 	public List<Transaction> getAllTransactions(){
 		return dao.getAllTransactions();
 	}
-
 	
+	@RequestMapping(path = "/transactions/30", method=RequestMethod.GET)
+	public List<Transaction> getTransactions30Days(){
+		return dao.getTransactions30Days();
+	}
 	
-	
+	@RequestMapping(path = "/transactions/7", method=RequestMethod.GET)
+	public List<Transaction> getTransactions7Days(){
+		return dao.getTransactions7Days();
+	}
 	
 }
