@@ -33,6 +33,8 @@
 import firebase from "firebase";
 import artPieceService from "@/services/ArtPieceService.js";
 import transactionService from "@/services/TransactionService.js";
+import emailjs from 'emailjs-com';
+
 export default {
   name: "transaction-details",
   data() {
@@ -43,9 +45,28 @@ export default {
       statusMessage: null,
       transaction: {},
       currentDefaultFees: {},
+      templateParams: {
+        name: '',
+        email: '',
+        message: ''
+      }
     };
   },
   methods: {
+    sendEmail() {
+      emailjs.send('service_wqs5fy5', 'template_jnzoczd', this.templateParams,
+      'user_9KaBtBto1Nl9wAegVd3Uh', {
+      }).then((result) => {
+          console.log('SUCCESS!', result.status, result.text);
+      }, (error) => {
+          console.log('FAILED...', error);
+      });
+
+      // Reset form field
+      this.name = ''
+      this.email = ''
+      this.message = ''
+    },
     isOverride() {
       if (this.artPiece.hasOverride) {
         this.transaction.commission = this.artPiece.commissionOverride;
@@ -67,6 +88,7 @@ export default {
         .then((response) => {
           if (response.status == 201) {
             alert("Order has been confirmed! \nThank you for your purchase!");
+            this.sendEmail();
             this.$router.push({ path: "/" });
           }
         })

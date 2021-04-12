@@ -24,5 +24,9 @@ export default {
 
     getTransactions7Days(){
       return axios.get('/transactions/7')
+    },
+
+    getEmail(username){
+      return axios.get(`/transaction/${username}`)
     }
 }

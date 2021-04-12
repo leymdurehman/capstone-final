@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -58,6 +59,11 @@ public class TransactionsController {
 	@RequestMapping(path = "/transactions/7", method=RequestMethod.GET)
 	public List<Transaction> getTransactions7Days(){
 		return dao.getTransactions7Days();
+	}
+	
+	@RequestMapping(path = "/transaction/{username}", method=RequestMethod.GET)
+	public String getUserEmail(@PathVariable("username") String username) {
+		return dao.getEmailByUsername(username);
 	}
 	
 }
