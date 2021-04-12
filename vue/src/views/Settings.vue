@@ -19,6 +19,7 @@
         />
       </div>
     </div>
+
   </div>
 </template>
 
@@ -34,7 +35,7 @@ export default {
   components: {
     SettingsDisplayArt,
     RegisterOthers,
-    FeeSettings,
+    FeeSettings
   },
 
   data() {
