@@ -1,35 +1,25 @@
 <template>
-    <div>
-        <div id="reportStatus">
-            <!-- <h2>{{$store.state.user}}</h2> -->
-        <h1>Status Report</h1>
-        <h2>Total number of art in Gallery: {{totalNumberOfArt}}</h2>
-        <h2>Total number of sold art: {{totalNumberSold}}</h2>
-        <h2>Available art for sale: {{totalAvailable}}</h2>
-        <h2>Unavailable art for sale: {{totalUnavailable}}</h2>
-        </div>
-
-        <div class="pietest">
-        <PieChart/>
-        </div>
-
-    </div>
-    
+  <div id="report-status">
+    <h2>Status Report</h2>
+    <h3>Total number of art in Gallery: {{ totalNumberOfArt }}</h3>
+    <h3>Total number of sold art: {{ totalNumberSold }}</h3>
+    <h3>Available art for sale: {{ totalAvailable }}</h3>
+    <h3>Unavailable art for sale: {{ totalUnavailable }}</h3>
+  </div>
 </template>
 
 <script>
 // import firebase from "firebase";
 import artPieceService from "@/services/ArtPieceService.js";
-import PieChart from "../components/PieChart.vue"
+import PieChart from "../components/PieChart.vue";
 // import transactionService from "@/services/TransactionService.js";
 export default {
   name: "ReportStatus",
   components: {
-      PieChart
+    PieChart,
   },
   data() {
     return {
-        
       grossRevenue: 0,
       netProfits: 0,
       totalCommissionsPaid: 0,
@@ -64,7 +54,6 @@ export default {
   },
 
   created() {
-   
     artPieceService
       .getAllListings()
       .then((response) => {
@@ -72,15 +61,14 @@ export default {
         this.$store.commit("SET_ART_DATA", response.data);
       })
       .catch((err) => console.error(err));
-  }
+  },
 };
 </script>
 
 <style scoped>
-#reportStatus {
+#report-status {
   background-color: #ab3f294b;
   border-radius: 20px;
-  top: 80px;
   width: fit-content;
   padding: 40px;
   margin: auto;

@@ -83,14 +83,20 @@ export default {
 h2 {
   color: #ffffff;
   font-family: "Quicksand", sans-serif;
-  /* font-size: 24px; */
   font-weight: 700;
   line-height: 25px;
   margin-top: 1em;
-  margin-left: 0em;
   margin-bottom: 1em;
   text-shadow: 2px 2px #2b2929fb;
   text-align: center;
+  font-style: italic;
 }
 
+.art-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  max-width: 75%;
+  margin: auto;
+}
 </style>

@@ -2,7 +2,7 @@
   <div>
     <h1>Featured Art</h1>
     <div class="art-container">
-      <display-art
+      <display-art class="art-card"
         v-for="artPiece in $store.state.artPieceData"
         v-bind:key="artPiece.artID"
         v-bind:artPiece="artPiece"
@@ -31,5 +31,20 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.art-card {
+  display: flex;
+  align-self: center;
+  justify-self: center;
+  margin: 30px;
+  width: 400px;
+}
+
+.art-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  max-width: 75%;
+  margin: auto;
+}
 </style>

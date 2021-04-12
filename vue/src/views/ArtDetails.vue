@@ -7,30 +7,42 @@
       </h2>
       <h3>{{ artPiece.dateCreated }}</h3>
       <h4>{{ artPiece.artist }}</h4>
-      <h5 id="artPrice" v-if="!artPiece.sold">${{ artPiece.price.toFixed(2) }}</h5>
-      <h5 id="soldArt" v-if="artPiece.sold">${{ artPiece.price.toFixed(2) }}</h5>
-      <h5 id= "soldTag" v-if="artPiece.sold">SOLD</h5>
-      </div>
+      <h5 id="artPrice" v-if="!artPiece.sold">
+        ${{ artPiece.price.toFixed(2) }}
+      </h5>
+      <h5 id="soldArt" v-if="artPiece.sold">
+        ${{ artPiece.price.toFixed(2) }}
+      </h5>
+      <h5 id="soldTag" v-if="artPiece.sold">SOLD</h5>
+      <h4 id="unavailibleTag" v-if="!artPiece.available && !artPiece.sold">
+        *Available Soon*
+      </h4>
+    </div>
     <div>
-        <router-link
-      v-bind:to="{ name: 'home'}">
+      <router-link v-bind:to="{ name: 'home' }">
         <button id="goBack">BACK</button>
-        </router-link>
-    </div>
-      <div>
-
-      <!-- <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }"></div> -->
-      <div id="editAuth" v-if="$store.state.user.authorities[0].name == ('ROLE_ADMIN')">
-        <router-link v-bind:to="{ name: 'EditArt' , params: { artId: artPiece.artID }}" >
-            <button v-if="!artPiece.sold" id="editArt">EDIT</button>
-        </router-link>
-      </div>
-        
+      </router-link>
     </div>
     <div>
-      <router-link v-bind:to="{ name: 'Transaction' , params: { artId: artPiece.artID }}">
-        <button v-if="!artPiece.sold" class="buy">BUY</button>
+      <router-link
+        v-bind:to="{ name: 'Transaction', params: { artId: artPiece.artID } }"
+      >
+        <button v-if="!artPiece.sold && artPiece.available" class="buy">
+          BUY
+        </button>
       </router-link>
+    </div>
+    <div>
+      <div
+        id="editAuth"
+        v-if="$store.state.user.authorities[0].name == 'ROLE_ADMIN'"
+      >
+        <router-link
+          v-bind:to="{ name: 'EditArt', params: { artId: artPiece.artID } }"
+        >
+          <button v-if="!artPiece.sold" id="editArt">EDIT</button>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -65,71 +77,56 @@ export default {
         });
       })
       .catch((error) => {
-      const response = error.response
-      console.log(response);
+        const response = error.response;
+        console.log(response);
       });
-  }
+  },
 };
 </script>
 
-<style>
-
-
-
-
-
-
+<style scoped>
+* {
+  color: #fff;
+}
 .myImg {
   width: 100%;
   height: auto;
 }
 
-.info {
-  text-align: left;
+button {
+  border: none;
+  float: right;
+  padding: 5px;
+  width: 50px;
+  background-color: #ab3f29;
+  border-radius: 5px;
+  box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
+  cursor: pointer;
+  margin: 5px;
+  margin-top: -30px;
 }
 
 #artPrice {
-  /* display: flex; */
   float: right;
-  margin-top: -57px;
+  margin-top: -50px;
 }
 
-.buy {
-  float: right;
-  margin-top: -65px;
-  padding: 5px 15px;
-  margin-right: -3px;
-  background-color: #ab3f29;
-  color: #f4f4f4eb;
-  border-radius: 5px;
-  border: none;
-  box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
-  cursor: pointer;
-}
 .card {
-  margin: auto auto 20px auto;
-}
-
-#editArt{
-  float: right;
-  margin-right: 65px;
-  margin-top: -65px;
-  padding: 5px 15px;
-  background-color: #ab3f29;
-  color: #f4f4f4eb;
+  margin: auto;
+  margin-bottom: 20px;
+  background-color: #ab3f2969;
+  border-width: 3px;
+  box-shadow: 2px 2px 2px 2px #ab3f2985;
+  border-color: #ab3f29;
   border-radius: 5px;
-  border: none;
-  box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
-  cursor: pointer;
+  width: 400px;
+  height: auto;
+  padding: 15px;
 }
 
-@media(max-width: 500px) {
-  #editArt{
-    padding: 5px;
-    margin-right: 50px;
-  }
-  .buy {
-    padding: 5px;
+@media (max-width: 500px) {
+  .card {
+      width: 300px;
   }
 }
 #soldArt {
@@ -140,27 +137,13 @@ export default {
 
 #soldTag {
   float: right;
-  margin-top: -35px;
   margin-right: -3px;
   font-size: 30px;
-  color:  #000000d5;
+  color: #000000d5;
   font-weight: bold;
 }
 
-#goBack{
-  
-  
-  
-  
-  float: right;
-  margin-top: 5px;
-  margin-right: -3px;
-  padding: 5px 11px;
-  background-color: #ab3f29;
-  color: #f4f4f4eb;
-  border-radius: 5px;
-  border: none;
-  box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
-  cursor: pointer;
+#goBack {
+  margin-right: 0;
 }
 </style>

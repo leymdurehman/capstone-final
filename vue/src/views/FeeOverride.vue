@@ -189,9 +189,11 @@ export default {
   border-radius: 20px;
   color: #f4f4f4eb;
   font-family: "Quicksand", sans-serif;
-  margin: 20px auto;
+  margin: auto;
+  margin-bottom: 20px;
   padding: 40px;
-  width: fit-content;
+  width: 75%;
+  max-width: 800px;
   height: auto;
 }
 
@@ -225,11 +227,11 @@ div#edit-grid {
   justify-content: center;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 800px) {
   div#edit-grid {
     grid-template-areas:
-      ". image"
-      ". details";
+      "image"
+      "details";
     padding: 20px;
   }
 }
