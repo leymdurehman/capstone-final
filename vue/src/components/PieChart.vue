@@ -113,14 +113,17 @@ export default {
       let numOfUnavailableArt = 0;
       if (this.$store.state.user.authorities[0].name == "ROLE_ADMIN") {
         const unavailableArt = this.$store.state.artPieceData.filter((x) => {
-          return !x.available;
+          return !x.available && !x.sold;
         });
         numOfUnavailableArt = unavailableArt.length;
       }
+
+      
       let unavailableArt = [];
       unavailableArt = this.$store.state.artPieceData.filter((x) => {
-        return !x.available;
+        return !x.available && !x.sold;
       });
+
       if (
         this.$store.state.user.authorities[0].name == "ROLE_ARTIST" ||
         this.$store.state.user.authorities[0].name == "ROLE_SELLER"
