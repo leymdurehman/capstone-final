@@ -1,5 +1,6 @@
 <script>
 import artPieceService from "@/services/ArtPieceService.js";
+import transactionService from "@/services/TransactionService.js";
 import { Pie } from "vue-chartjs";
 export default {
     extends: Pie,
@@ -10,13 +11,27 @@ export default {
       // totalCommissionsPaid: 0,
       // totalPaidToArtists: 0,
       artPieces: [],
+      transactions: [],
       numberOfArtPieces: 0,
       numOfArtPiecesSold: 0,
       numOfArtPiecesForSale: 0
       // transactions: null,
     };
   },
-   mounted() {
+    methods: {
+        getArtistTransactions(){
+            this.currentArtistTransaction = this.transactions.filter((x) => {
+            return x.artist === this.$store.state.user.username;
+            });
+        },
+        getDealerTransactions(){
+            this.currentDealerTransaction = this.transactions.filter((x) => {
+            return x.dealer === this.$store.state.user.username;
+            });
+        }
+    }
+    ,
+    mounted() {
     this.gradient = this.$refs.canvas
       .getContext("2d")
       .createLinearGradient(0, 0, 0, 450);
@@ -35,7 +50,7 @@ export default {
         datasets: [
           {
             backgroundColor: [this.gradient, this.gradient2, "#00D8FF"],
-            data: [this.totalNumberSold, this.totalAvailable, this.totalUnavailable]
+            data: [this.totalNumberSold, (this.totalAvailable + this.totalUnavailable)]
           }
         ]
       },
@@ -43,34 +58,35 @@ export default {
     );
   },
   computed: {
-  //   totalNumberOfArt() {
-  //     return this.artPieces.length;
-  //   },
+    totalNumberOfArt() {
+      return this.artPieces.length;
+    },
     totalNumberSold() {
         let numOfArtSold = 0;
+
+        // admin art - all art sold in last 30 days
         if(this.$store.state.user.authorities[0].name == 'ROLE_ADMIN'){
-             const soldArt = this.$store.state.artPieceData.filter((x) => {
-                return x.sold;
-        });
+             let soldArt = this.$store.state.transactionData;
             numOfArtSold = soldArt.length;
         }
-        let soldArt = [];
-        soldArt = this.$store.state.artPieceData.filter((x) => {
-            return x.sold;
-        });
+        
+        
+        //artist sold - all art sold in last 30 days by ARTIST name
         if ((this.$store.state.user.authorities[0].name == 'ROLE_ARTIST') || (this.$store.state.user.authorities[0].name == 'ROLE_SELLER')){
-            const soldForArtist = soldArt.filter((x) => {
+            const soldForArtist = this.$store.state.transactionData.filter((x) => {
             return x.artist === this.$store.state.user.username;
             });
          numOfArtSold = soldForArtist.length;
         }
+
+        //dealer sold
         if (this.$store.state.user.authorities[0].name == 'ROLE_DEALER'){
-            const soldForDealer = soldArt.filter((x) => {
+            const soldForDealer = this.$store.state.transactionData.filter((x) => {
             return x.dealer === this.$store.state.user.username;
             });
          numOfArtSold = soldForDealer.length;
         }
-            return numOfArtSold
+            return numOfArtSold;
     },
     totalAvailable() {
         let numOfAvailableArt = 0;
@@ -125,6 +141,7 @@ export default {
         return numOfUnavailableArt;
     }
 },
+
   created() {
     artPieceService
       .getAllListings()
@@ -132,6 +149,15 @@ export default {
         this.$store.commit("SET_ART_DATA", response.data);
       })
       .catch((err) => console.error(err));
+    transactionService
+        .getArtistTransactions7Days()
+        .then((response) => {
+        this.$store.commit("SET_TRANSACTION_DATA", response.data);
+                    // this.getArtistTransactions();
+                    // this.getDealerTransactions();
+                })
+      .catch((err) => console.error(err));
+    
   }
 }
 </script>
