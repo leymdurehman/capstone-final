@@ -6,13 +6,18 @@
 </template>
 
 <script>
-import ReportStatus from "../components/ReportStatus.vue";
-export default {
-  name: "MyAccount",
-  components: {
-    ReportStatus
-  },
-};
+import ReportStatus from '../components/ReportStatus.vue';
+
+export default { 
+    name: 'MyAccount',
+    components: {
+        ReportStatus
+        
+        }
+}
+
+
+
 </script>
 
 <style>
