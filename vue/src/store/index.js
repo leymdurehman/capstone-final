@@ -23,6 +23,7 @@ export default new Vuex.Store({
     user: currentUser || {},
     customerId: 1,
     artPieceData: [],
+    transactionData: [],
     activeArtPiece: 0,
     fee: [],
     commission: []
@@ -47,6 +48,9 @@ export default new Vuex.Store({
     },
     SET_ART_DATA(state, data){
       this.state.artPieceData = data;
+    },
+    SET_TRANSACTION_DATA(state, data){
+      this.state.transactionData = data;
     },
     SET_CUSTOMER_ID(state, customerId){
       this.state.customerId = customerId;

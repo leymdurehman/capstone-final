@@ -55,7 +55,9 @@
           <label>Dealer Name: </label>
         </div>
 
-        <input type="text" name="dealerName" v-model.trim="artPiece.dealer" />
+        <input type="text" name="dealerName" v-model.trim="
+artPiece.dealer
+" />
       </div>
       <div>
         <div class="label">
@@ -80,10 +82,12 @@
     </div>
 
     <p v-if="files[0]">{{ files[0].name }}</p>
-    <p v-if="selectedFile">{{ selectedFile.name }}</p>
+    <p v-if="selectedFile">{{ 
+selectedFile.name
+ }}</p>
 
     <div id="preview">
-      <img v-if="url" :src="url" />
+      <img v-if="url" src="url" />
     </div>
 
     <div class="remove-container">
@@ -228,16 +232,22 @@ export default {
     },
     onFileChanged(event) {
       this.selectedFile = event.target.files[0];
-      this.artPiece.imgFileName = this.selectedFile.name;
+      this.artPiece.imgFileName = 
+this.selectedFile.name
+;
       this.showPreview(this.selectedFile);
     },
     onUpload() {
-      const storageRef = firebase.storage().ref();
+      const storageRef = 
+firebase.storage
+().ref();
       if (!this.selectedFile) {
         storageRef.child(this.files[0].name).put(this.files[0]);
         this.artPiece.imgFileName = this.files[0].name;
       } else {
-        storageRef.child(this.selectedFile.name).put(this.selectedFile);
+        storageRef.child(
+this.selectedFile.name
+).put(this.selectedFile);
       }
     },
     createListingForArtPiece() {

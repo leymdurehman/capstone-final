@@ -110,7 +110,7 @@ form.form-register {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #f4f4f4eb; 
+  color: #fff; 
   font-family: 'Quicksand', sans-serif;
 }
 
@@ -122,7 +122,7 @@ button {
   margin-top: 7px;
   padding: 5px 15px;
   background-color: #ab3f29;
-  color: #f4f4f4eb;
+  color: #fff;
   border-radius: 5px;
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;

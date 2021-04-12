@@ -92,9 +92,52 @@ public class JdbcTransactionsDAO implements TransactionsDao{
 		}
 		
 		return transactions;
-		
 	}
 	
+	@Override
+	public List<Transaction> getTransactions30Days(){
+		
+		String sql = "SELECT order_id, customer_id, price, transactions.art_id, date_of_sale, fee, commission, total_price, users.username, artist.artist_name, img_file_name, title FROM artist "
+				+ "JOIN art_pieces ON art_pieces.artist_id = artist.artist_id "
+				+ "JOIN dealer ON art_pieces.dealer_id = dealer.dealer_id "
+				+ "JOIN users ON users.user_id = dealer.user_id "
+				+ "JOIN transactions ON transactions.art_id = art_pieces.art_id "
+				+ "WHERE (date_of_sale >= (current_date - interval '30 days'))";
+		
+		SqlRowSet row = jdbcTemplate.queryForRowSet(sql);
+		
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		
+		while(row.next()) {
+			
+			transactions.add(mapRowToTransaction(row));
+		
+		}
+		
+		return transactions;
+	}
+	
+	@Override
+	public List<Transaction> getTransactions7Days(){
+		
+		String sql = "SELECT order_id, customer_id, price, transactions.art_id, date_of_sale, fee, commission, total_price, users.username, artist.artist_name, img_file_name, title FROM artist "
+				+ "JOIN art_pieces ON art_pieces.artist_id = artist.artist_id "
+				+ "JOIN dealer ON art_pieces.dealer_id = dealer.dealer_id "
+				+ "JOIN users ON users.user_id = dealer.user_id "
+				+ "JOIN transactions ON transactions.art_id = art_pieces.art_id "
+				+ "WHERE (date_of_sale >= (current_date - interval '7 days'))";
+		
+		SqlRowSet row = jdbcTemplate.queryForRowSet(sql);
+		
+		List<Transaction> transactions = new ArrayList<Transaction>();
+		
+		while(row.next()) {
+			
+			transactions.add(mapRowToTransaction(row));
+		
+		}
+		return transactions;
+	}
 	
 	public Transaction mapRowToTransaction(SqlRowSet row) {
 		
@@ -120,3 +163,16 @@ public class JdbcTransactionsDAO implements TransactionsDao{
 	
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

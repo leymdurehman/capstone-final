@@ -32,14 +32,6 @@ export default {
 </script>
 
 <style scoped>
-.art-card {
-  display: flex;
-  align-self: center;
-  justify-self: center;
-  margin: 30px;
-  width: 400px;
-}
-
 .art-container {
   display: flex;
   justify-content: space-evenly;
@@ -47,4 +39,14 @@ export default {
   max-width: 75%;
   margin: auto;
 }
+
+.art-card {
+  display: flex;
+  align-self: center;
+  justify-self: center;
+  margin: 30px;
+  margin-top: 0;
+  width: 400px;
+}
+
 </style>

@@ -96,6 +96,7 @@ h2 {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  align-items: center;
   max-width: 75%;
   margin: auto;
 }

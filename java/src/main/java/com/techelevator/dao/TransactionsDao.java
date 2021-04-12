@@ -12,4 +12,6 @@ public interface TransactionsDao {
 	public void setFees(Fee newFees);
 	public Fee getFees();
 	public List<Transaction> getAllTransactions();
+	List<Transaction> getTransactions30Days();
+	List<Transaction> getTransactions7Days();
 }

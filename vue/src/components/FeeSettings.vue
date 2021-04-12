@@ -72,7 +72,7 @@ export default {
 
 <style scoped>
 h2 {
-  color: #ffffff;
+  color: #fff;
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
   line-height: 25px;
@@ -84,7 +84,7 @@ h2 {
 #feeSettings {
   background-color: #ab3f294b;
   border-radius: 20px;
-  color: #f4f4f4eb;
+  color: #fff;
   font-family: "Quicksand", sans-serif;
   width: fit-content;
   min-width: 300px;

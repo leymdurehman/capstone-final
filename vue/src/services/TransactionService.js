@@ -16,5 +16,13 @@ export default {
     
     getAllTransactions(){
       return axios.get('/transactions')
+    },
+
+    getTransactions30Days(){
+      return axios.get('/transactions/30')
+    },
+
+    getTransactions7Days(){
+      return axios.get('/transactions/7')
     }
 }

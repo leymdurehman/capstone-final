@@ -33,6 +33,8 @@ public class JdbcTransactionsIntegrationTest extends DAOIntegrationTest{
 	private static final String ARTIST_NAME_DUMMY = "DUMMYArtist";
 	private static final String TITLE_DUMMY = "DUMMYTitle";
 	private LocalDate dateCreatedDummy = LocalDate.now();
+	private LocalDate date7DaysAgo = LocalDate.now().minusDays(7);
+	private LocalDate date30DaysAgo = LocalDate.now().minusDays(30);
 	private static final double PRICE_DUMMY = 99.99;
 	private static final String IMG_FILE_DUMMY = "DUMMYimagefile";
 	private static final int COSTUMER_ID_DUMMY = 66666;
@@ -105,6 +107,12 @@ public class JdbcTransactionsIntegrationTest extends DAOIntegrationTest{
 		sql = "INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?) RETURNING art_id";
 		this.artId = jdbcTemplate.queryForObject(sql, int.class,TITLE_DUMMY, dateCreatedDummy, PRICE_DUMMY, IMG_FILE_DUMMY, artistId, dealerId);
 		 
+//		sql = "INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?) RETURNING art_id";
+//		this.artId = jdbcTemplate.queryForObject(sql, int.class,TITLE_DUMMY, date7DaysAgo, PRICE_DUMMY, IMG_FILE_DUMMY, artistId, dealerId);
+//
+//		sql = "INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?) RETURNING art_id";
+//		this.artId = jdbcTemplate.queryForObject(sql, int.class,TITLE_DUMMY, dat30DaysAgo, PRICE_DUMMY, IMG_FILE_DUMMY, artistId, dealerId);
+
 	}
 	
 		@Test
@@ -135,9 +143,41 @@ public class JdbcTransactionsIntegrationTest extends DAOIntegrationTest{
 			
 		}
 		
-	
-	
-	
+		@Test
+		public void get_transactions_30() {
+			
+			int startSize = dao.getTransactions30Days().size();
+			
+			Transaction testTransaction = testTransaction();
+			
+			int orderID = dao.createTransaction(testTransaction);
+			
+			String sql = "UPDATE transactions SET date_of_sale = ? WHERE order_id = ?";
+			jdbcTemplate.update(sql, date30DaysAgo, orderID);
+			
+			int endSize = dao.getTransactions30Days().size();
+			
+			Assert.assertEquals(startSize + 1 , endSize);
+		}
+		
+		@Test
+		public void get_transactions_7() {
+			
+			int startSize = dao.getTransactions7Days().size();
+			
+			Transaction testTransaction = testTransaction();
+			
+			int orderID = dao.createTransaction(testTransaction);
+			
+			String sql = "UPDATE transactions SET date_of_sale = ? WHERE order_id = ?";
+			jdbcTemplate.update(sql, date7DaysAgo, orderID);
+			
+			int endSize = dao.getTransactions7Days().size();
+			
+			Assert.assertEquals(startSize + 1 , endSize);
+			
+		}
+		
 		private Transaction testTransaction() {
 			
 			Transaction test = new Transaction();
