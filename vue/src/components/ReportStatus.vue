@@ -78,22 +78,23 @@ export default {
     totalNumberOfArt() {
       let num = 0;
 
-      if (this.$store.state.user.authorities[0].name == "ROLE_ARTIST") {
+      if ((this.$store.state.user.authorities[0].name == "ROLE_ARTIST")
+          || (this.$store.state.user.authorities[0].name == "ROLE_SELLER")) {
         const listOfArt = this.artPieces.filter((x) => {
-          return (x.artist = this.$store.state.user.username);
+          return (x.artist == this.$store.state.user.username);
         });
         num = listOfArt.length;
       }
 
       if (this.$store.state.user.authorities[0].name == "ROLE_DEALER") {
         const listOfArt = this.artPieces.filter((x) => {
-          return (x.dealer = this.$store.state.user.username);
+          return (x.dealer == this.$store.state.user.username);
         });
         num = listOfArt.length;
       }
 
       if (this.$store.state.user.authorities[0].name == "ROLE_ADMIN") {
-        num = this.artPieces.length;
+        num == this.artPieces.length;
       }
 
       return num;
@@ -102,9 +103,10 @@ export default {
     totalNumberSold() {
       let num = 0;
 
-      if (this.$store.state.user.authorities[0].name == "ROLE_ARTIST") {
+      if ((this.$store.state.user.authorities[0].name == "ROLE_ARTIST")
+          || (this.$store.state.user.authorities[0].name == "ROLE_SELLER")) {
         const listOfArt = this.artPieces.filter((x) => {
-          return (x.artist = this.$store.state.user.username);
+          return (x.artist == this.$store.state.user.username);
         });
         const soldArt = listOfArt.filter((x) => {
           return x.sold;
@@ -115,7 +117,7 @@ export default {
 
       if (this.$store.state.user.authorities[0].name == "ROLE_DEALER") {
         const listOfArt = this.artPieces.filter((x) => {
-          return (x.dealer = this.$store.state.user.username);
+          return (x.dealer == this.$store.state.user.username);
         });
         const soldArt = listOfArt.filter((x) => {
           return x.sold;
@@ -138,9 +140,10 @@ export default {
     totalAvailable() {
       let num = 0;
 
-      if (this.$store.state.user.authorities[0].name == "ROLE_ARTIST") {
+      if ((this.$store.state.user.authorities[0].name == "ROLE_ARTIST")
+          || (this.$store.state.user.authorities[0].name == "ROLE_SELLER")) {
         const listOfArt = this.artPieces.filter((x) => {
-          return (x.artist = this.$store.state.user.username);
+          return (x.artist == this.$store.state.user.username);
         });
         const availableArt = listOfArt.filter((x) => {
           return x.available;
@@ -151,7 +154,7 @@ export default {
 
       if (this.$store.state.user.authorities[0].name == "ROLE_DEALER") {
         const listOfArt = this.artPieces.filter((x) => {
-          return (x.dealer = this.$store.state.user.username);
+          return (x.dealer == this.$store.state.user.username);
         });
         const availableArt = listOfArt.filter((x) => {
           return x.available;
@@ -173,9 +176,10 @@ export default {
     totalUnavailable() {
       let num = 0;
 
-      if (this.$store.state.user.authorities[0].name == "ROLE_ARTIST") {
+      if ((this.$store.state.user.authorities[0].name == "ROLE_ARTIST")
+          || (this.$store.state.user.authorities[0].name == "ROLE_SELLER")) {
         const listOfArt = this.artPieces.filter((x) => {
-          return (x.artist = this.$store.state.user.username);
+          return (x.artist == this.$store.state.user.username);
         });
         const unavailableArt = listOfArt.filter((x) => {
           return !x.available && !x.sold;
@@ -186,7 +190,7 @@ export default {
 
       if (this.$store.state.user.authorities[0].name == "ROLE_DEALER") {
         const listOfArt = this.artPieces.filter((x) => {
-          return (x.dealer = this.$store.state.user.username);
+          return (x.dealer == this.$store.state.user.username);
         });
         const unavailableArt = listOfArt.filter((x) => {
           return !x.available && !x.sold;

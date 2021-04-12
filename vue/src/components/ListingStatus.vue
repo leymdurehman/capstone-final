@@ -16,7 +16,8 @@ computed: {
     getStatus() {
         let status = "";
 
-        if(this.$store.state.user.authorities[0].name == 'ROLE_ARTIST'){
+        if((this.$store.state.user.authorities[0].name == "ROLE_ARTIST")
+          || (this.$store.state.user.authorities[0].name == "ROLE_SELLER")){
             if(this.artPiece.artist === this.$store.state.user.username){
                 if(this.artPiece.sold){
                     status = "sold";
@@ -63,7 +64,8 @@ computed: {
 
         let title = "";
 
-        if(this.$store.state.user.authorities[0].name == 'ROLE_ARTIST'){
+        if((this.$store.state.user.authorities[0].name == "ROLE_ARTIST")
+          || (this.$store.state.user.authorities[0].name == "ROLE_SELLER")){
             if(this.artPiece.artist === this.$store.state.user.username){
                 title = this.artPiece.title;
                 }
