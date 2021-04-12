@@ -3,7 +3,7 @@
     <h1>My Account</h1>
     <report-status />
 
-    <div id="buttonContainer">
+    <!-- <div id="buttonContainer">
       <button v-bind:disabled="!isFormValid" v-on:click="getAll()">
         All Time
       </button>
@@ -13,7 +13,7 @@
       <button v-bind:disabled="!isFormValid" v-on:click="get7days()">
         Last 7 Days
       </button>
-    </div>
+    </div> -->
 
     <div id="reportStatus">
       <transaction-status />

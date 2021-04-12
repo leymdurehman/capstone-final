@@ -39,7 +39,10 @@
 
     <div class="pietest">
       <PieChart />
+      <ThirtyDays />
+      <!-- <SevenDays /> -->
     </div>
+
   </div>
 </template>
 
@@ -48,6 +51,8 @@ import artPieceService from "@/services/ArtPieceService.js";
 import PieChart from "../components/PieChart.vue";
 //import TransactionStatus from "./TransactionStatus.vue";
 import ListingStatus from "../components/ListingStatus.vue";
+import ThirtyDays from "../components/ThirtyDaysPieChart.vue";
+// import SevenDays from "../components/SevenDaysPieChart.vue";
 
 export default {
   name: "ReportStatus",
@@ -55,6 +60,8 @@ export default {
     PieChart,
     //TransactionStatus,
     ListingStatus,
+    ThirtyDays,
+    // SevenDays,
   },
   data() {
     return {

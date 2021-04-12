@@ -59,7 +59,7 @@ public class ArtPieceController {
 		artDAO.updateArtPiece(art);
 	}
 	
-	@PreAuthorize("hasRole('ADMIN', 'DEALER', 'SELLER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_DEALER')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
 	@RequestMapping(path="/delete/{id}", method=RequestMethod.DELETE)
 	public void deleteArtPiece(@PathVariable int id) {

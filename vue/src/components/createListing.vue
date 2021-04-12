@@ -6,7 +6,7 @@
     <form>
       <div>
         <div class="label">
-          <label id="artist-name" for="artistName">Artist Name: </label>
+          <label for="artistName">Artist Name: </label>
         </div>
         <input
           type="text"
@@ -55,13 +55,21 @@
           <label>Dealer Name: </label>
         </div>
 
-        <input type="text" name="dealerName" v-model.trim="artPiece.dealer" />
+        <input type="text" name="dealerName" v-model.trim="
+artPiece.dealer
+" />
       </div>
       <div>
         <div class="label">
           <label for="image">Image: </label>
         </div>
-        <input type="file" id="file" @change="onFileChanged" accept="image/*" />
+
+        <input
+          type="file"
+          id="image"
+          @change="onFileChanged"
+          accept="image/*"
+        />
       </div>
     </form>
 
@@ -74,10 +82,12 @@
     </div>
 
     <p v-if="files[0]">{{ files[0].name }}</p>
-    <p v-if="selectedFile">{{ selectedFile.name }}</p>
+    <p v-if="selectedFile">{{ 
+selectedFile.name
+ }}</p>
 
     <div id="preview">
-      <img v-if="url" :src="url" />
+      <img v-if="url" src="url" />
     </div>
 
     <div class="remove-container">
@@ -222,16 +232,22 @@ export default {
     },
     onFileChanged(event) {
       this.selectedFile = event.target.files[0];
-      this.artPiece.imgFileName = this.selectedFile.name;
+      this.artPiece.imgFileName = 
+this.selectedFile.name
+;
       this.showPreview(this.selectedFile);
     },
     onUpload() {
-      const storageRef = firebase.storage().ref();
+      const storageRef = 
+firebase.storage
+().ref();
       if (!this.selectedFile) {
         storageRef.child(this.files[0].name).put(this.files[0]);
         this.artPiece.imgFileName = this.files[0].name;
       } else {
-        storageRef.child(this.selectedFile.name).put(this.selectedFile);
+        storageRef.child(
+this.selectedFile.name
+).put(this.selectedFile);
       }
     },
     createListingForArtPiece() {
@@ -260,23 +276,17 @@ export default {
 #listing {
   background-color: #ab3f294b;
   border-radius: 20px;
-  color: #fff;
+  color: #f4f4f4eb;
   font-family: "Quicksand", sans-serif;
   width: 40%;
   min-width: 300px;
-  padding: 0px 20px 10px 20px;
+  padding: 20px;
   margin: auto;
   display: flex;
   text-align: center;
   flex-direction: column;
   align-items: center;
   margin-bottom: 10px;
-}
-
-#artist-name {
-  margin-top: 0;
-  padding-top: 0;
-  line-height: 0;
 }
 
 img {
@@ -286,16 +296,12 @@ img {
   margin-bottom: 10px;
 }
 
-p {
-  line-height: 2rem;
-}
-
-#file {
+#image {
   /* margin-left: 20px; */
   margin-top: 5px;
   margin-bottom: 10px;
   background-color: #ab3f29;
-  color: #fff;
+  color: #f4f4f4eb;
   border-radius: 7px;
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
@@ -304,7 +310,7 @@ p {
 .remove {
   margin: 10px;
   background-color: #ab3f29;
-  color: #fff;
+  color: #f4f4f4eb;
   border-radius: 2px;
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
@@ -341,7 +347,7 @@ p {
 .cancel {
   margin: 10px;
   background-color: #ab3f29;
-  color: #fff;
+  color: #f4f4f4eb;
   border-radius: 2px;
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
@@ -350,7 +356,7 @@ p {
 }
 input[type="submit"] {
   background-color: #ab3f29;
-  color: #fff;
+  color: #f4f4f4eb;
   border-radius: 2px;
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
@@ -368,16 +374,15 @@ input[type="submit"]:disabled {
 }
 
 input[type="file"] {
-  color: #fff;
+  color: #f4f4f4eb;
   width: 250px;
-  border-radius: 2px;
 }
 
 #dragDrop {
   display: flex;
   justify-content: center;
   background-color: #ab3f29;
-  color: #fff;
+  color: #f4f4f4eb;
   border-radius: 7px;
   border: none;
   border: inset;
@@ -389,7 +394,7 @@ input[type="file"] {
   display: flex;
   justify-content: center;
   background-color: #702a1bc9;
-  color: #fff;
+  color: #f4f4f480;
   border-radius: 7px;
   border: none;
   border: inset;
@@ -398,5 +403,11 @@ input[type="file"] {
 
 .drop-files {
   margin-top: 15px;
+}
+
+input[type="text"],
+[type="date"],
+[type="number"] {
+  border-radius: 7px;
 }
 </style>
