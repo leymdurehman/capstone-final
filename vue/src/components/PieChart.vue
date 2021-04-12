@@ -1,6 +1,6 @@
 <script>
 import artPieceService from "@/services/ArtPieceService.js";
-import Pie from "vue-chart.js";
+import { Pie } from "vue-chartjs";
 export default {
     extends: Pie,
      data() {
@@ -45,6 +45,9 @@ export default {
     );
   },
   computed: {
+  //   totalNumberOfArt() {
+  //     return this.artPieces.length;
+  //   },
     totalNumberSold() {
 
         let numOfArtSold = 0;
