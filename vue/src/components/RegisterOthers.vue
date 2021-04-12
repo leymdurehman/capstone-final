@@ -1,7 +1,7 @@
 <template>
   <div id="register" class="text-center">
     <form class="form-register" @submit.prevent="register">
-      <h2 class="h3 mb-3 font-weight-normal">Register New User Account</h2>
+      <h2>Register New User Account</h2>
       <div class="alert alert-danger" role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
       </div>
@@ -10,7 +10,7 @@
         type="text"
         id="username"
         class="form-control"
-        placeholder="Username"
+        placeholder=" Username"
         v-model="user.username"
         required
         autofocus
@@ -20,7 +20,7 @@
         type="password"
         id="password"
         class="form-control"
-        placeholder="Password"
+        placeholder=" Password"
         v-model="user.password"
         required
       />
@@ -28,7 +28,7 @@
         type="password"
         id="confirmPassword"
         class="form-control"
-        placeholder="Confirm Password"
+        placeholder=" Confirm Password"
         v-model="user.confirmPassword"
         required
       />
@@ -36,12 +36,12 @@
       <input
         type="email"
         id="email"
-        placeholder="Email Address"
+        placeholder=" Email Address"
         v-model="user.email"
         required
       />
       <div id="dropdownMenu">
-        <label for="role">Choose a role:</label>
+        <label for="role">Choose a role: </label>
         <select name="role" id="role" v-model="user.role">
           <option value="admin">Manager</option>
           <option value="dealer">Dealer</option>
@@ -50,7 +50,6 @@
         </select>
       </div>
 
-      <router-link :to="{ name: 'login' }">Have an account?</router-link>
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
       </button>
@@ -114,10 +113,9 @@ h2 {
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
   line-height: 25px;
-  margin-left: 0em;
   margin-bottom: 1em;
-  /* text-shadow: 2px 2px #2b2929fb; */
   text-align: center;
+  font-style: italic;
 }
 
 form.form-register {
@@ -141,7 +139,7 @@ form.form-register > input {
 }
 
 button {
-  margin-top: 7px;
+  margin-top: 25px;
   padding: 5px 15px;
   background-color: #ab3f29;
   color: #f4f4f4eb;

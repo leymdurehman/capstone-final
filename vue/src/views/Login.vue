@@ -18,7 +18,7 @@
           type="text"
           id="username"
           class="form-control"
-          placeholder="Username"
+          placeholder=" Username"
           v-model="user.username"
           required
           autofocus
@@ -30,7 +30,7 @@
           type="password"
           id="password"
           class="form-control"
-          placeholder="Password"
+          placeholder=" Password"
           v-model="user.password"
           required
         />
@@ -93,6 +93,11 @@ form.form-signin {
   align-items: center;
   color: #f4f4f4eb; 
   font-family: 'Quicksand', sans-serif;
+  margin-bottom: 20px;
+}
+
+a {
+  color: #f4f4f4eb; 
 }
 
 form.form-signin > div {

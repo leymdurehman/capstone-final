@@ -135,7 +135,7 @@ export default {
   font-family: "Quicksand", sans-serif;
   margin: 20px auto;
   padding: 20px;
-  width: fit-content;
+  width: 80%;
   height: auto;
 }
 
@@ -165,16 +165,17 @@ form :last-child {
 div#edit-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit);
-  grid-template-areas: ". image details";
+  grid-template-areas: "image details";
   justify-content: center;
 }
 
 @media (max-width: 720px) {
   div#edit-grid {
     grid-template-areas:
-      ". image"
-      ". details";
+      "image"
+      "details";
     padding: 20px;
+    width: 400px;
   }
 }
 

@@ -3,6 +3,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Quicksand', sans-serif; 
+  /* color: #ffffff; */
 }
 
 body{
@@ -25,99 +27,12 @@ h1 {
   text-align: center; 
 }
 
-
-/* @media(max-width: 800px) {
-
-  .sidenav a, #menuTab{
-    padding: 20px;
-    margin-top: 10px;
-    left: -100px; 
-    font-size: 15px;
-    text-align: end;
-    transition: none;
-
-  }
-  .sidenav a:hover {
-    left: -100px; 
-  }
-  
-  #menuTab {
-    top: 20px;
-    background-color: #ab3f29;
-    left: 0;
-    font-weight: bolder;
-    width: 100px;
-  }
-
-  #home {
-    top: 80px;
-    background-color: #ab3f29d0; 
-    }
-  
-  #login {
-    top: 140px;
-    background-color: #ab3f29d0; 
-  }
-  
-  #addart {
-    top: 200px;
-    background-color: #ab3f29d0;
-  }
-  
-  #logout {
-    top: 260px;
-    background-color: #ab3f29d0;
-  }
-    
-  #settings {
-    top: 150px;
-    background-color: #ab3f29d0;
-  }
+h2 {
+  color: #ffffff;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  font-style: italic;
 }
-*/
-
-@media(max-width: 700px) {
-
-  /* .sidenav a, #menuTab{
-    position: absolute;
-    padding: 4px;
-    margin-top: 0px;
-    font-size: 1em;
-    text-align: right;
-    transition: none;
-  }
-  
-  
-  #menuTab {
-    display: none;
-  }
-
-  #home {
-    top: 10px;
-    background-color: #ab3f29d0; 
-    }
-  
-  #login {
-    top: 45px;
-    background-color: #ab3f29d0; 
-  }
-  
-  #addart {
-    top: 80px;
-    background-color: #ab3f29d0;
-
-  }
-  
-  #logout {
-    top: 115px;
-    background-color: #ab3f29d0;
-  }
-  #settings {
-    top: 150px;
-    background-color: #ab3f29d0;
-  } */
-
-} 
 
 .card .art-title {
   font-size: 1.5rem;
@@ -126,12 +41,6 @@ h1 {
 
 .card .art-artist {
   font-size: 1rem;
-}
-
-.art-container{
-  display:flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
 }
 
 input[type=text], [type=date], [type=number], [type=password], [type=email]{

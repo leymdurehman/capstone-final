@@ -76,12 +76,17 @@ public class JdbcTransactionsIntegrationTest extends DAOIntegrationTest{
 		
 		String sql = "INSERT INTO users (user_id, username, password_hash, role, email) VALUES (DEFAULT, ?, ?, ?, ?) RETURNING user_id";
 		
+
+
 		int dealerUserID = jdbcTemplate.queryForObject(sql, int.class, USERNAME_DUMMY, PASS_DUMMY, ROLE_DUMMY, "test@email.com");
+
 				
 		// create user2 (customer)
 		
 		sql = "INSERT INTO users (user_id, username, password_hash, role, email) VALUES (DEFAULT, ?, ?, ?, ?) RETURNING user_id";
+
 		int costumerUserId = jdbcTemplate.queryForObject(sql, int.class, COSTUMER_USERNAME_DUMMY, PASS_COSTUMER_DUMMY, ROLE_COSTUMER_DUMMY, "test@email.com");
+
 	
 		// create dealer
 		

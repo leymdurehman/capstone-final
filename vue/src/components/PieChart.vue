@@ -1,6 +1,6 @@
 <script>
 import artPieceService from "@/services/ArtPieceService.js";
-import { Pie } from "vue-chartjs";
+import Pie from "vue-chart.js";
 export default {
     extends: Pie,
      data() {

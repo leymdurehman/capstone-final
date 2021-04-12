@@ -1,42 +1,42 @@
 <template>
   <div id="feeSettings" v-if="$store.state.user.authorities[0].name == 'ROLE_ADMIN'">
     <h2>Set Fees and Commission</h2>
-      <form>
-        <div>
-          <label>Set Default Fee Percent (%): </label>
-        </div>
-        <input
-          type="number"
-          step="0.01"
-          min="0.01"
-          max="99.99"
-          v-model.trim="currentDefaultFees.fee"
-        />
+    <form>
+      <div>
+        <label>Set Default Fee Percent (%): </label>
+      </div>
+      <input
+        type="number"
+        step="0.01"
+        min="0.01"
+        max="99.99"
+        v-model.trim="currentDefaultFees.fee"
+      />
 
-        <div>
-          <label>Set Default Commission Percent (%): </label>
-        </div>
-        <input
-          type="number"
-          step="0.01"
-          min="0.01"
-          max="99.99"
-          v-model.trim="currentDefaultFees.commission"
-        />
+      <div>
+        <label>Set Default Commission Percent (%): </label>
+      </div>
+      <input
+        type="number"
+        step="0.01"
+        min="0.01"
+        max="99.99"
+        v-model.trim="currentDefaultFees.commission"
+      />
 
-        <div>
-          <button id="setChanges" @click.prevent="setFee()">
-            Set Default Fees
-          </button>
-        </div>
-      </form>
-    </div>
+      <div>
+        <button id="setChanges" @click.prevent="setFee()">
+          Set Default Fees
+        </button>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>
 import transactionService from "@/services/TransactionService.js";
 export default {
-    data() {
+  data() {
     return {
       currentDefaultFees: {},
     };
@@ -65,21 +65,20 @@ export default {
           const response = error.response;
           console.log(response);
         });
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
-h2 { 
-  color: #ffffff; 
-  font-family: 'Quicksand', sans-serif; 
-  font-weight: 700;  
+h2 {
+  color: #ffffff;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
   line-height: 25px;
-  margin-left: 0em; 
+  margin-left: 0em;
   margin-bottom: 1em;
-  /* text-shadow: 2px 2px #2b2929fb; */
-  text-align: center; 
+  text-align: center;
 }
 
 #feeSettings {

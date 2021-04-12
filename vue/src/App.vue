@@ -51,11 +51,13 @@
             class="tab"
             id="settings"
             v-bind:to="{ name: 'Settings' }"
-            v-if="$store.state.user.authorities[0].name == 'ROLE_ADMIN' || 'ROLE_DEALER'"
+            v-if="
+              $store.state.user.authorities[0].name == 'ROLE_ADMIN' ||
+              'ROLE_DEALER'
+            "
             >Settings</router-link
           >
         </div>
-
       </div>
       <router-view />
     </div>
@@ -65,6 +67,8 @@
 
 <style scoped>
 #logo {
+  display: block;
+  margin: auto;
   width: 180px;
   padding: 20px;
 }
@@ -72,25 +76,24 @@
 .sidenav {
   display: flex;
   flex-direction: column;
-  position: fixed; /* Position them relative to the browser window */
+  position: fixed;
   color: #f4f4f4eb;
   font-family: "Quicksand", sans-serif;
   text-align: right;
-  top: 10px;
-  padding: 20px;
-  width: 400px;
-  font-size: 20px; /* Increase font size */
-  left: -250px;
+  top: 5px;
+  width: 410px;
+  font-size: 1.3rem;
+  left: -380px;
 }
 
 #menuTab {
   background-color: #ab3f29;
   padding: 20px;
-  padding-right: 40px;
   margin: 5px;
-  margin-right: -30px;
+  width: 530px;
   border-radius: 5px;
   font-weight: bolder;
+  text-align: right;
   text-decoration: underline;
 }
 
@@ -100,28 +103,44 @@
   font-family: "Quicksand", sans-serif;
   transition: 0.2s;
   padding: 20px;
-  padding-right: 30px;
   margin: 5px;
   text-align: right;
   border-radius: 5px;
   background-color: #ab3f29d0;
-  margin-right: 100px;
   display: flex;
   justify-content: flex-end;
   border-right: 15px solid #ab3f29;
+  text-decoration: none;
 }
 
 .tab:hover {
-  margin-right: -30px;
+  margin-right: -125px;
 }
-.router-link-active{
-  margin-right: -30px;
+.router-link-active {
+  margin-right: -125px;
   background-color: #ab3f29;
 }
 
-@media(max-width: 700px) {
-  .router-link-active{
-    margin-right: 100px;
+@media (max-width: 700px) {
+  .sidenav {
+    position: absolute;
+  }
+  .tab {
+    padding: 10px;
+    font-size: 1rem;
+  }
+  .tab:hover {
+    margin-right: -95px;
+  }
+  #menuTab {
+    padding: 10px;
+    padding-right: 25px;
+    margin: 5px;
+    width: 500px;
+    font-size: 1rem;
+  }
+  .router-link-active {
+    margin-right: 5px;
   }
 }
 </style>

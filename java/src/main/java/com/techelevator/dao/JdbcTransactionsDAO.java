@@ -41,7 +41,7 @@ public class JdbcTransactionsDAO implements TransactionsDao{
 	
 	private void sellArt(int artID) {
 		
-		String sql = "UPDATE art_pieces SET is_sold = true WHERE art_id = ?";
+		String sql = "UPDATE art_pieces SET is_sold = true, is_available = false WHERE art_id = ?";
 		
 		jdbcTemplate.update(sql, artID);	
 		

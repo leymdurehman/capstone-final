@@ -25,15 +25,11 @@ import artPieceService from "@/services/ArtPieceService.js";
 import PieChart from "../components/PieChart.vue";
 import TransactionStatus from './TransactionStatus.vue';
 
-
-
-
 export default {
   name: "ReportStatus",
   components: {
     PieChart,
     TransactionStatus
-    
   },
   data() {
     return {
@@ -71,7 +67,6 @@ export default {
   },
 
   created() {
-   
     artPieceService
       .getAllListings()
       .then((response) => {
@@ -79,7 +74,7 @@ export default {
         this.$store.commit("SET_ART_DATA", response.data);
       })
       .catch((err) => console.error(err));
-  }
+  },
 };
 </script>
 
@@ -87,9 +82,7 @@ export default {
 #reportStatus {
   background-color: #ab3f294b;
   border-radius: 20px;
-  top: 80px;
   width: fit-content;
-  min-width: 300px;
   padding: 40px;
   margin: auto;
   margin-bottom: 20px;

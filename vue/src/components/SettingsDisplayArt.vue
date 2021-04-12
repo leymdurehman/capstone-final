@@ -3,7 +3,11 @@
     v-bind:to="{ name: 'FeeOverride', params: { artId: artPiece.artID } }"
   >
     <div class="settingsCard">
-      <img class="settingsMyImg" :src="imgFile" v-bind:alt="artPiece.imgFileName" />
+      <img
+        class="settingsMyImg"
+        :src="imgFile"
+        v-bind:alt="artPiece.imgFileName"
+      />
       <h2>{{ artPiece.title }}</h2>
       <h3 id="settingsMainArtist">{{ artPiece.artist }}</h3>
     </div>
@@ -34,7 +38,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .settingsCard {
   background-color: #ab3f2969;
   border-width: 3px;

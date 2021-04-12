@@ -9,17 +9,17 @@
         <h3>Title: {{ artPiece.title }}</h3>
         <h3>Date: {{ artPiece.dateCreated }}</h3>
         <h3>Artist: {{ artPiece.artist }}</h3>
-        <h3>Price: ${{ artPiece.price}}</h3>
+        <h3>Price: ${{ artPiece.price }}</h3>
         <!-- <h3>Fee: ${{transaction.fee.toFixed(2)}}</h3>
         <h3>Commission: $ {{transaction.commission.toFixed(2)}}</h3> -->
-        <h5> + Additional fees</h5>
-        <h3>Total Price: ${{(transaction.totalPrice).toFixed(2)}}</h3>
+        <h5>+ Additional Fees</h5>
+        <h3>Total Price: ${{ transaction.totalPrice.toFixed(2) }}</h3>
         <button id="confirm" @click="startTransaction()">Confirm</button>
 
         <router-link
-      v-bind:to="{ name: 'ArtDetails', params: { artId: artPiece.artID } }"
-  >
-        <button id="confirm">Cancel</button>
+          v-bind:to="{ name: 'ArtDetails', params: { artId: artPiece.artID } }"
+        >
+          <button id="confirm">Cancel</button>
         </router-link>
         <div class="failed">
           <h2 v-if="statusMessage">{{ statusMessage }}</h2>
@@ -43,48 +43,42 @@ export default {
       statusMessage: null,
       transaction: {},
       currentDefaultFees: {},
-    
     };
-  }
-  ,
+  },
   methods: {
-      isOverride(){
-        if (this.artPiece.hasOverride){
+    isOverride() {
+      if (this.artPiece.hasOverride) {
+        this.transaction.commission = this.artPiece.commissionOverride;
+        this.transaction.fee = this.artPiece.feeOverride;
 
-          this.transaction.commission = this.artPiece.commissionOverride;
-          this.transaction.fee = this.artPiece.feeOverride;
-
-          this.transaction.fee = ((this.artPiece.feeOverride / 100) * (this.artPiece.price));
-          this.transaction.commission = ((this.artPiece.commissionOverride / 100) * this.artPiece.price);
-          this.transaction.totalPrice = ((((this.artPiece.feeOverride / 100) * (this.artPiece.price))) 
-          + (((this.artPiece.commissionOverride / 100) * this.artPiece.price)) + (this.artPiece.price));
-        }
-
-      },
-      startTransaction(){  
-       transactionService.postTransaction(this.transaction)
-       .then((response) => {
-                if (response.status == 201) {
-
-                  alert("Order has been confirmed! \nThank you for your purchase!");
-                  this.$router.push({ path: '/'});
-            }
+        this.transaction.fee =
+          (this.artPiece.feeOverride / 100) * this.artPiece.price;
+        this.transaction.commission =
+          (this.artPiece.commissionOverride / 100) * this.artPiece.price;
+        this.transaction.totalPrice =
+          (this.artPiece.feeOverride / 100) * this.artPiece.price +
+          (this.artPiece.commissionOverride / 100) * this.artPiece.price +
+          this.artPiece.price;
+      }
+    },
+    startTransaction() {
+      transactionService
+        .postTransaction(this.transaction)
+        .then((response) => {
+          if (response.status == 201) {
+            alert("Order has been confirmed! \nThank you for your purchase!");
+            this.$router.push({ path: "/" });
+          }
         })
         .catch((error) => {
-            const response = error.response;
-            if (response.status !== 201) {
-                this.statusMessage =
-                "There were problems placing your order...";
-            }
+          const response = error.response;
+          if (response.status !== 201) {
+            this.statusMessage = "There were problems placing your order...";
+          }
         });
     },
-    returnToArtDetail(){
-
-  
-        this.$router.push({ path: '/'})
-    
-        
-
+    returnToArtDetail() {
+      this.$router.push({ path: "/home" });
     },
   },
   created() {
@@ -104,17 +98,24 @@ export default {
         });
       })
       .catch(console.log("not working"));
-      transactionService.getCurrentDefaultFees().then((response) => {
-      this.currentDefaultFees = response.data;
-      this.transaction.fee = ((this.currentDefaultFees.fee / 100) * (this.artPiece.price));
-      this.transaction.commission = ((this.currentDefaultFees.commission / 100) * this.artPiece.price);
-      this.transaction.totalPrice = ((((this.currentDefaultFees.fee / 100) * (this.artPiece.price))) + (((this.currentDefaultFees.commission / 100) * this.artPiece.price)) + (this.artPiece.price));
-      this.isOverride();
-     }).catch((error) => {
-      const response = error.response
-      console.log(response);
+    transactionService
+      .getCurrentDefaultFees()
+      .then((response) => {
+        this.currentDefaultFees = response.data;
+        this.transaction.fee =
+          (this.currentDefaultFees.fee / 100) * this.artPiece.price;
+        this.transaction.commission =
+          (this.currentDefaultFees.commission / 100) * this.artPiece.price;
+        this.transaction.totalPrice =
+          (this.currentDefaultFees.fee / 100) * this.artPiece.price +
+          (this.currentDefaultFees.commission / 100) * this.artPiece.price +
+          this.artPiece.price;
+        this.isOverride();
+      })
+      .catch((error) => {
+        const response = error.response;
+        console.log(response);
       });
-  
   },
 };
 </script>
@@ -157,8 +158,7 @@ export default {
 div#confirm-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, 400px);
-  grid-template-areas:
-    ". image details";
+  grid-template-areas: ". image details";
   justify-content: center;
 }
 
