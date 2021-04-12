@@ -6,7 +6,7 @@
     <form>
       <div>
         <div class="label">
-          <label for="artistName">Artist Name: </label>
+          <label id="artist-name" for="artistName">Artist Name: </label>
         </div>
         <input
           type="text"
@@ -61,13 +61,7 @@
         <div class="label">
           <label for="image">Image: </label>
         </div>
-
-        <input
-          type="file"
-          id="image"
-          @change="onFileChanged"
-          accept="image/*"
-        />
+        <input type="file" id="file" @change="onFileChanged" accept="image/*" />
       </div>
     </form>
 
@@ -266,17 +260,23 @@ export default {
 #listing {
   background-color: #ab3f294b;
   border-radius: 20px;
-  color: #f4f4f4eb;
+  color: #fff;
   font-family: "Quicksand", sans-serif;
   width: 40%;
   min-width: 300px;
-  padding: 20px;
+  padding: 0px 20px 10px 20px;
   margin: auto;
   display: flex;
   text-align: center;
   flex-direction: column;
   align-items: center;
   margin-bottom: 10px;
+}
+
+#artist-name {
+  margin-top: 0;
+  padding-top: 0;
+  line-height: 0;
 }
 
 img {
@@ -286,12 +286,16 @@ img {
   margin-bottom: 10px;
 }
 
-#image {
+p {
+  line-height: 2rem;
+}
+
+#file {
   /* margin-left: 20px; */
   margin-top: 5px;
   margin-bottom: 10px;
   background-color: #ab3f29;
-  color: #f4f4f4eb;
+  color: #fff;
   border-radius: 7px;
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
@@ -300,7 +304,7 @@ img {
 .remove {
   margin: 10px;
   background-color: #ab3f29;
-  color: #f4f4f4eb;
+  color: #fff;
   border-radius: 2px;
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
@@ -337,7 +341,7 @@ img {
 .cancel {
   margin: 10px;
   background-color: #ab3f29;
-  color: #f4f4f4eb;
+  color: #fff;
   border-radius: 2px;
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
@@ -346,7 +350,7 @@ img {
 }
 input[type="submit"] {
   background-color: #ab3f29;
-  color: #f4f4f4eb;
+  color: #fff;
   border-radius: 2px;
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
@@ -364,15 +368,16 @@ input[type="submit"]:disabled {
 }
 
 input[type="file"] {
-  color: #f4f4f4eb;
+  color: #fff;
   width: 250px;
+  border-radius: 2px;
 }
 
 #dragDrop {
   display: flex;
   justify-content: center;
   background-color: #ab3f29;
-  color: #f4f4f4eb;
+  color: #fff;
   border-radius: 7px;
   border: none;
   border: inset;
@@ -384,7 +389,7 @@ input[type="file"] {
   display: flex;
   justify-content: center;
   background-color: #702a1bc9;
-  color: #f4f4f480;
+  color: #fff;
   border-radius: 7px;
   border: none;
   border: inset;
@@ -393,11 +398,5 @@ input[type="file"] {
 
 .drop-files {
   margin-top: 15px;
-}
-
-input[type="text"],
-[type="date"],
-[type="number"] {
-  border-radius: 7px;
 }
 </style>

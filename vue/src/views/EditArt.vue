@@ -131,11 +131,13 @@ export default {
 #edit-grid {
   background-color: #ab3f294b;
   border-radius: 20px;
-  color: #f4f4f4eb;
+  color: #fff;
   font-family: "Quicksand", sans-serif;
-  margin: 20px auto;
+  margin: auto;
+  margin-bottom: 20px;
   padding: 20px;
   width: 80%;
+  max-width: 1000px;
   height: auto;
 }
 
@@ -184,7 +186,7 @@ div#edit-grid {
   margin-bottom: 10px;
   padding: 5px 15px;
   background-color: #ab3f29;
-  color: #f4f4f4eb;
+  color: #fff;
   border-radius: 5px;
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
@@ -195,7 +197,7 @@ div#edit-grid {
 #deleteListing {
   padding: 5px 15px;
   background-color: #ab3f29;
-  color: #f4f4f4eb;
+  color: #fff;
   border-radius: 5px;
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
@@ -209,7 +211,7 @@ div#edit-grid {
   padding: 5px 15px;
   margin-top: 10px;
   background-color: #ab3f29;
-  color: #f4f4f4eb;
+  color: #fff;
   border-radius: 5px;
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;

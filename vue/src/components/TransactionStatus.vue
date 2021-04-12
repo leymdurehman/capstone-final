@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="transactionStatus">
         <div v-if="$store.state.user.authorities[0].name == 'ROLE_ADMIN'">
             <table id="transactionStatus">
                 <h1>Transaction Report</h1>
@@ -143,5 +143,17 @@ export default {
 </script>
 
 <style>
-
+#transactionStatus {
+  background-color: #ab3f294b;
+  border-radius: 20px;
+  width: fit-content;
+  padding: 40px;
+  margin: auto;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  font-family: "Quicksand", sans-serif;
+}
 </style>

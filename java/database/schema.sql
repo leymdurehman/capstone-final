@@ -137,9 +137,6 @@ INSERT INTO artist (artist_id, artist_name) VALUES (DEFAULT, 'DeadArtist');
 INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT, 6, 'sellerArtist', true );
 
 
-
-
-
 --INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id) 
 --VALUES (DEFAULT, 'Test Art', '2020-05-02', 999.99, 'picture.jpeg', 1, 1);
 

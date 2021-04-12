@@ -7,6 +7,14 @@
       <h2>{{ artPiece.title }}</h2>
       <h3 id="mainArtist">{{ artPiece.artist }}</h3>
     </div>
+    <div
+      class="banner"
+      id="coming-soon"
+      v-if="!artPiece.available && !artPiece.sold"
+    >
+      Available Soon!
+    </div>
+    <div class="banner" id="sold" v-if="artPiece.sold">SOLD</div>
   </router-link>
 </template>
 
@@ -44,7 +52,7 @@ export default {
   width: 400px;
   height: auto;
   padding: 15px;
-  color: #f4f4f4eb;
+  color: #fff;
   font-family: "Quicksand", sans-serif;
 }
 @media (max-width: 500px) {
@@ -59,7 +67,7 @@ a:link {
 
 .myImg {
   display: block;
-  width: 95%;
+  width: 100%;
   margin: auto;
   margin-bottom: 10px;
   border-color: #e06614;
@@ -75,4 +83,31 @@ h2 {
 #mainArtist {
   font-size: 1rem;
 }
+
+.banner {
+  align-self: flex-end;
+  padding: 10px;
+  margin-bottom: 10px;
+  color: #fff;
+  border-radius: 5px 0 0 5px;
+}
+
+#coming-soon {
+  background: #ab3f29bb;
+  width: 150px;
+  margin-left: -145px;
+}
+
+#sold {
+  background: rgba(0, 0, 0, 0.75);
+  width: 100px;
+  margin-left: -95px;
+}
+
+/* #triangle-topright {
+  width: 0;
+  height: 0;
+  border-top: 20px solid red;
+  border-left: 20px solid transparent;
+} */
 </style>

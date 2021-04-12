@@ -27,14 +27,6 @@
           >
         </div>
 
-        <router-link
-          class="tab"
-          id="logout"
-          v-bind:to="{ name: 'logout' }"
-          v-if="$store.state.token != ''"
-          >Logout</router-link
-        >
-
         <div id="authMyAccount" v-if="$store.state.token != ''">
           <router-link
             class="tab"
@@ -58,6 +50,14 @@
             >Settings</router-link
           >
         </div>
+
+        <router-link
+          class="tab"
+          id="logout"
+          v-bind:to="{ name: 'logout' }"
+          v-if="$store.state.token != ''"
+          >Logout</router-link
+        >
       </div>
       <router-view />
     </div>
@@ -77,7 +77,7 @@
   display: flex;
   flex-direction: column;
   position: fixed;
-  color: #f4f4f4eb;
+  color: #fff;
   font-family: "Quicksand", sans-serif;
   text-align: right;
   top: 5px;
@@ -99,7 +99,7 @@
 
 /* Style the links inside the sidenav */
 .tab {
-  color: #f4f4f4eb;
+  color: #fff;
   font-family: "Quicksand", sans-serif;
   transition: 0.2s;
   padding: 20px;
