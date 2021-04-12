@@ -1,12 +1,41 @@
 <template>
     <div>
-        <div id="reportStatus">
+      <div id="reportStatus">
         <h1>Status Report</h1>
-        <h2>Total number of art in Gallery: {{totalNumberOfArt}}</h2>
-        <h2>Total number of sold art: {{totalNumberSold}}</h2>
-        <h2>Available art for sale: {{totalAvailable}}</h2>
-        <h2>Unavailable art for sale: {{totalUnavailable}}</h2>
+        <div class="report">
+          <table id="overview" class="statusTable">
+            <tr>
+              <th class="stat">Overview</th>
+            </tr>
+            <tr>
+              <td># of art in gallery</td>
+              <td>{{totalNumberOfArt}}</td>
+            </tr>
+              <td># of sold art</td>
+              <td>{{totalNumberSold}}</td>
+            <tr>
+              <td># of available art</td>
+              <td>{{totalAvailable}}</td>
+            </tr>
+            <tr>
+              <td># of unavailable art</td>
+              <td>{{totalUnavailable}}</td>
+            </tr>
+          </table>
+
+          <table id="allListings" class="statusTable">
+            <tr>
+              <th class="stat">Art Title </th>
+              <th class="stat"> Status</th>
+            </tr>
+            <listing-status 
+            v-for="artPiece in $store.state.artPieceData"
+            v-bind:key="artPiece.artID"
+            v-bind:artPiece="artPiece"
+            />
+          </table>
         </div>
+     </div>
 
         <div class="pietest">
         <PieChart/>
@@ -24,12 +53,14 @@
 import artPieceService from "@/services/ArtPieceService.js";
 import PieChart from "../components/PieChart.vue";
 import TransactionStatus from './TransactionStatus.vue';
+import ListingStatus from '../components/ListingStatus.vue';
 
 export default {
   name: "ReportStatus",
   components: {
     PieChart,
-    TransactionStatus
+    TransactionStatus,
+    ListingStatus
   },
   data() {
     return {
@@ -44,25 +75,140 @@ export default {
 
   computed: {
     totalNumberOfArt() {
-      return this.artPieces.length;
+      let num = 0;
+
+      if(this.$store.state.user.authorities[0].name == 'ROLE_ARTIST'){
+          const listOfArt = this.artPieces.filter((x) => {
+            return x.artist = this.$store.state.user.username;
+        })
+        num = listOfArt.length;
+      }
+
+      if(this.$store.state.user.authorities[0].name == 'ROLE_DEALER'){
+          const listOfArt = this.artPieces.filter((x) => {
+            return x.dealer = this.$store.state.user.username;
+        })
+        num = listOfArt.length;
+      }
+
+      if(this.$store.state.user.authorities[0].name == 'ROLE_ADMIN'){
+        num = this.artPieces.length;
+      }
+
+      return num;
     },
+
     totalNumberSold() {
-      const soldArt = this.artPieces.filter((x) => {
-        return x.sold;
-      });
-      return soldArt.length;
+       let num = 0;
+
+       if(this.$store.state.user.authorities[0].name == 'ROLE_ARTIST'){
+          const listOfArt = this.artPieces.filter((x) => {
+            return x.artist = this.$store.state.user.username;
+          })
+          const soldArt = listOfArt.filter((x) => {
+            return x.sold;
+          })
+
+        num = soldArt.length;
+      }
+
+      if(this.$store.state.user.authorities[0].name == 'ROLE_DEALER'){
+          const listOfArt = this.artPieces.filter((x) => {
+            return x.dealer = this.$store.state.user.username;
+          })
+          const soldArt = listOfArt.filter((x) => {
+            return x.sold;
+          })
+
+        num = soldArt.length;
+      }
+
+      if(this.$store.state.user.authorities[0].name == 'ROLE_ADMIN'){
+        
+        const soldArt = this.artPieces.filter((x) => {
+          return x.sold;
+        })
+        
+        num = soldArt.length;
+      }
+
+      return num;
     },
+
     totalAvailable() {
-      const availableArt = this.artPieces.filter((x) => {
-        return x.available;
-      });
-      return availableArt.length;
+
+      let num = 0;
+
+       if(this.$store.state.user.authorities[0].name == 'ROLE_ARTIST'){
+          const listOfArt = this.artPieces.filter((x) => {
+            return x.artist = this.$store.state.user.username;
+          })
+          const availableArt = listOfArt.filter((x) => {
+            return x.available;
+          })
+
+        num = availableArt.length;
+      }
+
+      if(this.$store.state.user.authorities[0].name == 'ROLE_DEALER'){
+          const listOfArt = this.artPieces.filter((x) => {
+            return x.dealer = this.$store.state.user.username;
+          })
+          const availableArt = listOfArt.filter((x) => {
+            return x.available;
+          })
+
+        num = availableArt.length;
+      }
+
+      if(this.$store.state.user.authorities[0].name == 'ROLE_ADMIN'){
+        
+        const availableArt = this.artPieces.filter((x) => {
+          return x.available;
+        })
+        
+        num = availableArt.length;
+      }
+      return num;
+
     },
+
+
     totalUnavailable() {
-      const unavailableArt = this.artPieces.filter((x) => {
-        return !x.available;
-      });
-      return unavailableArt.length;
+
+      let num = 0;
+
+       if(this.$store.state.user.authorities[0].name == 'ROLE_ARTIST'){
+          const listOfArt = this.artPieces.filter((x) => {
+            return x.artist = this.$store.state.user.username;
+          })
+          const unavailableArt = listOfArt.filter((x) => {
+            return !x.available && !x.sold;
+          })
+
+        num = unavailableArt.length;
+      }
+
+      if(this.$store.state.user.authorities[0].name == 'ROLE_DEALER'){
+          const listOfArt = this.artPieces.filter((x) => {
+            return x.dealer = this.$store.state.user.username;
+          })
+          const unavailableArt = listOfArt.filter((x) => {
+            return !x.available && !x.sold;
+          })
+
+        num = unavailableArt.length;
+      }
+
+      if(this.$store.state.user.authorities[0].name == 'ROLE_ADMIN'){
+        
+        const unavailableArt = this.artPieces.filter((x) => {
+          return !x.available && !x.sold;
+        })
+        
+        num = unavailableArt.length;
+      }
+      return num;
     },
   },
 
@@ -86,10 +232,43 @@ export default {
   padding: 40px;
   margin: auto;
   margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   align-items: center;
   color: #f4f4f4eb;
   font-family: "Quicksand", sans-serif;
+}
+
+#allListings{
+
+  width: 300px;
+  /* padding: 10px; */
+  text-align: left;
+
+}
+
+.stat{
+  font-size: 18px;
+}
+
+.report{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 100px;
+  
+
+}
+
+.statusTable{
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#overview{
+  width: 225px;
+  border-right: solid;
+  border-right-width: 3px;
+  padding-right: 35px;
 }
 </style>
