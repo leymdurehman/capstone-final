@@ -34,26 +34,29 @@
         
         <div v-if="$store.state.user.authorities[0].name == 'ROLE_ARTIST'">
             <h1>Payment Report</h1>
-            <table>
-                <tr>
-                    <td>Total Pay</td>
-                    <td>{{getCommissionForArtist}}</td>
-                </tr>
-                <td>Each Transaction</td>
-                <!-- <div v-bind:v-for="currentArtistTransaction">
-                    <td>{{currentArtistTransaction[0].title}}</td>
-                </div> -->
-            </table>
+            <h3>Total Pay: ${{getCommissionForArtist}}</h3>
+               
         </div>
-
+        <div class="transaction-details">
+        <transaction-details
+        v-for="transaction in transactions"
+        v-bind:key="transaction.artID"
+        v-bind:transaction="transaction"
+         />
+        </div>
 
     </div>
 </template>
 
 <script>
 import transactionService from "@/services/TransactionService.js";
+import TransactionDetails from "./TransactionDetails.vue";
+
 export default {
     name: "TransactionStatus",
+    components: {
+        TransactionDetails
+    },
     data(){
         return{
             transactions: [],
