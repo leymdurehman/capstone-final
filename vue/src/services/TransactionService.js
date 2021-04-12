@@ -12,5 +12,9 @@ export default {
 
     getCurrentDefaultFees(){
       return axios.get('/fees')
+    },
+    
+    getAllTransactions(){
+      return axios.get('/transactions')
     }
 }

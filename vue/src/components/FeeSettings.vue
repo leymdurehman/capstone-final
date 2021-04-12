@@ -1,8 +1,5 @@
 <template>
-  <div
-    id="feeSettings"
-    v-if="$store.state.user.authorities[0].name != 'ROLE_ADMIN'"
-  >
+  <div id="feeSettings" v-if="$store.state.user.authorities[0].name == 'ROLE_ADMIN'">
     <h2>Set Fees and Commission</h2>
     <form>
       <div>

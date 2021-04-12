@@ -1,29 +1,42 @@
 <template>
-  <div id="report-status">
-    <h2>Status Report</h2>
-    <h3>Total number of art in Gallery: {{ totalNumberOfArt }}</h3>
-    <h3>Total number of sold art: {{ totalNumberSold }}</h3>
-    <h3>Available art for sale: {{ totalAvailable }}</h3>
-    <h3>Unavailable art for sale: {{ totalUnavailable }}</h3>
-  </div>
+    <div>
+        <div id="reportStatus">
+        <h1>Status Report</h1>
+        <h2>Total number of art in Gallery: {{totalNumberOfArt}}</h2>
+        <h2>Total number of sold art: {{totalNumberSold}}</h2>
+        <h2>Available art for sale: {{totalAvailable}}</h2>
+        <h2>Unavailable art for sale: {{totalUnavailable}}</h2>
+        </div>
+
+        <div class="pietest">
+        <PieChart/>
+        </div>
+        
+        <div id="reportStatus">
+          <transaction-status/>
+        </div>
+
+    </div>
+    
 </template>
 
 <script>
-// import firebase from "firebase";
 import artPieceService from "@/services/ArtPieceService.js";
 import PieChart from "../components/PieChart.vue";
-// import transactionService from "@/services/TransactionService.js";
+import TransactionStatus from './TransactionStatus.vue';
+
 export default {
   name: "ReportStatus",
   components: {
     PieChart,
+    TransactionStatus
   },
   data() {
     return {
-      grossRevenue: 0,
-      netProfits: 0,
-      totalCommissionsPaid: 0,
-      totalPaidToArtists: 0,
+      // grossRevenue: 0,
+      // netProfits: 0,
+      // totalCommissionsPaid: 0,
+      // totalPaidToArtists: 0,
       artPieces: [],
       transactions: null,
     };
@@ -66,7 +79,7 @@ export default {
 </script>
 
 <style scoped>
-#report-status {
+#reportStatus {
   background-color: #ab3f294b;
   border-radius: 20px;
   width: fit-content;

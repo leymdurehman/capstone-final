@@ -1,0 +1,144 @@
+<template>
+    <div>
+        <div v-if="$store.state.user.authorities[0].name == 'ROLE_ADMIN'">
+            <table id="transactionStatus">
+                <h1>Transaction Report</h1>
+                <tr>
+                    <td>Gross Revenue</td>
+                    <td>${{getRevenue}}</td>
+                </tr>
+                <tr>
+                    <td>Net Profit</td>
+                    <td>${{getFees}}</td>
+                </tr>
+                <tr>
+                    <td>Dealer Commission</td>
+                    <td>${{getComission}}</td>
+                </tr>
+                <tr>
+                    <td>Artist Commission</td>
+                    <td>${{getArtistTotal}}</td>
+                </tr>
+
+            </table>
+        </div>
+        <div v-if="$store.state.user.authorities[0].name == 'ROLE_DEALER'">
+            <h1>Commission Report</h1>
+            <table>
+                <tr>
+                    <td>Commissions Received</td>
+                    <td>{{getCommissionForDealer}}</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div v-if="$store.state.user.authorities[0].name == 'ROLE_ARTIST'">
+            <h1>Payment Report</h1>
+            <table>
+                <tr>
+                    <td>Total Pay</td>
+                    <td>{{getCommissionForArtist}}</td>
+                </tr>
+                <td>Each Transaction</td>
+                <!-- <div v-bind:v-for="currentArtistTransaction">
+                    <td>{{currentArtistTransaction[0].title}}</td>
+                </div> -->
+            </table>
+        </div>
+
+
+    </div>
+</template>
+
+<script>
+import transactionService from "@/services/TransactionService.js";
+export default {
+    name: "TransactionStatus",
+    data(){
+        return{
+            transactions: [],
+            currentDealerTransaction: [],
+            currentArtistTransaction: []
+        
+        }
+    },
+    created(){
+        transactionService
+            .getAllTransactions()
+                .then((response) => {
+                    this.transactions = response.data;
+                    this.getArtistTransactions();
+                    this.getDealerTransactions();
+                })
+                .catch((err) => console.error(err));
+    },
+    computed: {
+        getRevenue(){
+            let sum = 0;
+            this.transactions.forEach((price) => {
+               sum += price.totalPrice;
+            })
+            return parseFloat(sum).toFixed(2);
+        },
+        getArtistTotal(){
+            let sum = 0;
+            this.transactions.forEach((price) => {
+                sum += price.price;
+            })
+            return parseFloat(sum).toFixed(2);
+        },
+        getComission(){
+            let sum = 0;
+            this.transactions.forEach((price) => {
+                sum += price.commission;
+            })
+            return parseFloat(sum).toFixed(2);
+        },
+        getFees(){
+            let sum = 0;
+            this.transactions.forEach((price) => {
+                sum += price.fee;
+            })
+            return parseFloat(sum).toFixed(2);
+        },
+        getCommissionForDealer(){
+            const dealerTransactions = this.transactions.filter((x) => {
+            return x.dealer === this.$store.state.user.username;
+            });
+            let sum = 0;
+            dealerTransactions.forEach((price) => {
+                sum += price.commission;
+            })
+            return parseFloat(sum).toFixed(2);
+        },
+        getCommissionForArtist(){
+            const artistTransactions = this.transactions.filter((x) => {
+            return x.artist === this.$store.state.user.username;
+            });
+            let sum = 0;
+            artistTransactions.forEach((price) => {
+                sum += price.price;
+
+            });
+            return parseFloat(sum).toFixed(2);
+        },
+    },
+    methods: {
+        getArtistTransactions(){
+            this.currentArtistTransaction = this.transactions.filter((x) => {
+            return x.artist === this.$store.state.user.username;
+            });
+        },
+        getDealerTransactions(){
+            this.currentDealerTransaction = this.transactions.filter((x) => {
+            return x.dealer === this.$store.state.user.username;
+            });
+        }
+    }
+
+}
+</script>
+
+<style>
+
+</style>

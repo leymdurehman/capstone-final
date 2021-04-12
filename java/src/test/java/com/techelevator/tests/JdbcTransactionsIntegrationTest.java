@@ -74,14 +74,19 @@ public class JdbcTransactionsIntegrationTest extends DAOIntegrationTest{
 		
 		// create user (dealer)
 		
-		String sql = "INSERT INTO users (user_id, username, password_hash, role) VALUES (DEFAULT, ?, ?, ?) RETURNING user_id";
+		String sql = "INSERT INTO users (user_id, username, password_hash, role, email) VALUES (DEFAULT, ?, ?, ?, ?) RETURNING user_id";
 		
-		int dealerUserID = jdbcTemplate.queryForObject(sql, int.class, USERNAME_DUMMY, PASS_DUMMY, ROLE_DUMMY);
+
+
+		int dealerUserID = jdbcTemplate.queryForObject(sql, int.class, USERNAME_DUMMY, PASS_DUMMY, ROLE_DUMMY, "test@email.com");
+
 				
 		// create user2 (customer)
 		
-		sql = "INSERT INTO users (user_id, username, password_hash, role) VALUES (DEFAULT, ?, ?, ?) RETURNING user_id";
-		int costumerUserId = jdbcTemplate.queryForObject(sql, int.class, COSTUMER_USERNAME_DUMMY, PASS_COSTUMER_DUMMY, ROLE_COSTUMER_DUMMY);
+		sql = "INSERT INTO users (user_id, username, password_hash, role, email) VALUES (DEFAULT, ?, ?, ?, ?) RETURNING user_id";
+
+		int costumerUserId = jdbcTemplate.queryForObject(sql, int.class, COSTUMER_USERNAME_DUMMY, PASS_COSTUMER_DUMMY, ROLE_COSTUMER_DUMMY, "test@email.com");
+
 	
 		// create dealer
 		
@@ -113,6 +118,23 @@ public class JdbcTransactionsIntegrationTest extends DAOIntegrationTest{
 			
 		}
 	
+		
+		@Test
+		public void get_all_transactions() {
+			
+			int startSize = dao.getAllTransactions().size();
+			
+			
+			Transaction testTransaction = testTransaction();
+			
+			dao.createTransaction(testTransaction);
+			
+			int endSize = dao.getAllTransactions().size();
+			
+			Assert.assertEquals(startSize + 1 , endSize);
+			
+		}
+		
 	
 	
 	
@@ -129,6 +151,20 @@ public class JdbcTransactionsIntegrationTest extends DAOIntegrationTest{
 		}
 
 	
+//		public Transaction receiptTest() {
+//			Transaction transaction = new Transaction();
+//			
+//			transaction.setCustomerId(costumerUserId);
+//			transaction.setArtID(row.getInt("art_id"));
+//			transaction.setDateSold(row.getDate("date_of_sale").toLocalDate());
+//			transaction.setFee(row.getDouble("fee"));
+//			transaction.setCommission(row.getDouble("commission"));
+//			transaction.setTotalPrice(row.getDouble("total_price"));
+//			transaction.setDealer(row.getString("username"));
+//			transaction.setArtist(row.getString("artist_name"));
+//			
+//			return transaction;
+//		}
 	
 	
 	

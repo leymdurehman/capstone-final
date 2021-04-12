@@ -11,5 +11,5 @@ public interface TransactionsDao {
 	public int createTransaction(Transaction transaction);
 	public void setFees(Fee newFees);
 	public Fee getFees();
-
+	public List<Transaction> getAllTransactions();
 }
