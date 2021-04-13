@@ -9,11 +9,9 @@
         <h3>Title: {{ artPiece.title }}</h3>
         <h3>Date: {{ artPiece.dateCreated }}</h3>
         <h3>Artist: {{ artPiece.artist }}</h3>
-        <h3>Price: ${{ artPiece.price }}</h3>
-        <!-- <h3>Fee: ${{transaction.fee.toFixed(2)}}</h3>
-        <h3>Commission: $ {{transaction.commission.toFixed(2)}}</h3> -->
+        <h3>Price: ${{ artPiecePrice}}</h3>
         <h5>+ Additional Fees</h5>
-        <h3>Total Price: ${{ transaction.totalPrice }}</h3>
+        <h3>Total Price: ${{ totalPrice }}</h3>
         <button id="confirm" @click="startTransaction()">Confirm</button>
 
         <router-link
@@ -48,10 +46,23 @@ export default {
       templateParams: {
         name: '',
         email: '',
-        message: `Your item : ${this.artPiece.title} just got sold!'`
+        // message: `Your item : ${this.artPiece.title} just got sold!'`
       }
     };
   },
+computed: {
+    artPiecePrice(){
+      let price = this.artPiece.price;
+      return parseFloat(price).toFixed(2);
+    },
+    totalPrice(){
+      let totalPrice =(this.currentDefaultFees.fee / 100) * this.artPiece.price +
+          (this.currentDefaultFees.commission / 100) * this.artPiece.price +
+          this.artPiece.price;
+          return parseFloat(totalPrice).toFixed(2);
+    }
+
+},
   methods: {
     sendEmail() {
       emailjs.send('service_wqs5fy5', 'template_jnzoczd', this.templateParams,

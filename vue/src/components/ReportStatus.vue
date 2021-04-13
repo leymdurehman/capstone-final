@@ -39,8 +39,9 @@
 
     <div class="pietest">
       <PieChart />
-      <ThirtyDays />
+  
         <SevenDays />
+            <ThirtyDays />
      
     </div>
 

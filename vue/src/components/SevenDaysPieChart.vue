@@ -46,11 +46,11 @@ export default {
     this.gradient2.addColorStop(1, "rgba(0, 231, 255, 0)");
     this.renderChart(
       {
-        labels: ["Sold", "For Sale", "Not For Sale"],
+        labels: ["Sold", "Unsold"],
         datasets: [
           {
             backgroundColor: [this.gradient, this.gradient2, "#00D8FF"],
-            data: [this.totalNumberSold, (this.totalAvailable + this.totalUnavailable)]
+            data: [this.totalNumberSold, (this.totalNumberOfArt - this.totalNumberSold)]
           }
         ]
       },
@@ -58,8 +58,29 @@ export default {
     );
   },
   computed: {
-    totalNumberOfArt() {
-      return this.artPieces.length;
+   totalNumberOfArt() {
+      let num = 0;
+
+      if ((this.$store.state.user.authorities[0].name == "ROLE_ARTIST")
+          || (this.$store.state.user.authorities[0].name == "ROLE_SELLER")) {
+        const listOfArt = this.$store.state.artPieceData.filter((x) => {
+          return (x.artist == this.$store.state.user.username);
+        });
+        num = listOfArt.length;
+      }
+
+      if (this.$store.state.user.authorities[0].name == "ROLE_DEALER") {
+        const listOfArt = this.$store.state.artPieceData.filter((x) => {
+          return (x.dealer == this.$store.state.user.username);
+        });
+        num = listOfArt.length;
+      }
+
+      if (this.$store.state.user.authorities[0].name == "ROLE_ADMIN") {
+        num = this.$store.state.artPieceData.length;
+      }
+
+      return num;
     },
     totalNumberSold() {
         let numOfArtSold = 0;
@@ -150,7 +171,7 @@ export default {
       })
       .catch((err) => console.error(err));
     transactionService
-        .getArtistTransactions7Days()
+        .getTransactions7Days()
         .then((response) => {
         this.$store.commit("SET_TRANSACTION_DATA_7", response.data);
                     // this.getArtistTransactions();
