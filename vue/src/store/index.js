@@ -24,6 +24,7 @@ export default new Vuex.Store({
     customerId: 1,
     artPieceData: [],
     transactionData: [],
+    transactionData7: [],
     activeArtPiece: 0,
     fee: [],
     commission: []
@@ -60,7 +61,10 @@ export default new Vuex.Store({
     },
     SET_COMMISSION(state, commission){
       this.state.commission = commission;
-    }
+    },
+    SET_TRANSACTION_DATA_7(state, data){
+      this.state.transactionData7 = data;
+    },
   }
 
 })

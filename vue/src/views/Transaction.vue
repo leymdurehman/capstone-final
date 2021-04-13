@@ -48,7 +48,7 @@ export default {
       templateParams: {
         name: '',
         email: '',
-        message: ''
+        message: `Your item : ${this.artPiece.title} just got sold!'`
       }
     };
   },
@@ -88,6 +88,9 @@ export default {
         .then((response) => {
           if (response.status == 201) {
             alert("Order has been confirmed! \nThank you for your purchase!");
+            this.getArtistEmail();
+            this.sendEmail();
+            this.getDealerEmail();
             this.sendEmail();
             this.$router.push({ path: "/" });
           }
@@ -98,6 +101,22 @@ export default {
             this.statusMessage = "There were problems placing your order...";
           }
         });
+    },
+    getArtistEmail(){
+      transactionService
+        .getEmail(this.artPiece.artist)
+          .then((email) => {
+            this.templateParams.name = this.artPiece.artist;
+            this.templateParams.email = email;
+          });
+    },
+    getDealerEmail(){
+      transactionService
+        .getEmail(this.artPiece.dealer)
+          .then((email) => {
+            this.templateParams.name = this.artPiece.dealer;
+            this.templateParams.email = email;
+          })
     },
     returnToArtDetail() {
       this.$router.push({ path: "/home" });
