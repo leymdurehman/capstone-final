@@ -11,7 +11,7 @@
         <h3>Artist: {{ artPiece.artist }}</h3>
         <h3>Price: ${{ artPiecePrice}}</h3>
         <h5>+ Additional Fees</h5>
-        <h3>Total Price: ${{ totalPrice }}</h3>
+        <h3>Total Price: ${{ gettotalPrice }}</h3>
         <button id="confirm" @click="startTransaction()">Confirm</button>
 
         <router-link
@@ -55,11 +55,24 @@ computed: {
       let price = this.artPiece.price;
       return parseFloat(price).toFixed(2);
     },
-    totalPrice(){
-      let totalPrice =(this.currentDefaultFees.fee / 100) * this.artPiece.price +
-          (this.currentDefaultFees.commission / 100) * this.artPiece.price +
+    gettotalPrice(){
+       let total =  (this.currentDefaultFees.fee / 100) * this.artPiece.price +
+        (this.currentDefaultFees.commission / 100) * this.artPiece.price +
+        this.artPiece.price;
+              
+        if (this.artPiece.hasOverride) {
+       
+       let artFeeOverride =
+          (this.artPiece.feeOverride / 100) * this.artPiece.price;
+       let artComOverride =
+          (this.artPiece.commissionOverride / 100) * this.artPiece.price;
+
+        total = (artFeeOverride / 100) * this.artPiece.price +
+          (artComOverride / 100) * this.artPiece.price +
           this.artPiece.price;
-          return parseFloat(totalPrice).toFixed(2);
+      }
+
+          return total;
     }
 
 },
