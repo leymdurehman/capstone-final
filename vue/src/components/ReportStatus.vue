@@ -94,7 +94,7 @@ export default {
       }
 
       if (this.$store.state.user.authorities[0].name == "ROLE_ADMIN") {
-        num == this.artPieces.length;
+        num = this.artPieces.length;
       }
 
       return num;
