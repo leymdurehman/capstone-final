@@ -13,7 +13,7 @@
       <h2 class="override">Override Default Fees</h2>
       <div class="art-container">
         <settings-display-art
-          v-for="artPiece in $store.state.artPieceData"
+          v-for="artPiece in $store.state.artPieceData" 
           v-bind:key="artPiece.artID"
           v-bind:artPiece="artPiece"
           v-show="!artPiece.sold"
