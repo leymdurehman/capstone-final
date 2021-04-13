@@ -18,7 +18,8 @@
             draggable
             @dragstart='startDrag($event, art)'
             >
-                {{ art.title }}
+            
+            <h4>{{ art.title }} | {{art.artist}} | {{art.dateCreated}}</h4>    
             </div>
         </div>
             <div class='drop-zone-false'
@@ -35,7 +36,7 @@
                 draggable
                 @dragstart='startDrag($event, art)'
                 >
-                    {{ art.title }}
+                    <h4>{{ art.title }} | {{art.artist}} | {{art.dateCreated}}</h4>   
                 </div>
             </div>
 
@@ -46,6 +47,7 @@
 
 <script>
 import artPieceService from "@/services/ArtPieceService.js";
+
 export default {
     name: 'MakeAvailable',
 
@@ -94,7 +96,14 @@ export default {
         onDrop (evt, available) {
             const artID = evt.dataTransfer.getData('artID')
             const artPiece = this.unsoldArt.find(artPiece => artPiece.artID == artID)
-            artPiece.available = available
+           
+            artPieceService.flipAvailability(artPiece.artID)
+            .then(
+                  artPiece.available = available
+            ).catch((err) => console.error(err));
+            
+
+          
         }
 
     },
@@ -123,14 +132,14 @@ export default {
   color: rgb(255, 255, 255);
   font-family: "Quicksand", sans-serif;
   border-style: dashed;
-   margin-bottom: 200px;
+   margin-bottom: 50px;
   }
 
   .drop-zone-false {
     background-color: #eee;
     height: 400px;
       margin: 10px;
-    margin-bottom: 200px;
+    margin-bottom: 50px;
     padding: 30px;
     width: 300px;
     background-color: #ab3f2969;
@@ -153,11 +162,19 @@ export default {
     border-color: #ffffff;
     border-radius: 10px;
     border-width: 5px;
+    box-shadow: 2px 2px 2px 2px #6f281a85; 
+
   }
   
+  .drag-el:active {
+
+       cursor: grabbing;
+
+  }
   .dragdrop {
       display: flex;
       justify-content: center;
+      cursor: grab;
       
       
 
@@ -172,5 +189,8 @@ export default {
   margin-bottom: 1em;
   text-shadow: 2px 2px #2b2929fb;
   text-align: center;
+  }
+  h4{
+     text-align: center;
   }
 </style>

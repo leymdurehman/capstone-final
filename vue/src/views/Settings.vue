@@ -4,6 +4,10 @@
 
     <register-others />
 
+    <div>
+      <make-available/>
+    </div>
+
     <div v-show="$store.state.user.authorities[0].name == 'ROLE_ADMIN'">
       <fee-settings/>
     </div>
@@ -19,10 +23,6 @@
           v-show="!artPiece.sold"
         />
       </div>
-    </div>
-
-    <div>
-      <make-available/>
     </div>
 
   </div>
