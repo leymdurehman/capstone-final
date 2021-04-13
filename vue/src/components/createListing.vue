@@ -72,11 +72,7 @@
     <p v-if="files[0]">{{ files[0].name }}</p>
     <p v-if="selectedFile">{{ selectedFile.name }}</p>
     <div id="preview">
-<<<<<<< HEAD
       <img v-if="url" v-bind:src="url" />
-=======
-      <img v-if="url" :src="url" />
->>>>>>> 396028e9950f56ad3b30a4c903da5963ca3fff2f
     </div>
     <div class="remove-container">
       <button
