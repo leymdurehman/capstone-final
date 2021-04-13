@@ -16,6 +16,7 @@
           v-for="artPiece in $store.state.artPieceData"
           v-bind:key="artPiece.artID"
           v-bind:artPiece="artPiece"
+          v-show="!artPiece.sold"
         />
       </div>
     </div>
@@ -82,7 +83,7 @@ export default {
 
 <style scoped>
 h2 {
-  color: #ffffff;
+  color: #fff;
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
   line-height: 25px;

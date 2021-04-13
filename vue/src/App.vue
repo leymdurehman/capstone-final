@@ -44,13 +44,12 @@
             id="settings"
             v-bind:to="{ name: 'Settings' }"
             v-if="
-              $store.state.user.authorities[0].name == 'ROLE_ADMIN' ||
-              'ROLE_DEALER'
+              $store.state.user.authorities[0].name == ('ROLE_ADMIN' ||
+              'ROLE_DEALER')
             "
             >Settings</router-link
           >
         </div>
-
         <router-link
           class="tab"
           id="logout"
