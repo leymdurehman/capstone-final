@@ -40,7 +40,8 @@
     <div class="pietest">
       <PieChart />
       <ThirtyDays />
-      <!-- <SevenDays /> -->
+        <SevenDays />
+     
     </div>
 
   </div>
@@ -52,7 +53,7 @@ import PieChart from "../components/PieChart.vue";
 //import TransactionStatus from "./TransactionStatus.vue";
 import ListingStatus from "../components/ListingStatus.vue";
 import ThirtyDays from "../components/ThirtyDaysPieChart.vue";
-// import SevenDays from "../components/SevenDaysPieChart.vue";
+import SevenDays from "../components/SevenDaysPieChart.vue";
 
 export default {
   name: "ReportStatus",
@@ -61,7 +62,7 @@ export default {
     //TransactionStatus,
     ListingStatus,
     ThirtyDays,
-    // SevenDays,
+    SevenDays,
   },
   data() {
     return {

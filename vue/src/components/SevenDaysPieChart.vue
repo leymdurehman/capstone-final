@@ -66,14 +66,14 @@ export default {
 
         // admin art - all art sold in last 30 days
         if(this.$store.state.user.authorities[0].name == 'ROLE_ADMIN'){
-             let soldArt = this.$store.state.transactionData;
+             let soldArt = this.$store.state.transactionData7;
             numOfArtSold = soldArt.length;
         }
         
         
         //artist sold - all art sold in last 30 days by ARTIST name
         if ((this.$store.state.user.authorities[0].name == 'ROLE_ARTIST') || (this.$store.state.user.authorities[0].name == 'ROLE_SELLER')){
-            const soldForArtist = this.$store.state.transactionData.filter((x) => {
+            const soldForArtist = this.$store.state.transactionData7.filter((x) => {
             return x.artist === this.$store.state.user.username;
             });
          numOfArtSold = soldForArtist.length;
@@ -81,7 +81,7 @@ export default {
 
         //dealer sold
         if (this.$store.state.user.authorities[0].name == 'ROLE_DEALER'){
-            const soldForDealer = this.$store.state.transactionData.filter((x) => {
+            const soldForDealer = this.$store.state.transactionData7.filter((x) => {
             return x.dealer === this.$store.state.user.username;
             });
          numOfArtSold = soldForDealer.length;
@@ -152,7 +152,7 @@ export default {
     transactionService
         .getArtistTransactions7Days()
         .then((response) => {
-        this.$store.commit("SET_TRANSACTION_DATA", response.data);
+        this.$store.commit("SET_TRANSACTION_DATA_7", response.data);
                     // this.getArtistTransactions();
                     // this.getDealerTransactions();
                 })
