@@ -21,6 +21,10 @@
       </div>
     </div>
 
+    <div>
+      <make-available/>
+    </div>
+
   </div>
 </template>
 
@@ -30,13 +34,16 @@ import SettingsDisplayArt from "../components/SettingsDisplayArt.vue";
 import artPieceService from "@/services/ArtPieceService.js";
 import RegisterOthers from "../components/RegisterOthers.vue";
 import FeeSettings from '../components/FeeSettings.vue';
+import MakeAvailable from '../components/MakeAvailable.vue';
+
 
 export default {
   name: "settings",
   components: {
     SettingsDisplayArt,
     RegisterOthers,
-    FeeSettings
+    FeeSettings,
+    MakeAvailable
   },
 
   data() {
@@ -57,8 +64,8 @@ export default {
 
     artPieceService
       .getAllListings()
-      .then((response) => {
-        this.$store.commit("SET_ART_DATA", response.data);
+        .then((response) => {
+          this.$store.commit("SET_ART_DATA", response.data);
       })
       .catch((err) => console.error(err));
   },
