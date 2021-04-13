@@ -82,7 +82,7 @@ export default {
 
 <style scoped>
 h2 {
-  color: #ffffff;
+  color: #fff;
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
   line-height: 25px;

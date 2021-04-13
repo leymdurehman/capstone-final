@@ -6,7 +6,7 @@
     <form>
       <div>
         <div class="label">
-          <label for="artistName">Artist Name: </label>
+          <label id="artist-name" for="artistName">Artist Name: </label>
         </div>
         <input
           type="text"
@@ -54,42 +54,30 @@
         <div class="label">
           <label>Dealer Name: </label>
         </div>
-
-        <input type="text" name="dealerName" v-model.trim="
-artPiece.dealer
-" />
+        <input type="text" name="dealerName" v-model.trim="artPiece.dealer" />
       </div>
       <div>
         <div class="label">
           <label for="image">Image: </label>
         </div>
-
-        <input
-          type="file"
-          id="image"
-          @change="onFileChanged"
-          accept="image/*"
-        />
+        <input type="file" id="file" @change="onFileChanged" accept="image/*" />
       </div>
     </form>
-
     <div>Or</div>
-
     <div id="file-drag-drop">
       <form id="dragDrop" ref="fileform" @change="onFileChanged">
         <span class="drop-files">Drop Image Here</span>
       </form>
     </div>
-
     <p v-if="files[0]">{{ files[0].name }}</p>
-    <p v-if="selectedFile">{{ 
-selectedFile.name
- }}</p>
-
+    <p v-if="selectedFile">{{ selectedFile.name }}</p>
     <div id="preview">
+<<<<<<< HEAD
       <img v-if="url" v-bind:src="url" />
+=======
+      <img v-if="url" :src="url" />
+>>>>>>> 396028e9950f56ad3b30a4c903da5963ca3fff2f
     </div>
-
     <div class="remove-container">
       <button
         class="remove"
@@ -99,7 +87,6 @@ selectedFile.name
         Reset Image
       </button>
     </div>
-
     <div class="label">
       <input
         type="submit"
@@ -107,28 +94,20 @@ selectedFile.name
         v-on:click="createListingForArtPiece()"
       />
     </div>
-
     <div>
       <button class="cancel" @click="returnHome()">Return Home</button>
     </div>
   </div>
 </template>
-
-
-
 <script>
 import artPieceService from "@/services/ArtPieceService.js";
 import firebase from "firebase";
-
 export default {
   name: "createListing",
-
   data() {
     return {
       selectedFile: null,
-      artPiece: {
-        dealer: "",
-      },
+      artPiece: {},
       listingError: false,
       listingErrorMessage: "",
       dragAndDropCapable: false,
@@ -140,7 +119,6 @@ export default {
   },
   mounted() {
     this.dragAndDropCapable = this.determineDragAndDropCapable();
-
     if (this.dragAndDropCapable) {
       [
         "drag",
@@ -162,7 +140,6 @@ export default {
           );
         }.bind(this)
       );
-
       this.$refs.fileform.addEventListener(
         "drop",
         function (e) {
@@ -190,7 +167,7 @@ export default {
   },
   methods: {
     resetInputText() {
-      document.getElementById("image").value = "";
+      document.getElementById("file").value = "";
     },
     returnHome() {
       this.$router.push({ path: "/" });
@@ -222,7 +199,6 @@ export default {
     },
     determineDragAndDropCapable() {
       var divDrop = document.createElement("div");
-
       return (
         ("draggable" in divDrop ||
           ("ondragstart" in divDrop && "ondrop" in divDrop)) &&
@@ -232,22 +208,16 @@ export default {
     },
     onFileChanged(event) {
       this.selectedFile = event.target.files[0];
-      this.artPiece.imgFileName = 
-this.selectedFile.name
-;
+      this.artPiece.imgFileName = this.selectedFile.name;
       this.showPreview(this.selectedFile);
     },
     onUpload() {
-      const storageRef = 
-firebase.storage
-().ref();
+      const storageRef = firebase.storage().ref();
       if (!this.selectedFile) {
         storageRef.child(this.files[0].name).put(this.files[0]);
         this.artPiece.imgFileName = this.files[0].name;
       } else {
-        storageRef.child(
-this.selectedFile.name
-).put(this.selectedFile);
+        storageRef.child(this.selectedFile.name).put(this.selectedFile);
       }
     },
     createListingForArtPiece() {
@@ -271,16 +241,15 @@ this.selectedFile.name
   },
 };
 </script>
-
 <style scoped>
 #listing {
   background-color: #ab3f294b;
   border-radius: 20px;
-  color: #f4f4f4eb;
+  color: #fff;
   font-family: "Quicksand", sans-serif;
   width: 40%;
   min-width: 300px;
-  padding: 20px;
+  padding: 0px 20px 10px 20px;
   margin: auto;
   display: flex;
   text-align: center;
@@ -288,40 +257,43 @@ this.selectedFile.name
   align-items: center;
   margin-bottom: 10px;
 }
-
+#artist-name {
+  margin-top: 0;
+  padding-top: 0;
+  line-height: 0;
+}
 img {
   width: 30%;
   margin: auto;
   display: block;
   margin-bottom: 10px;
 }
-
-#image {
+p {
+  line-height: 2rem;
+}
+#file {
   /* margin-left: 20px; */
   margin-top: 5px;
   margin-bottom: 10px;
   background-color: #ab3f29;
-  color: #f4f4f4eb;
+  color: #fff;
   border-radius: 7px;
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
 }
-
 .remove {
   margin: 10px;
   background-color: #ab3f29;
-  color: #f4f4f4eb;
+  color: #fff;
   border-radius: 2px;
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
   padding: 5px 15px;
   cursor: pointer;
 }
-
 .label {
   padding-top: 20px;
 }
-
 #dragDrop {
   display: block;
   height: 80px;
@@ -332,22 +304,19 @@ img {
   text-align: center;
   border-radius: 4px;
 }
-
 #preview {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 #preview img {
   width: 50%;
   max-height: 100%;
 }
-
 .cancel {
   margin: 10px;
   background-color: #ab3f29;
-  color: #f4f4f4eb;
+  color: #fff;
   border-radius: 2px;
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
@@ -356,14 +325,13 @@ img {
 }
 input[type="submit"] {
   background-color: #ab3f29;
-  color: #f4f4f4eb;
+  color: #fff;
   border-radius: 2px;
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
   padding: 5px 15px;
   cursor: pointer;
 }
-
 input[type="submit"]:disabled {
   background-color: #ab3f293f;
   color: #f4f4f43a;
@@ -371,43 +339,39 @@ input[type="submit"]:disabled {
   border: none;
   box-shadow: 1.5px 1.5px 1.5px 1.5px #310f083a;
   padding: 5px 15px;
+  cursor: default;
 }
-
 input[type="file"] {
-  color: #f4f4f4eb;
+  color: #fff;
   width: 250px;
+  border-radius: 2px;
 }
-
 #dragDrop {
   display: flex;
   justify-content: center;
   background-color: #ab3f29;
-  color: #f4f4f4eb;
+  color: #fff;
   border-radius: 7px;
   border: none;
   border: inset;
   border-color: #310f08b7;
   /* box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7; */
 }
-
 #dragDrop:hover {
   display: flex;
   justify-content: center;
   background-color: #702a1bc9;
-  color: #f4f4f480;
+  color: #fff;
   border-radius: 7px;
   border: none;
   border: inset;
   border-color: #310f08b7;
 }
-
 .drop-files {
   margin-top: 15px;
 }
 
-input[type="text"],
-[type="date"],
-[type="number"] {
-  border-radius: 7px;
+h2 {
+  padding-top: 1.5rem;
 }
 </style>
