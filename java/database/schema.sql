@@ -29,10 +29,10 @@ CREATE TABLE users (
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
-INSERT INTO users (username,password_hash,role, email) VALUES ('customer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER', 'customer@email.com');
-INSERT INTO users (username,password_hash,role, email) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN', 'admin@email.com');
-INSERT INTO users (username,password_hash,role, email) VALUES ('artist','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ARTIST', 'artist@email.com');
-INSERT INTO users (username,password_hash,role, email) VALUES ('dealer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_DEALER', 'dealer@email.com');
+INSERT INTO users (username,password_hash,role, email) VALUES ('customer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER', 'teamalphacohort13@gmail.com');
+INSERT INTO users (username,password_hash,role, email) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN', 'teamalphacohort13@gmail.com');
+INSERT INTO users (username,password_hash,role, email) VALUES ('artist','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ARTIST', 'teamalphacohort13@gmail.com');
+INSERT INTO users (username,password_hash,role, email) VALUES ('dealer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_DEALER', 'teamalphacohort13@gmail.com');
 INSERT INTO users (username,password_hash,role, email) VALUES ('seller','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_SELLER', 'seller@email.com');
 INSERT INTO users (username,password_hash,role, email) VALUES ('sellerArtist','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_SELLER', 'sellerArtist@email.com');
 
@@ -150,5 +150,12 @@ INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT,
 
 --INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id) 
 --VALUES (DEFAULT, 'More Art', '2019-05-02', 500.01, 'art.png', 3);
+--UPDATE art_pieces SET  is_available = true WHERE art_id = 6;
+--UPDATE art_pieces SET  is_sold = false WHERE art_id = 1;
+
+--Set the Piechart for 3
+--UPDATE transactions SET date_of_sale = '2021-01-01' WHERE order_id = 1;
+--UPDATE transactions SET date_of_sale = '2021-03-14' WHERE order_id = 2;
+--UPDATE transactions SET date_of_sale = '2021-04-06' WHERE order_id = 3; 
 
 COMMIT TRANSACTION;

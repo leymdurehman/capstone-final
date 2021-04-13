@@ -14,9 +14,9 @@
       <div class="art-container">
         <settings-display-art
           v-for="artPiece in $store.state.artPieceData" 
-          v-show="!artPiece.sold"
           v-bind:key="artPiece.artID"
           v-bind:artPiece="artPiece"
+          v-show="!artPiece.sold"
         />
       </div>
     </div>

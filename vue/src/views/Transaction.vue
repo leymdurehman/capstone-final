@@ -11,7 +11,7 @@
         <h3>Artist: {{ artPiece.artist }}</h3>
         <h3>Price: ${{ artPiecePrice}}</h3>
         <h5>+ Additional Fees</h5>
-        <h3>Total Price: ${{ totalPrice }}</h3>
+        <h3>Total Price: ${{ gettotalPrice }}</h3>
         <button id="confirm" @click="startTransaction()">Confirm</button>
 
         <router-link
@@ -42,12 +42,7 @@ export default {
       foundId: 0,
       statusMessage: null,
       transaction: {},
-      currentDefaultFees: {},
-      templateParams: {
-        name: '',
-        email: '',
-        // message: `Your item : ${this.artPiece.title} just got sold!'`
-      }
+      currentDefaultFees: {}
     };
   },
 computed: {
@@ -55,17 +50,30 @@ computed: {
       let price = this.artPiece.price;
       return parseFloat(price).toFixed(2);
     },
-    totalPrice(){
-      let totalPrice =(this.currentDefaultFees.fee / 100) * this.artPiece.price +
-          (this.currentDefaultFees.commission / 100) * this.artPiece.price +
+    gettotalPrice(){
+       let total =  (this.currentDefaultFees.fee / 100) * this.artPiece.price +
+        (this.currentDefaultFees.commission / 100) * this.artPiece.price +
+        this.artPiece.price;
+              
+        if (this.artPiece.hasOverride) {
+       
+       let artFeeOverride =
+          (this.artPiece.feeOverride / 100) * this.artPiece.price;
+       let artComOverride =
+          (this.artPiece.commissionOverride / 100) * this.artPiece.price;
+
+        total = (artFeeOverride / 100) * this.artPiece.price +
+          (artComOverride / 100) * this.artPiece.price +
           this.artPiece.price;
-          return parseFloat(totalPrice).toFixed(2);
+      }
+
+          return total;
     }
 
 },
   methods: {
-    sendEmail() {
-      emailjs.send('service_wqs5fy5', 'template_jnzoczd', this.templateParams,
+    sendEmail(templateParams) {
+      emailjs.send('service_wqs5fy5', 'template_jnzoczd', templateParams,
       'user_9KaBtBto1Nl9wAegVd3Uh', {
       }).then((result) => {
           console.log('SUCCESS!', result.status, result.text);
@@ -73,7 +81,7 @@ computed: {
           console.log('FAILED...', error);
       });
 
-      // Reset form field
+      //Reset form field
       this.name = ''
       this.email = ''
       this.message = ''
@@ -100,9 +108,8 @@ computed: {
           if (response.status == 201) {
             alert("Order has been confirmed! \nThank you for your purchase!");
             this.getArtistEmail();
-            this.sendEmail();
             this.getDealerEmail();
-            this.sendEmail();
+            this.getCustomerEmail();
             this.$router.push({ path: "/" });
           }
         })
@@ -117,17 +124,34 @@ computed: {
       transactionService
         .getEmail(this.artPiece.artist)
           .then((email) => {
-            this.templateParams.name = this.artPiece.artist;
-            this.templateParams.email = email;
+            let templateParams = {};
+            templateParams.email = email.data;
+            templateParams.message = `Your item : ${this.artPiece.title} just got sold!'`;
+            templateParams.name = this.artPiece.artist;       
+            this.sendEmail(templateParams);     
           });
     },
     getDealerEmail(){
       transactionService
         .getEmail(this.artPiece.dealer)
           .then((email) => {
-            this.templateParams.name = this.artPiece.dealer;
-            this.templateParams.email = email;
+            let templateParams = {};
+            templateParams.email = email.data;
+            templateParams.message = `Your item : ${this.artPiece.title} just got sold!'`;            
+            templateParams.name = this.artPiece.dealer; 
+            this.sendEmail(templateParams);          
           })
+    },
+    getCustomerEmail(){
+      transactionService
+        .getEmail(this.$store.state.user.username)
+          .then((email) => {
+            let templateParams = {};
+            templateParams.email = email.data;
+            templateParams.message = `You just bought : ${this.artPiece.title}! For the price of $${this.totalPrice} Thank you for your purchase!'`;
+            templateParams.name = this.$store.state.user.username;       
+            this.sendEmail(templateParams);     
+          });
     },
     returnToArtDetail() {
       this.$router.push({ path: "/home" });
