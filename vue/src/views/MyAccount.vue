@@ -2,19 +2,6 @@
   <div>
     <h1>My Account</h1>
     <report-status />
-
-    <!-- <div id="buttonContainer">
-      <button v-bind:disabled="!isFormValid" v-on:click="getAll()">
-        All Time
-      </button>
-      <button v-bind:disabled="!isFormValid" v-on:click="get30days()">
-        Last 30 Days
-      </button>
-      <button v-bind:disabled="!isFormValid" v-on:click="get7days()">
-        Last 7 Days
-      </button>
-    </div> -->
-
     <div id="reportStatus">
       <transaction-status />
     </div>
@@ -76,20 +63,5 @@ export default {
 
 
 <style scoped>
-#buttonContainer {
-  display: flex;
-  justify-content: center;
-}
 
-button {
-  border: none;
-  padding: 5px;
-  width: 100px;
-  background-color: #ab3f29;
-  border-radius: 5px;
-  box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
-  cursor: pointer;
-  margin: 10px;
-  color: #fff;
-}
 </style>

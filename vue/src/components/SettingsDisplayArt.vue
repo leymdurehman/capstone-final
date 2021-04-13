@@ -45,7 +45,6 @@ export default {
   box-shadow: 2px 2px 2px 2px #ab3f2985;
   border-color: #ab3f29;
   border-radius: 5px;
-  top: 95px;
   width: 150px;
   height: auto;
   padding: 15px;
@@ -65,7 +64,7 @@ a:link {
 }
 
 .settingsMyImg {
-  width: 95%;
+  width: 100%;
   height: auto;
   border-color: #e06614;
   border-radius: 5px;
@@ -75,6 +74,7 @@ a:link {
 h2 {
   font-size: 1.25rem;
   font-style: italic;
+  padding-top: 5px;
 }
 
 #settingsMainArtist {

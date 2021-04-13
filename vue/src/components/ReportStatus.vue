@@ -37,40 +37,51 @@
       </div>
     </div>
 
-    <div class="pietest">
+    <div class="pie-container" v-if="buttonAllStatus">
       <PieChart />
-      <ThirtyDays />
-      <!-- <SevenDays /> -->
     </div>
-
+    <div class="pie-container" v-if="button30Status">
+      <ThirtyDays />
+    </div>
+    <div class="pie-container" v-if="button7Status">
+      <SevenDays />
+    </div>
+    <div id="buttonContainer">
+     <button v-bind:class="{disabled: buttonAllStatus}" v-on:click="flipStatusAll(buttonAllStatus)">
+        All Time
+      </button>
+      <button v-bind:class="{disabled: button30Status}" v-on:click="flipStatus30(button30Status)">
+        Last 30 Days
+      </button>
+      <button v-bind:class="{disabled: button7Status}" v-on:click="flipStatus7(button7Status)">
+        Last 7 Days
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 import artPieceService from "@/services/ArtPieceService.js";
-import PieChart from "../components/PieChart.vue";
-//import TransactionStatus from "./TransactionStatus.vue";
 import ListingStatus from "../components/ListingStatus.vue";
+import PieChart from "../components/PieChart.vue";
 import ThirtyDays from "../components/ThirtyDaysPieChart.vue";
-// import SevenDays from "../components/SevenDaysPieChart.vue";
+import SevenDays from "../components/SevenDaysPieChart.vue";
 
 export default {
   name: "ReportStatus",
   components: {
     PieChart,
-    //TransactionStatus,
     ListingStatus,
     ThirtyDays,
-    // SevenDays,
+    SevenDays,
   },
   data() {
     return {
-      // grossRevenue: 0,
-      // netProfits: 0,
-      // totalCommissionsPaid: 0,
-      // totalPaidToArtists: 0,
       artPieces: [],
       transactions: null,
+      buttonAllStatus: true,
+      button30Status: false,
+      button7Status: false
     };
   },
 
@@ -215,6 +226,29 @@ export default {
       })
       .catch((err) => console.error(err));
   },
+  methods: {
+      flipStatusAll(buttonAllStatus) {
+      if(this.buttonAllStatus == false){
+        this.buttonAllStatus = !buttonAllStatus;
+        this.button30Status = false;
+        this.button7Status = false;
+      }
+    },
+    flipStatus30(button30Status) {
+      if(this.button30Status == false){
+        this.button30Status = !button30Status;
+        this.buttonAllStatus = false;
+        this.button7Status = false;
+      }
+    },
+    flipStatus7(button7Status) {
+      if(this.button7Status == false){
+        this.button7Status = !button7Status;
+        this.buttonAllStatus = false;
+        this.button30Status = false;
+      }
+    }
+  }
 };
 </script>
 
@@ -260,5 +294,31 @@ export default {
   border-right: solid;
   border-right-width: 3px;
   padding-right: 35px;
+}
+
+#buttonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  border: none;
+  padding: 5px 15px;
+  width: 120px;
+  background-color: #ab3f29;
+  border-radius: 2px;
+  box-shadow: 1.5px 1.5px 1.5px 1.5px #310f08b7;
+  cursor: pointer;
+  margin: 10px;
+  color: #fff;
+}
+
+button.disabled {
+  background-color: #ab3f293f;
+  color: #f4f4f43a;
+  border-radius: 2px;
+  border: none;
+  box-shadow: 1.5px 1.5px 1.5px 1.5px #310f083a;
+  cursor: default;
 }
 </style>
