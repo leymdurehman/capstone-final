@@ -44,17 +44,12 @@ export default {
       foundId: 0,
       statusMessage: null,
       transaction: {},
-      currentDefaultFees: {},
-      templateParams: {
-        name: '',
-        email: '',
-        message: `Your item : ${this.artPiece.title} just got sold!'`
-      }
+      currentDefaultFees: {}
     };
   },
   methods: {
-    sendEmail() {
-      emailjs.send('service_wqs5fy5', 'template_jnzoczd', this.templateParams,
+    sendEmail(templateParams) {
+      emailjs.send('service_wqs5fy5', 'template_jnzoczd', templateParams,
       'user_9KaBtBto1Nl9wAegVd3Uh', {
       }).then((result) => {
           console.log('SUCCESS!', result.status, result.text);
@@ -62,7 +57,7 @@ export default {
           console.log('FAILED...', error);
       });
 
-      // Reset form field
+      //Reset form field
       this.name = ''
       this.email = ''
       this.message = ''
@@ -89,9 +84,8 @@ export default {
           if (response.status == 201) {
             alert("Order has been confirmed! \nThank you for your purchase!");
             this.getArtistEmail();
-            this.sendEmail();
             this.getDealerEmail();
-            this.sendEmail();
+            this.getCustomerEmail();
             this.$router.push({ path: "/" });
           }
         })
@@ -106,17 +100,34 @@ export default {
       transactionService
         .getEmail(this.artPiece.artist)
           .then((email) => {
-            this.templateParams.name = this.artPiece.artist;
-            this.templateParams.email = email;
+            let templateParams = {};
+            templateParams.email = email.data;
+            templateParams.message = `Your item : ${this.artPiece.title} just got sold!'`;
+            templateParams.name = this.artPiece.artist;       
+            this.sendEmail(templateParams);     
           });
     },
     getDealerEmail(){
       transactionService
         .getEmail(this.artPiece.dealer)
           .then((email) => {
-            this.templateParams.name = this.artPiece.dealer;
-            this.templateParams.email = email;
+            let templateParams = {};
+            templateParams.email = email.data;
+            templateParams.message = `Your item : ${this.artPiece.title} just got sold!'`;            
+            templateParams.name = this.artPiece.dealer; 
+            this.sendEmail(templateParams);          
           })
+    },
+    getCustomerEmail(){
+      transactionService
+        .getEmail(this.$store.state.user.username)
+          .then((email) => {
+            let templateParams = {};
+            templateParams.email = email.data;
+            templateParams.message = `You just bought : ${this.artPiece.title}! Thank you for your purchase'`;
+            templateParams.name = this.$store.state.user.username;       
+            this.sendEmail(templateParams);     
+          });
     },
     returnToArtDetail() {
       this.$router.push({ path: "/home" });

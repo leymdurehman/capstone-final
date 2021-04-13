@@ -87,7 +87,7 @@ selectedFile.name
  }}</p>
 
     <div id="preview">
-      <img v-if="url" src="url" />
+      <img v-if="url" v-bind:src="url" />
     </div>
 
     <div class="remove-container">
