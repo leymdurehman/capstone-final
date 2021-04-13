@@ -22,20 +22,7 @@
             <div id="art-title">
               {{ transaction.title }}
             </div>
-            <div id="t-price">Payment Received: ${{ transaction.price }}</div>
-            <div id="dateSold">Date Sold: {{ transaction.dateSold }}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="container"
-      v-if="$store.state.user.username == transaction.dealer"
-    >
-      <div class="portfolio-item-wrapper">
-        <div class="portfolio-img-background">
-          <img
-            class="transactionImg"
+            <div id="/availability/{id}ansactionImg"
             :src="imgFile"
             v-bind:alt="transaction.imgFileName"
           />

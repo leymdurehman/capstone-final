@@ -141,7 +141,13 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 		jdbcTemplate.update(sql, artID);
 	}
 	
-	
+	@Override
+	public void flipAvailable(int artID) {
+		ArtPiece art = getListingByArtID(artID);
+		boolean flippedStatus = !(art.isAvailable());
+		String sql = "UPDATE art_pieces SET is_available = ? WHERE art_id = ?";
+		jdbcTemplate.update(sql, flippedStatus, artID);
+	}
 
 	private ArtPiece mapRowToArt(SqlRowSet row) {
 		
