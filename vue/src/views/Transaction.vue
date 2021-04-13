@@ -135,7 +135,7 @@ computed: {
           .then((email) => {
             let templateParams = {};
             templateParams.email = email.data;
-            templateParams.message = `You just bought : ${this.artPiece.title}! \nFor the price of ${this.totalPrice} \n \nThank you for your purchase!'`;
+            templateParams.message = `You just bought : ${this.artPiece.title}! For the price of $${this.totalPrice} Thank you for your purchase!'`;
             templateParams.name = this.$store.state.user.username;       
             this.sendEmail(templateParams);     
           });

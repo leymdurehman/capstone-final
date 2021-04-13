@@ -16,6 +16,7 @@
           v-for="artPiece in $store.state.artPieceData"
           v-bind:key="artPiece.artID"
           v-bind:artPiece="artPiece"
+          v-show="!artPiece.sold"
         />
       </div>
     </div>
