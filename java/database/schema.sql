@@ -136,6 +136,14 @@ INSERT INTO artist_dealer (artist_id, dealer_id) VALUES (1, 1);
 INSERT INTO artist (artist_id, artist_name) VALUES (DEFAULT, 'DeadArtist');
 INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT, 6, 'sellerArtist', true );
 
+--Set listed art to be for sale:
+--UPDATE art_pieces SET is_available = true WHERE art_id = ?;
+
+--Update is avail to false after buying on front end:
+--UPDATE art_pieces SET is_available = false WHERE art_id = ?;
+
+--Change sold date:
+--UPDATE transactions SET date_of_sale = '2021-04-10' WHERE order_id = ?;
 
 --INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id) 
 --VALUES (DEFAULT, 'Test Art', '2020-05-02', 999.99, 'picture.jpeg', 1, 1);
@@ -143,9 +151,4 @@ INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT,
 --INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id) 
 --VALUES (DEFAULT, 'More Art', '2019-05-02', 500.01, 'art.png', 3);
 
-
-
-
-
 COMMIT TRANSACTION;
-
