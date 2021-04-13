@@ -19,6 +19,7 @@
         />
       </div>
     </div>
+
   </div>
 </template>
 
@@ -34,7 +35,7 @@ export default {
   components: {
     SettingsDisplayArt,
     RegisterOthers,
-    FeeSettings,
+    FeeSettings
   },
 
   data() {
@@ -81,7 +82,7 @@ export default {
 
 <style scoped>
 h2 {
-  color: #ffffff;
+  color: #fff;
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
   line-height: 25px;

@@ -9,11 +9,9 @@
         <h3>Title: {{ artPiece.title }}</h3>
         <h3>Date: {{ artPiece.dateCreated }}</h3>
         <h3>Artist: {{ artPiece.artist }}</h3>
-        <h3>Price: ${{ artPiece.price }}</h3>
-        <!-- <h3>Fee: ${{transaction.fee.toFixed(2)}}</h3>
-        <h3>Commission: $ {{transaction.commission.toFixed(2)}}</h3> -->
+        <h3>Price: ${{ artPiecePrice}}</h3>
         <h5>+ Additional Fees</h5>
-        <h3>Total Price: ${{ transaction.totalPrice }}</h3>
+        <h3>Total Price: ${{ totalPrice }}</h3>
         <button id="confirm" @click="startTransaction()">Confirm</button>
 
         <router-link
@@ -33,6 +31,8 @@
 import firebase from "firebase";
 import artPieceService from "@/services/ArtPieceService.js";
 import transactionService from "@/services/TransactionService.js";
+import emailjs from 'emailjs-com';
+
 export default {
   name: "transaction-details",
   data() {
@@ -43,9 +43,41 @@ export default {
       statusMessage: null,
       transaction: {},
       currentDefaultFees: {},
+      templateParams: {
+        name: '',
+        email: '',
+        // message: `Your item : ${this.artPiece.title} just got sold!'`
+      }
     };
   },
+computed: {
+    artPiecePrice(){
+      let price = this.artPiece.price;
+      return parseFloat(price).toFixed(2);
+    },
+    totalPrice(){
+      let totalPrice =(this.currentDefaultFees.fee / 100) * this.artPiece.price +
+          (this.currentDefaultFees.commission / 100) * this.artPiece.price +
+          this.artPiece.price;
+          return parseFloat(totalPrice).toFixed(2);
+    }
+
+},
   methods: {
+    sendEmail() {
+      emailjs.send('service_wqs5fy5', 'template_jnzoczd', this.templateParams,
+      'user_9KaBtBto1Nl9wAegVd3Uh', {
+      }).then((result) => {
+          console.log('SUCCESS!', result.status, result.text);
+      }, (error) => {
+          console.log('FAILED...', error);
+      });
+
+      // Reset form field
+      this.name = ''
+      this.email = ''
+      this.message = ''
+    },
     isOverride() {
       if (this.artPiece.hasOverride) {
         this.transaction.commission = this.artPiece.commissionOverride;
@@ -67,6 +99,10 @@ export default {
         .then((response) => {
           if (response.status == 201) {
             alert("Order has been confirmed! \nThank you for your purchase!");
+            this.getArtistEmail();
+            this.sendEmail();
+            this.getDealerEmail();
+            this.sendEmail();
             this.$router.push({ path: "/" });
           }
         })
@@ -76,6 +112,22 @@ export default {
             this.statusMessage = "There were problems placing your order...";
           }
         });
+    },
+    getArtistEmail(){
+      transactionService
+        .getEmail(this.artPiece.artist)
+          .then((email) => {
+            this.templateParams.name = this.artPiece.artist;
+            this.templateParams.email = email;
+          });
+    },
+    getDealerEmail(){
+      transactionService
+        .getEmail(this.artPiece.dealer)
+          .then((email) => {
+            this.templateParams.name = this.artPiece.dealer;
+            this.templateParams.email = email;
+          })
     },
     returnToArtDetail() {
       this.$router.push({ path: "/home" });
