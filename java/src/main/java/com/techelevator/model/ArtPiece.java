@@ -22,23 +22,23 @@ public class ArtPiece {
 	private boolean isSeller;
 	private boolean isAvailable;
 	private String tag;
-	private int tag_id;
+	private int tagID;
 	private String type;
-	private int type_id;
+	private int typeID;
 
 
 	
-	public int getTag_id() {
-		return tag_id;
+	public int getTagID() {
+		return tagID;
 	}
-	public void setTag_id(int tag_id) {
-		this.tag_id = tag_id;
+	public void setTagID(int tag_id) {
+		this.tagID = tag_id;
 	}
-	public int getType_id() {
-		return type_id;
+	public int getTypeID() {
+		return typeID;
 	}
-	public void setType_id(int type_id) {
-		this.type_id = type_id;
+	public void setTypeID(int type_id) {
+		this.typeID = type_id;
 	}
 	public String getTag() {
 		return tag;

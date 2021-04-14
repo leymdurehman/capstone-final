@@ -28,35 +28,35 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 		
 		
 		SqlRowSet result = null;
-		if((!artPiece.getDealer().equals("")) && (artPiece.getTag_id() > 0)) {
+		if((!artPiece.getDealer().equals("")) && (artPiece.getTagID() > 0)) {
 			int dealerId = getDealerId(artPiece.getDealer());
 			String sql = "INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id, tag_id, type_id) " + 
 					"VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING art_id";
-			result = jdbcTemplate.queryForRowSet(sql, artPiece.getTitle(), artPiece.getDateCreated(), artPiece.getPrice(), artPiece.getImgFileName(), artistId, dealerId, artPiece.getTag_id(), artPiece.getType_id());
+			result = jdbcTemplate.queryForRowSet(sql, artPiece.getTitle(), artPiece.getDateCreated(), artPiece.getPrice(), artPiece.getImgFileName(), artistId, dealerId, artPiece.getTagID(), artPiece.getTypeID());
 			
 		} 
-		if ((artPiece.getDealer().equals("") && (artPiece.getTag_id() > 0))){
+		if ((artPiece.getDealer().equals("") && (artPiece.getTagID() > 0))){
 			
 			String sql = "INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, tag_id, type_id) "
 					+ "VALUES (DEFAULT, ?, CAST ( ? AS DATE ), ?, ?, ?, ?, ?) RETURNING art_id";
-			result = jdbcTemplate.queryForRowSet(sql, artPiece.getTitle(), artPiece.getDateCreated(), artPiece.getPrice(), artPiece.getImgFileName(), artistId, artPiece.getTag_id(), artPiece.getType_id());
+			result = jdbcTemplate.queryForRowSet(sql, artPiece.getTitle(), artPiece.getDateCreated(), artPiece.getPrice(), artPiece.getImgFileName(), artistId, artPiece.getTagID(), artPiece.getTypeID());
 			
 		}
 		
-		if ((!artPiece.getDealer().equals("")) && (artPiece.getTag_id() == 0) ) {
+		if ((!artPiece.getDealer().equals("")) && (artPiece.getTagID() == 0) ) {
 			
 			int dealerId = getDealerId(artPiece.getDealer());
 			String sql = "INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id, type_id) " + 
 					"VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?) RETURNING art_id";
-			result = jdbcTemplate.queryForRowSet(sql, artPiece.getTitle(), artPiece.getDateCreated(), artPiece.getPrice(), artPiece.getImgFileName(), artistId, dealerId, artPiece.getType_id());
+			result = jdbcTemplate.queryForRowSet(sql, artPiece.getTitle(), artPiece.getDateCreated(), artPiece.getPrice(), artPiece.getImgFileName(), artistId, dealerId, artPiece.getTypeID());
 			
 		}
 		
-		if ((artPiece.getDealer().equals("") && (artPiece.getTag_id() == 0))) {
+		if ((artPiece.getDealer().equals("") && (artPiece.getTagID() == 0))) {
 			
 			String sql = "INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, type_id) "
 					+ "VALUES (DEFAULT, ?, CAST ( ? AS DATE ), ?, ?, ?, ?, ?) RETURNING art_id";
-			result = jdbcTemplate.queryForRowSet(sql, artPiece.getTitle(), artPiece.getDateCreated(), artPiece.getPrice(), artPiece.getImgFileName(), artistId, artPiece.getType_id());
+			result = jdbcTemplate.queryForRowSet(sql, artPiece.getTitle(), artPiece.getDateCreated(), artPiece.getPrice(), artPiece.getImgFileName(), artistId, artPiece.getTypeID());
 			
 		}
 	
@@ -186,8 +186,8 @@ public class JdbcArtPieceDao implements ArtPieceDAO{
 		art.setHasOverride(row.getBoolean("has_override"));
 		art.setAvailable(row.getBoolean("is_available"));
 		art.setType(row.getString("art_type"));
-		art.setType_id(row.getInt("type_id"));
-		art.setTag_id(row.getInt("tag_id"));
+		art.setTypeID(row.getInt("type_id"));
+		art.setTagID(row.getInt("tag_id"));
 		art.setTag(row.getString("tag"));
 	
 		

@@ -168,7 +168,7 @@ public class JdbcArtPieceIntegrationTest  extends DAOIntegrationTest {
 		testArt.setPrice(PRICE_DUMMY);
 		testArt.setImgFileName(IMG_FILE_DUMMY);
 		testArt.setType("Drawing");
-		testArt.setType_id(1);
+		testArt.setTypeID(1);
 		return testArt;
 	}
 
