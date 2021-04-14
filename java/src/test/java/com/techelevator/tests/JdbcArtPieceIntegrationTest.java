@@ -95,23 +95,23 @@ public class JdbcArtPieceIntegrationTest  extends DAOIntegrationTest {
 	}
 
 	@Test
-	public void get_all_listing() {		
-		int orginialSize = artDao.getAllListings().size();
-		ArtPiece testArtPiece = testArtPiece();
-		artDao.createListing(testArtPiece);
+	public void get_all_listing() {
+
+		ArtPiece testArtPiece2 = testArtPiece();
+		artDao.createListing(testArtPiece2);
 	
 		List <ArtPiece> listings = artDao.getAllListings();
 		
 		
 		boolean working = false;
 		for (ArtPiece testArt : listings) {
-			if (testArt.getArtist().equals("DUMMYArtist")) {
+			if (testArt.getArtist().equals(ARTIST_NAME_DUMMY)) {
 				working = true;
 			}
 		}
 		
 		Assert.assertTrue(working);
-		Assert.assertEquals(orginialSize + 1, listings.size());
+
 	
 	}
 	
@@ -167,6 +167,8 @@ public class JdbcArtPieceIntegrationTest  extends DAOIntegrationTest {
 		testArt.setDateCreated(dateCreatedDummy);
 		testArt.setPrice(PRICE_DUMMY);
 		testArt.setImgFileName(IMG_FILE_DUMMY);
+		testArt.setType("Drawing");
+		testArt.setType_id(1);
 		return testArt;
 	}
 

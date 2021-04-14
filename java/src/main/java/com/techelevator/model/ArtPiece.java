@@ -21,9 +21,37 @@ public class ArtPiece {
 	private boolean hasOverride;
 	private boolean isSeller;
 	private boolean isAvailable;
+	private String tag;
+	private int tag_id;
+	private String type;
+	private int type_id;
 
 
 	
+	public int getTag_id() {
+		return tag_id;
+	}
+	public void setTag_id(int tag_id) {
+		this.tag_id = tag_id;
+	}
+	public int getType_id() {
+		return type_id;
+	}
+	public void setType_id(int type_id) {
+		this.type_id = type_id;
+	}
+	public String getTag() {
+		return tag;
+	}
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	public boolean isAvailable() {
 		return isAvailable;
 	}

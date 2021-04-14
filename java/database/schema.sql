@@ -4,6 +4,8 @@ BEGIN TRANSACTION;
 DROP TABLE IF EXISTS artist_dealer;
 DROP TABLE IF EXISTS transactions;
 DROP TABLE IF EXISTS art_pieces;
+DROP TABLE IF EXISTS art_type;
+DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS customer;
 DROP TABLE IF EXISTS dealer;
 DROP TABLE IF EXISTS management;
@@ -78,6 +80,17 @@ CREATE TABLE artist_dealer(
         
 );
 
+CREATE TABLE tags (
+        tag_id serial primary key,
+        tag varchar(100) not null
+);
+
+CREATE TABLE art_type (
+        type_id serial primary key,
+        art_type varchar(100) not null
+);
+
+
 CREATE TABLE art_pieces (
         art_id serial primary key,
         title varchar(250) not null,
@@ -91,10 +104,14 @@ CREATE TABLE art_pieces (
         override_commission numeric,
         has_override boolean default false,
         is_available boolean default false,
+        tag_id int default 1,
+        type_id int not null,
     
         
         CONSTRAINT fk_art_pieces_artist_id FOREIGN KEY (artist_id) REFERENCES artist (artist_id),
-        CONSTRAINT fk_art_pieces_dealer_id FOREIGN KEY (dealer_id) REFERENCES dealer (dealer_id)
+        CONSTRAINT fk_art_pieces_dealer_id FOREIGN KEY (dealer_id) REFERENCES dealer (dealer_id),
+        CONSTRAINT fk_art_pieces_tag_id FOREIGN KEY (tag_id) REFERENCES tags (tag_id),
+        CONSTRAINT fk_art_pieces_type_id FOREIGN KEY (type_id) REFERENCES art_type (type_id)
 );
 
 CREATE TABLE transactions (
@@ -124,6 +141,27 @@ CREATE TABLE fees (
 
 INSERT INTO fees (fee_id) VALUES (DEFAULT);
 
+
+INSERT INTO tags (tag_id, tag) VALUES (DEFAULT, 'None');
+INSERT INTO tags (tag_id, tag) VALUES (DEFAULT, 'Abstract');
+INSERT INTO tags (tag_id, tag) VALUES (DEFAULT, 'Figurative');
+INSERT INTO tags (tag_id, tag) VALUES (DEFAULT, 'Geometric');
+INSERT INTO tags (tag_id, tag) VALUES (DEFAULT, 'Minimalist');
+INSERT INTO tags (tag_id, tag) VALUES (DEFAULT, 'Nature');
+INSERT INTO tags (tag_id, tag) VALUES (DEFAULT, 'Pop');
+INSERT INTO tags (tag_id, tag) VALUES (DEFAULT, 'Surrealist');
+INSERT INTO tags (tag_id, tag) VALUES (DEFAULT, 'Typography');
+INSERT INTO tags (tag_id, tag) VALUES (DEFAULT, 'Urban');
+INSERT INTO tags (tag_id, tag) VALUES (DEFAULT, 'Cubism');
+
+
+
+INSERT INTO art_type (type_id, art_type) VALUES (DEFAULT, 'Drawing');
+INSERT INTO art_type (type_id, art_type) VALUES (DEFAULT, 'Painting');
+INSERT INTO art_type (type_id, art_type) VALUES (DEFAULT, 'Sculpture');
+INSERT INTO art_type (type_id, art_type) VALUES (DEFAULT, 'Photography');
+INSERT INTO art_type (type_id, art_type) VALUES (DEFAULT, 'Digital');
+
 --DUMMY DATA
 
 INSERT INTO customer (customer_id, user_id) VALUES (DEFAULT, 1);
@@ -135,6 +173,11 @@ INSERT INTO artist_dealer (artist_id, dealer_id) VALUES (1, 1);
 
 INSERT INTO artist (artist_id, artist_name) VALUES (DEFAULT, 'DeadArtist');
 INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT, 6, 'sellerArtist', true );
+
+
+--dummy artpiece
+INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id, type_id) 
+VALUES (DEFAULT, 'TEST', '2020-02-03', 10.00, 'test.jpeg', 1, 1, 1);
 
 --Set listed art to be for sale:
 --UPDATE art_pieces SET is_available = true WHERE art_id = ?;
@@ -148,8 +191,7 @@ INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT,
 --INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id) 
 --VALUES (DEFAULT, 'Test Art', '2020-05-02', 999.99, 'picture.jpeg', 1, 1);
 
---INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id) 
---VALUES (DEFAULT, 'More Art', '2019-05-02', 500.01, 'art.png', 3);
+
 --UPDATE art_pieces SET  is_available = true WHERE art_id = 6;
 --UPDATE art_pieces SET  is_sold = false WHERE art_id = 1;
 
@@ -159,3 +201,4 @@ INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT,
 --UPDATE transactions SET date_of_sale = '2021-04-06' WHERE order_id = 3; 
 
 COMMIT TRANSACTION;
+
