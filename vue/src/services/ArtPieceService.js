@@ -32,5 +32,10 @@ export default {
 
   updateFeesToDefault(artID){
     return axios.put(`/setDefault/${artID}`)
+  },
+
+  flipAvailability(artID) {
+    return axios.put(`/availability/${artID}`);
   }
+
 }

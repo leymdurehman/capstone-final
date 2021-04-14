@@ -126,7 +126,7 @@ form.form-register {
   min-width: 300px;
   padding: 40px;
   margin: auto;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;

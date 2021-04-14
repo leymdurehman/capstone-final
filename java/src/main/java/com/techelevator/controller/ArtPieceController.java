@@ -83,9 +83,12 @@ public class ArtPieceController {
     @RequestMapping(path="/setDefault/{id}", method=RequestMethod.PUT)
 	public void updateFeesToDefault(@PathVariable int id) {
     	artDAO.setFeesToDefault(id);
-    	
     }
     
+	@PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(path="/availability/{id}", method=RequestMethod.PUT)
+	public void flipAvailable(@PathVariable int id) {
+		artDAO.flipAvailable(id);
+	}
     
-
 }
