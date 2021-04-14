@@ -8,12 +8,24 @@
         <div class="label">
           <label id="artist-name" for="artistName">Artist Name: </label>
         </div>
-        <input
-          type="text"
-          name="artistName"
-          id="artistName"
-          v-model.trim="artPiece.artist"
-        />
+        <div v-if="$store.state.user.authorities[0].name == 'ROLE_ARTIST'">
+          <input
+            type="text"
+            name="artistName"
+            id="artistName"
+            :value="$store.state.user.username"
+            v-bind="setCurrentArtist()"
+            readonly
+          />  
+        </div>  
+        <div v-else>
+          <input
+            type="text"
+            name="artistName"
+            id="artistName"
+            v-model.trim="artPiece.artist"
+          />
+        </div>
       </div>
       <div>
         <div class="label">
@@ -84,43 +96,144 @@
       </button>
     </div>
     <div class="tag-boxes">
-        <label for="tags"> <br> Select a tag that describe the artwork: <br></label>
-        <input type="radio" id="abstract" name="tag" value="2" v-model="artPiece.tagID" >
-        <label for="Abstract"> Abstract</label><br>
-        <input type="radio" id="figurative" name="tag" value="3" v-model="artPiece.tagID">
-        <label for="Figurative"> Figurative</label><br>
-        <input type="radio" id="geometric" name="tag" value="4" v-model="artPiece.tagID">
-        <label for="Geometric"> Geometric</label><br>
-        <input type="radio" id="minimalist" name="tag" value="5" v-model="artPiece.tagID">
-        <label for="Minimalist"> Minimalist</label><br>
-        <input type="radio" id="nature" name="tag" value="6" v-model="artPiece.tagID">
-        <label for="Nature"> Nature</label><br>
-        <input type="radio" id="pop" name="tag" value="7" v-model="artPiece.tagID">
-        <label for="Pop"> Pop</label><br>
-        <input type="radio" id="surrealist" name="tag" value="8" v-model="artPiece.tagID">
-        <label for="Surrealist"> Surrealist</label><br>
-        <input type="radio" id="typography" name="tag" value="9" v-model="artPiece.tagID">
-        <label for="Typography"> Typography</label><br>
-        <input type="radio" id="urban" name="tag" value="10" v-model="artPiece.tagID">
-        <label for="Urban"> Urban</label><br>
-        <input type="radio" id="cubism" name="tag" value="11" v-model="artPiece.tagID">
-        <label for="Cubism"> Cubism</label><br>
-        <input type="radio" id="other" name="tag" value="1" v-model="artPiece.tagID">
-        <label for="other"> Other</label>   
+      <label for="tags">
+        <br />
+        Select a tag that describe the artwork: <br
+      /></label>
+      <input
+        type="radio"
+        id="abstract"
+        name="tag"
+        value="2"
+        v-model="artPiece.tagID"
+      />
+      <label for="Abstract"> Abstract</label><br />
+      <input
+        type="radio"
+        id="figurative"
+        name="tag"
+        value="3"
+        v-model="artPiece.tagID"
+      />
+      <label for="Figurative"> Figurative</label><br />
+      <input
+        type="radio"
+        id="geometric"
+        name="tag"
+        value="4"
+        v-model="artPiece.tagID"
+      />
+      <label for="Geometric"> Geometric</label><br />
+      <input
+        type="radio"
+        id="minimalist"
+        name="tag"
+        value="5"
+        v-model="artPiece.tagID"
+      />
+      <label for="Minimalist"> Minimalist</label><br />
+      <input
+        type="radio"
+        id="nature"
+        name="tag"
+        value="6"
+        v-model="artPiece.tagID"
+      />
+      <label for="Nature"> Nature</label><br />
+      <input
+        type="radio"
+        id="pop"
+        name="tag"
+        value="7"
+        v-model="artPiece.tagID"
+      />
+      <label for="Pop"> Pop</label><br />
+      <input
+        type="radio"
+        id="surrealist"
+        name="tag"
+        value="8"
+        v-model="artPiece.tagID"
+      />
+      <label for="Surrealist"> Surrealist</label><br />
+      <input
+        type="radio"
+        id="typography"
+        name="tag"
+        value="9"
+        v-model="artPiece.tagID"
+      />
+      <label for="Typography"> Typography</label><br />
+      <input
+        type="radio"
+        id="urban"
+        name="tag"
+        value="10"
+        v-model="artPiece.tagID"
+      />
+      <label for="Urban"> Urban</label><br />
+      <input
+        type="radio"
+        id="cubism"
+        name="tag"
+        value="11"
+        v-model="artPiece.tagID"
+      />
+      <label for="Cubism"> Cubism</label><br />
+      <input
+        type="radio"
+        id="other"
+        name="tag"
+        value="1"
+        v-model="artPiece.tagID"
+      />
+      <label for="other"> Other</label>
     </div>
     <div class="type-box">
-        <label for="type"> <br> Select the artform: <br></label>
-        <input type="radio" id="drawing" name="type" value="1" v-model="artPiece.typeID" >
-        <label for="drawing"> Drawing</label><br>
-        <input type="radio" id="Painting" name="type" value="2" v-model="artPiece.typeID">
-        <label for="painting"> Painting</label><br>
-        <input type="radio" id="sculpture" name="type" value="3" v-model="artPiece.typeID">
-        <label for="sculpture"> Sculpture</label><br>
-        <input type="radio" id="photography" name="type" value="4" v-model="artPiece.typeID">
-        <label for="photography"> Photography</label><br>
-         <input type="radio" id="digital" name="type" value="5" v-model="artPiece.typeID">
-        <label for="digital"> Digital</label><br>
-
+      <label for="type">
+        <br />
+        Select the artform: <br
+      /></label>
+      <input
+        type="radio"
+        id="drawing"
+        name="type"
+        value="1"
+        v-model="artPiece.typeID"
+      />
+      <label for="drawing"> Drawing</label><br />
+      <input
+        type="radio"
+        id="Painting"
+        name="type"
+        value="2"
+        v-model="artPiece.typeID"
+      />
+      <label for="painting"> Painting</label><br />
+      <input
+        type="radio"
+        id="sculpture"
+        name="type"
+        value="3"
+        v-model="artPiece.typeID"
+      />
+      <label for="sculpture"> Sculpture</label><br />
+      <input
+        type="radio"
+        id="photography"
+        name="type"
+        value="4"
+        v-model="artPiece.typeID"
+      />
+      <label for="photography"> Photography</label><br />
+      <input
+        type="radio"
+        id="digital"
+        name="type"
+        value="5"
+        v-model="artPiece.typeID"
+      />
+      <label for="digital"> Digital</label><br />
     </div>
     <div class="label">
       <input
@@ -141,8 +254,10 @@ export default {
   name: "createListing",
   data() {
     return {
-      selectedFile: null,
-      artPiece: {},
+      selectedFile: null,   
+      artPiece: {
+          artist: ""
+      },
       listingError: false,
       listingErrorMessage: "",
       dragAndDropCapable: false,
@@ -189,17 +304,17 @@ export default {
       );
 
       let today = new Date();
-    let dd = today.getDate();
-    let mm = today.getMonth() + 1; //January is 0!
-    let yyyy = today.getFullYear();
-    if (dd < 10) {
-      dd = "0" + dd;
-    }
-    if (mm < 10) {
-      mm = "0" + mm;
-    }
-    today = yyyy + "-" + mm + "-" + dd;
-    document.getElementById("dateCreated").setAttribute("max", today);
+      let dd = today.getDate();
+      let mm = today.getMonth() + 1; //January is 0!
+      let yyyy = today.getFullYear();
+      if (dd < 10) {
+        dd = "0" + dd;
+      }
+      if (mm < 10) {
+        mm = "0" + mm;
+      }
+      today = yyyy + "-" + mm + "-" + dd;
+      document.getElementById("dateCreated").setAttribute("max", today);
     }
   },
   computed: {
@@ -214,6 +329,13 @@ export default {
     },
   },
   methods: {
+    setCurrentArtist() {
+      //if(this.$store.state.user.authorities[0].name == 'ROLE_ARTIST') {
+        this.artPiece.artist = this.$store.state.user.username;
+      // } else {
+      //   this.artPiece.artist = "";
+      // }
+    },
     resetInputText() {
       document.getElementById("file").value = "";
     },
@@ -421,6 +543,20 @@ input[type="file"] {
 
 h2 {
   padding-top: 1.5rem;
+}
+
+::-webkit-input-placeholder {
+  /* Edge */
+  color: #000;
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #000;
+}
+
+::placeholder {
+  color: #000;
 }
 
 /* .tag-boxes {
