@@ -26,6 +26,7 @@
     <div>
       <router-link
         v-bind:to="{ name: 'Transaction', params: { artId: artPiece.artID } }"
+        v-if="$store.state.user.authorities[0].name != 'ROLE_ADMIN'"
       >
         <button v-if="!artPiece.sold && artPiece.available" class="buy">
           BUY
