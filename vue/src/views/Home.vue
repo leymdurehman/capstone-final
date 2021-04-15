@@ -53,7 +53,7 @@ export default {
   name: "home",
   data(){
     return{
-      ArtPieces: this.$store.state.artPieceData,
+      ArtPieces: [],
       tagSelection: 0,
       typeSelection: 0,
       artistSelection: ""
@@ -67,6 +67,7 @@ export default {
       .getAllListings()
       .then((response) => {
         this.$store.commit("SET_ART_DATA", response.data);
+        this.ArtPieces = response.data;
       })
       .catch((err) => console.error(err));
   },
