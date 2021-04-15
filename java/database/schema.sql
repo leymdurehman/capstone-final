@@ -31,12 +31,12 @@ CREATE TABLE users (
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
-INSERT INTO users (username,password_hash,role, email) VALUES ('customer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER', 'teamalphacohort13@gmail.com');
-INSERT INTO users (username,password_hash,role, email) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN', 'teamalphacohort13@gmail.com');
-INSERT INTO users (username,password_hash,role, email) VALUES ('artist','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ARTIST', 'teamalphacohort13@gmail.com');
-INSERT INTO users (username,password_hash,role, email) VALUES ('dealer','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_DEALER', 'teamalphacohort13@gmail.com');
-INSERT INTO users (username,password_hash,role, email) VALUES ('seller','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_SELLER', 'seller@email.com');
-INSERT INTO users (username,password_hash,role, email) VALUES ('sellerArtist','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_SELLER', 'sellerArtist@email.com');
+INSERT INTO users (username,password_hash,role, email) VALUES ('JeromeC','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER', 'teamalphacohort13@gmail.com');
+INSERT INTO users (username,password_hash,role, email) VALUES ('TrevorH','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN', 'teamalphacohort13@gmail.com');
+INSERT INTO users (username,password_hash,role, email) VALUES ('LeyA','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ARTIST', 'teamalphacohort13@gmail.com');
+INSERT INTO users (username,password_hash,role, email) VALUES ('JohnM','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_DEALER', 'teamalphacohort13@gmail.com');
+INSERT INTO users (username,password_hash,role, email) VALUES ('FredQ','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_SELLER', 'teamalphacohort13@gmail.com');
+INSERT INTO users (username,password_hash,role, email) VALUES ('RayL','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_SELLER', 'teamalphacohort13@gmail.com');
 
 
 CREATE TABLE artist(
@@ -166,9 +166,9 @@ INSERT INTO art_type (type_id, art_type) VALUES (DEFAULT, 'Digital');
 
 INSERT INTO customer (customer_id, user_id) VALUES (DEFAULT, 1);
 INSERT INTO management (manager_id, user_id) VALUES (DEFAULT, 2);
-INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT, 3, 'artist', false );
+INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT, 3, 'LeyA', false );
 INSERT INTO dealer (dealer_id, user_id) VALUES (DEFAULT, 4);
-INSERT INTO artist_dealer (artist_id, dealer_id) VALUES (1, 1);
+
 
 
 INSERT INTO artist (artist_id, artist_name) VALUES (DEFAULT, 'DeadArtist');
@@ -176,9 +176,6 @@ INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT,
 
 
 --dummy artpiece
-
---INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id, type_id) 
---VALUES (DEFAULT, 'TEST', '2020-02-03', 10.00, 'test.jpeg', 1, 1, 1);
 
 --Set listed art to be for sale:
 --UPDATE art_pieces SET is_available = true WHERE art_id = ?;
@@ -189,8 +186,7 @@ INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT,
 --Change sold date:
 --UPDATE transactions SET date_of_sale = '2021-04-10' WHERE order_id = ?;
 
---INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id) 
---VALUES (DEFAULT, 'Test Art', '2020-05-02', 999.99, 'picture.jpeg', 1, 1);
+
 
 
 --UPDATE art_pieces SET  is_available = true WHERE art_id = 6;
@@ -201,6 +197,9 @@ INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT,
 --UPDATE transactions SET date_of_sale = '2021-03-14' WHERE order_id = 2;
 --UPDATE transactions SET date_of_sale = '2021-04-06' WHERE order_id = 3; 
 --DELETE FROM art_pieces;
+
+select * from artist;
+select * from users;
 
 COMMIT TRANSACTION;
 
