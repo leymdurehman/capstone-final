@@ -113,15 +113,30 @@ export default {
   width: 400px;
 }
 
-.searchFunctions{
+.searchFunctions {
   display: flex;
   justify-content: center;
   margin: 10px 0px;
   color: whitesmoke;
+  max-width: 75%;
   font-weight: bold;
+  flex-wrap: wrap;
+  margin: auto;
+
 }
 
-#dropdownMenu{
+.searchFunctions > * {
+  display: flex;
+  align-self: center;
+  justify-self: center;
+  margin: 10px;
+}
+
+label {
+  margin-right: 2px;
+}
+
+#dropdownMenu {
   margin-left: 20px;
 }
 

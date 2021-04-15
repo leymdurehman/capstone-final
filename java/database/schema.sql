@@ -176,8 +176,9 @@ INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT,
 
 
 --dummy artpiece
-INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id, type_id) 
-VALUES (DEFAULT, 'TEST', '2020-02-03', 10.00, 'test.jpeg', 1, 1, 1);
+
+--INSERT INTO art_pieces (art_id, title, date_created, price, img_file_name, artist_id, dealer_id, type_id) 
+--VALUES (DEFAULT, 'TEST', '2020-02-03', 10.00, 'test.jpeg', 1, 1, 1);
 
 --Set listed art to be for sale:
 --UPDATE art_pieces SET is_available = true WHERE art_id = ?;
@@ -199,6 +200,7 @@ VALUES (DEFAULT, 'TEST', '2020-02-03', 10.00, 'test.jpeg', 1, 1, 1);
 --UPDATE transactions SET date_of_sale = '2021-01-01' WHERE order_id = 1;
 --UPDATE transactions SET date_of_sale = '2021-03-14' WHERE order_id = 2;
 --UPDATE transactions SET date_of_sale = '2021-04-06' WHERE order_id = 3; 
+--DELETE FROM art_pieces;
 
 COMMIT TRANSACTION;
 

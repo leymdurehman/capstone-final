@@ -5,7 +5,7 @@
       <h2>
         <i>{{ artPiece.title }}</i>
       </h2>
-      <h3>{{ artPiece.dateCreated }}</h3>
+      <h3>{{getYear}}</h3>
       <h4>{{ artPiece.artist }}</h4>
       <h5 id="artPrice" v-if="!artPiece.sold">
         ${{ artPiece.price.toFixed(2) }}
@@ -82,6 +82,12 @@ export default {
         console.log(response);
       });
   },
+  computed: {
+    getYear() {
+      let date = this.artPiece.dateCreated;
+      return date.substring(0, date.indexOf('-'));
+    }
+  }
 };
 </script>
 
