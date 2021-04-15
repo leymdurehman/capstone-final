@@ -196,6 +196,7 @@ INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT,
 --UPDATE transactions SET date_of_sale = '2021-01-01' WHERE order_id = 1;
 --UPDATE transactions SET date_of_sale = '2021-03-14' WHERE order_id = 2;
 --UPDATE transactions SET date_of_sale = '2021-04-06' WHERE order_id = 3; 
+--DELETE FROM art_pieces;
 
 select * from artist;
 select * from users;
