@@ -166,9 +166,9 @@ INSERT INTO art_type (type_id, art_type) VALUES (DEFAULT, 'Digital');
 
 INSERT INTO customer (customer_id, user_id) VALUES (DEFAULT, 1);
 INSERT INTO management (manager_id, user_id) VALUES (DEFAULT, 2);
-INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT, 3, 'artist', false );
+INSERT INTO artist (artist_id, user_id, artist_name, is_seller) VALUES (DEFAULT, 3, 'LeyA', false );
 INSERT INTO dealer (dealer_id, user_id) VALUES (DEFAULT, 4);
-INSERT INTO artist_dealer (artist_id, dealer_id) VALUES (1, 1);
+
 
 
 INSERT INTO artist (artist_id, artist_name) VALUES (DEFAULT, 'DeadArtist');
