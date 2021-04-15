@@ -86,8 +86,8 @@ h2 {
 
 .banner {
   align-self: flex-end;
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 5px;
+  margin-bottom: 5px;
   color: #fff;
   border-radius: 5px 0 0 5px;
 }
