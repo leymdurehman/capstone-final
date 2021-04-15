@@ -106,7 +106,7 @@ export default {
         },
         getCommissionForDealer(){
             const dealerTransactions = this.transactions.filter((x) => {
-            return x.dealer === this.$store.state.user.username;mm
+            return x.dealer === this.$store.state.user.username;
             });
             let sum = 0;
             dealerTransactions.forEach((price) => {
