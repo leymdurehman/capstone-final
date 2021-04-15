@@ -11,7 +11,7 @@
         <h3>Artist: {{ artPiece.artist }}</h3>
         <h3>Price: ${{ artPiecePrice}}</h3>
         <h5>+ Additional Fees</h5>
-        <h3>Total Price: ${{ gettotalPrice }}</h3>
+        <h3>Total Price: ${{ gettotalPrice.toFixed(2) }}</h3>
         <button id="confirm" @click="startTransaction()">Confirm</button>
 
         <router-link
@@ -51,23 +51,24 @@ computed: {
       return parseFloat(price).toFixed(2);
     },
     gettotalPrice(){
-       let total =  (this.currentDefaultFees.fee / 100) * this.artPiece.price +
-        (this.currentDefaultFees.commission / 100) * this.artPiece.price +
-        this.artPiece.price;
+      let total = 0;
               
-        if (this.artPiece.hasOverride) {
+      if (this.artPiece.hasOverride) {
        
        let artFeeOverride =
-          (this.artPiece.feeOverride / 100) * this.artPiece.price;
+          (this.artPiece.feeOverride / 100.0) * this.artPiece.price;
        let artComOverride =
-          (this.artPiece.commissionOverride / 100) * this.artPiece.price;
+          (this.artPiece.commissionOverride / 100.0) * this.artPiece.price;
 
-        total = (artFeeOverride / 100) * this.artPiece.price +
-          (artComOverride / 100) * this.artPiece.price +
-          this.artPiece.price;
+        total = artFeeOverride +
+                artComOverride +
+                this.artPiece.price;
+      } else {
+        total =  (this.currentDefaultFees.fee / 100) * this.artPiece.price +
+        (this.currentDefaultFees.commission / 100) * this.artPiece.price +
+        this.artPiece.price;
       }
-
-          return total;
+      return total;
     }
 
 },
@@ -205,6 +206,7 @@ computed: {
   margin: 20px auto;
   padding: 20px;
   width: fit-content;
+  max-width: 700px;
   height: auto;
 }
 
@@ -241,6 +243,7 @@ div#confirm-grid {
       "image"
       "details";
     padding: 20px;
+    max-width: 300px;
   }
 }
 
